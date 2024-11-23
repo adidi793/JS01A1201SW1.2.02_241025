@@ -1,0 +1,783 @@
+VERSION ""
+
+
+NS_ : 
+	NS_DESC_
+	CM_
+	BA_DEF_
+	BA_
+	VAL_
+	CAT_DEF_
+	CAT_
+	FILTER
+	BA_DEF_DEF_
+	EV_DATA_
+	ENVVAR_DATA_
+	SGTYPE_
+	SGTYPE_VAL_
+	BA_DEF_SGTYPE_
+	BA_SGTYPE_
+	SIG_TYPE_REF_
+	VAL_TABLE_
+	SIG_GROUP_
+	SIG_VALTYPE_
+	SIGTYPE_VALTYPE_
+	BO_TX_BU_
+	BA_DEF_REL_
+	BA_REL_
+	BA_DEF_DEF_REL_
+	BU_SG_REL_
+	BU_EV_REL_
+	BU_BO_REL_
+	SG_MUL_VAL_
+
+BS_:
+
+BU_: MFS GW PWC ICC AMP
+
+
+BO_ 1058 PWC_0x422: 8 PWC
+ SG_ PWC_NM_DestAdr : 7|8@0+ (1,0) [0|127] ""  GW,ICC,AMP,MFS
+ SG_ PWC_NM_Alv : 8|1@0+ (1,0) [0|1] ""  GW,ICC,AMP,MFS
+ SG_ PWC_NM_Ring : 9|1@0+ (1,0) [0|1] ""  GW,ICC,AMP,MFS
+ SG_ PWC_NM_LimpHome : 10|1@0+ (1,0) [0|1] ""  GW,ICC,AMP,MFS
+ SG_ PWC_NM_SleepIndcn : 12|1@0+ (1,0) [0|1] ""  GW,ICC,AMP,MFS
+ SG_ PWC_NM_SleepAck : 13|1@0+ (1,0) [0|1] ""  GW,ICC,AMP,MFS
+
+BO_ 1059 AMP_0x423: 8 AMP
+ SG_ AMP_NM_DestAdr : 7|8@0+ (1,0) [0|127] ""  GW,PWC,ICC,MFS
+ SG_ AMP_NM_Alv : 8|1@0+ (1,0) [0|1] ""  GW,PWC,ICC,MFS
+ SG_ AMP_NM_Ring : 9|1@0+ (1,0) [0|1] ""  GW,PWC,ICC,MFS
+ SG_ AMP_NM_LimpHome : 10|1@0+ (1,0) [0|1] ""  GW,PWC,ICC,MFS
+ SG_ AMP_NM_SleepIndcn : 12|1@0+ (1,0) [0|1] ""  GW,PWC,ICC,MFS
+ SG_ AMP_NM_SleepAck : 13|1@0+ (1,0) [0|1] ""  GW,PWC,ICC,MFS
+
+BO_ 1060 ICC_0x424: 8 ICC
+ SG_ ICC_424_NM_DestAdr : 7|8@0+ (1,0) [0|127] ""  GW,PWC,AMP,MFS
+ SG_ ICC_424_NM_Alv : 8|1@0+ (1,0) [0|1] ""  GW,PWC,AMP,MFS
+ SG_ ICC_424_NM_Ring : 9|1@0+ (1,0) [0|1] ""  GW,PWC,AMP,MFS
+ SG_ ICC_424_NM_LimpHome : 10|1@0+ (1,0) [0|1] ""  GW,PWC,AMP,MFS
+ SG_ ICC_424_NM_SleepIndcn : 12|1@0+ (1,0) [0|1] ""  GW,PWC,AMP,MFS
+ SG_ ICC_424_NM_SleepAck : 13|1@0+ (1,0) [0|1] ""  GW,PWC,AMP,MFS
+ SG_ ICC_424_KeepWakeUp_KL15 : 31|1@0+ (1,0) [0|1] ""  GW,PWC,AMP,MFS
+
+BO_ 1080 GW_0x438: 8 GW
+ SG_ GW_438_NM_DestAdr : 7|8@0+ (1,0) [0|127] ""  PWC,ICC,AMP,MFS
+ SG_ GW_438_NM_Alv : 8|1@0+ (1,0) [0|1] ""  PWC,ICC,AMP,MFS
+ SG_ GW_438_NM_Ring : 9|1@0+ (1,0) [0|1] ""  PWC,ICC,AMP,MFS
+ SG_ GW_438_NM_LimpHome : 10|1@0+ (1,0) [0|1] ""  PWC,ICC,AMP,MFS
+ SG_ GW_438_NM_SleepIndcn : 12|1@0+ (1,0) [0|1] ""  PWC,ICC,AMP,MFS
+ SG_ GW_438_NM_SleepAck : 13|1@0+ (1,0) [0|1] ""  PWC,ICC,AMP,MFS
+ SG_ GW_438_KeepWakeUp_KL15 : 31|1@0+ (1,0) [0|1] ""  PWC,ICC,AMP,MFS
+
+BO_ 1085 MFS_0x43D: 8 MFS
+ SG_ MFS_NM_DestAdr : 7|8@0+ (1,0) [0|127] ""  GW,PWC,ICC,AMP
+ SG_ MFS_NM_Alv : 8|1@0+ (1,0) [0|1] ""  GW,PWC,ICC,AMP
+ SG_ MFS_NM_Ring : 9|1@0+ (1,0) [0|1] ""  GW,PWC,ICC,AMP
+ SG_ MFS_NM_LimpHome : 10|1@0+ (1,0) [0|1] ""  GW,PWC,ICC,AMP
+ SG_ MFS_NM_SleepIndcn : 12|1@0+ (1,0) [0|1] ""  GW,PWC,ICC,AMP
+ SG_ MFS_NM_SleepAck : 13|1@0+ (1,0) [0|1] ""  GW,PWC,ICC,AMP
+
+BO_ 819 PEPS_0x333: 8 GW
+ SG_ PEPS_PwrMod : 21|3@0+ (1,0) [0|7] ""  PWC,ICC,AMP,MFS
+ SG_ PEPS_PwrModVld : 23|2@0+ (1,0) [0|3] ""  ICC,MFS
+
+BO_ 1321 ICC_0x529: 8 ICC
+ SG_ EHU_SteerWhlPhnKeyBackLi : 7|2@0+ (1,0) [0|3] ""  GW,MFS
+ SG_ EHU_BackgndBriLvl : 11|4@0+ (1,0) [0|15] ""  GW,MFS
+
+BO_ 1672 MFS_0x688: 8 MFS
+ SG_ MFS_SwVersS : 7|8@0+ (1,0) [0|255] ""  GW
+ SG_ MFS_PartVers : 23|32@0+ (1,0) [0|4294967295] ""  GW
+ SG_ MFS_HwVers : 55|8@0+ (1,0) [0|255] ""  GW
+ SG_ MFS_SwVersM : 63|8@0+ (1,0) [0|255] ""  GW
+
+BO_ 1300 MFS_0x514: 8 MFS
+ SG_ MFS_CustBtn : 1|2@0+ (1,0) [0|3] ""  GW,ICC
+ SG_ MFS_ReturnBtn : 3|2@0+ (1,0) [0|3] ""  GW,ICC
+ SG_ MFS_LeSwtDispMod : 5|2@0+ (1,0) [0|3] ""  GW,ICC
+ SG_ MFS_RiSwtDispMod : 7|2@0+ (1,0) [0|3] ""  GW,ICC
+ SG_ MFS_LeRollUp : 10|3@0+ (1,0) [0|7] ""  GW,ICC
+ SG_ MFS_LeRollDwn : 13|3@0+ (1,0) [0|7] ""  GW,ICC
+ SG_ MFS_LeRollPress : 15|2@0+ (1,0) [0|3] ""  GW,ICC
+ SG_ MFS_SrcSwtBtn : 17|2@0+ (1,0) [0|3] ""  GW,ICC
+ SG_ MFS_VoiceRctcnBtn : 19|2@0+ (1,0) [0|3] ""  GW,ICC
+ SG_ MFS_PrevSongTuneSig : 21|2@0+ (1,0) [0|3] ""  GW,ICC
+ SG_ MFS_NextSongTuneSig : 23|2@0+ (1,0) [0|3] ""  GW,ICC
+ SG_ MFS_RiRollUp : 26|3@0+ (1,0) [0|7] ""  GW,ICC
+ SG_ MFS_RiRollDwn : 29|3@0+ (1,0) [0|7] ""  GW,ICC
+ SG_ MFS_RiRollPress : 31|2@0+ (1,0) [0|3] ""  GW,ICC
+ SG_ MFS_SteerWhlHeatgIndcrLampSts : 33|2@0+ (1,0) [0|3] ""  GW,ICC
+
+BO_ 792 ESP_0x318: 8 GW
+ SG_ ESP_VehSpdVld : 17|2@0+ (1,0) [0|3] ""  PWC,AMP,MFS
+ SG_ ESP_VehSpd : 47|16@0+ (0.1,0) [0|300] "km/h"  PWC,AMP,MFS
+
+BO_ 821 BCM_0x335: 8 GW
+ SG_ BCM_PosnLampOutpCmd : 46|2@0+ (1,0) [0|3] ""  ICC,MFS
+
+BO_ 835 BCM_0x343: 8 GW
+ SG_ BCM_343_CheckSum : 7|8@0+ (1,0) [0|255] ""  PWC,ICC,AMP,MFS
+ SG_ BCM_343_AliveCounter : 11|4@0+ (1,0) [0|15] ""  PWC,ICC,AMP,MFS
+ SG_ BCM_LeFrntDoorSts : 21|1@0+ (1,0) [0|1] ""  PWC,ICC,AMP,MFS
+ SG_ BCM_RiFrntDoorSts : 22|1@0+ (1,0) [0|1] ""  ICC,AMP,MFS
+ SG_ BCM_TrSts : 23|1@0+ (1,0) [0|1] ""  ICC,AMP,MFS
+ SG_ BCM_AntithftSts : 25|2@0+ (1,0) [0|3] ""  ICC,AMP,MFS
+ SG_ BCM_RiReDoorSts : 29|1@0+ (1,0) [0|1] ""  ICC,AMP,MFS
+ SG_ BCM_LeReDoorSts : 30|1@0+ (1,0) [0|1] ""  ICC,AMP,MFS
+
+BO_ 1310 BCM_0x51E: 8 GW
+ SG_ BCM_ApplianceClsLvl : 15|3@0+ (1,0) [0|7] ""  PWC,ICC,MFS
+
+BO_ 784 CIM_0x310: 8 GW
+ SG_ CIM_SteerWhlHeatgSwtSts : 35|2@0+ (1,0) [0|3] ""  MFS
+
+BO_ 2015 Diag_FUN_Req: 8 GW
+
+BO_ 1943 Diag_MFS_Req: 8 GW
+
+BO_ 1951 Diag_MFS_Resp: 8 MFS
+
+BO_ 1927 Diag_RAC_Req: 8 GW
+
+BO_ 1935 Diag_RAC_Resp: 8 MFS
+
+
+
+EV_ Env_X509CerAddr: 0 [0|0] "" 0 1 DUMMY_NODE_VECTOR8000 Vector__XXX;
+
+EV_ EnvKlemme15: 1 [0|1] "" 0 2 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ Env_client_protocol: 0 [0|0] "" 0 3 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ Env_FlashDriveraddress: 0 [0|0] "" 0 4 DUMMY_NODE_VECTOR8000 Vector__XXX;
+
+EV_ Env_APPaddress: 0 [0|0] "" 0 5 DUMMY_NODE_VECTOR8000 Vector__XXX;
+
+CM_ BO_ 1058 "NMsignal";
+CM_ SG_ 1058 PWC_NM_DestAdr "
+PWC NM DESTINATION ADDRESS
+";
+CM_ SG_ 1058 PWC_NM_Alv "
+PWC NM ALIVE
+";
+CM_ SG_ 1058 PWC_NM_Ring "
+PWC NM RING
+";
+CM_ SG_ 1058 PWC_NM_LimpHome "
+PWC NM LIMPHOME
+";
+CM_ SG_ 1058 PWC_NM_SleepIndcn "
+PWC NM SLEEP INDICATION
+";
+CM_ SG_ 1058 PWC_NM_SleepAck "
+PWC NM SLEEP ACK
+";
+CM_ BO_ 1059 "NMsignal";
+CM_ SG_ 1059 AMP_NM_DestAdr "
+AMP NM DESTINATION ADDRESS
+";
+CM_ SG_ 1059 AMP_NM_Alv "
+AMP NM ALIVE
+";
+CM_ SG_ 1059 AMP_NM_Ring "
+AMP NM RING
+";
+CM_ SG_ 1059 AMP_NM_LimpHome "
+AMP NM LIMPHOME
+";
+CM_ SG_ 1059 AMP_NM_SleepIndcn "
+AMP NM SLEEP INDICATION
+";
+CM_ SG_ 1059 AMP_NM_SleepAck "
+AMP NM SLEEP ACK
+";
+CM_ BO_ 1060 "NMsignal";
+CM_ SG_ 1060 ICC_424_NM_DestAdr "
+ICC NM DESTINATION ADDRESS
+";
+CM_ SG_ 1060 ICC_424_NM_Alv "
+ICC NM ALIVE
+";
+CM_ SG_ 1060 ICC_424_NM_Ring "
+ICC NM RING
+";
+CM_ SG_ 1060 ICC_424_NM_LimpHome "
+ICC NM LIMPHOME
+";
+CM_ SG_ 1060 ICC_424_NM_SleepIndcn "
+ICC NM SLEEP INDICATION
+";
+CM_ SG_ 1060 ICC_424_NM_SleepAck "
+ICC NM SLEEP ACK
+";
+CM_ SG_ 1060 ICC_424_KeepWakeUp_KL15 "保持唤醒原因-KL15";
+CM_ BO_ 1080 "NMsignal";
+CM_ SG_ 1080 GW_438_NM_DestAdr "
+GW NM DESTINATION ADDRESS
+";
+CM_ SG_ 1080 GW_438_NM_Alv "
+GW NM ALIVE
+";
+CM_ SG_ 1080 GW_438_NM_Ring "
+GW NM RING
+";
+CM_ SG_ 1080 GW_438_NM_LimpHome "
+GW NM LIMPHOME
+";
+CM_ SG_ 1080 GW_438_NM_SleepIndcn "
+GW NM SLEEP INDICATION
+";
+CM_ SG_ 1080 GW_438_NM_SleepAck "
+GW NM SLEEP ACK
+";
+CM_ SG_ 1080 GW_438_KeepWakeUp_KL15 "保持唤醒原因-KL15";
+CM_ BO_ 1085 "NMsignal";
+CM_ SG_ 1085 MFS_NM_DestAdr "
+MFS NM DESTINATION ADDRESS
+";
+CM_ SG_ 1085 MFS_NM_Alv "
+MFS NM ALIVE
+";
+CM_ SG_ 1085 MFS_NM_Ring "
+MFS NM RING
+";
+CM_ SG_ 1085 MFS_NM_LimpHome "
+MFS NM LIMPHOME
+";
+CM_ SG_ 1085 MFS_NM_SleepIndcn "
+MFS NM SLEEP INDICATION
+";
+CM_ SG_ 1085 MFS_NM_SleepAck "
+MFS NM SLEEP ACK
+";
+CM_ SG_ 819 PEPS_PwrMod "
+电源模式
+";
+CM_ SG_ 819 PEPS_PwrModVld "
+电源模式有效值
+";
+CM_ SG_ 1321 EHU_SteerWhlPhnKeyBackLi "
+方向盘电话按键背光
+";
+CM_ SG_ 1321 EHU_BackgndBriLvl "背景光亮度等级
+Light intensity level. ";
+CM_ SG_ 1672 MFS_SwVersS "
+MFS次软件版本号后两位
+";
+CM_ SG_ 1672 MFS_PartVers "
+MFS零部件号
+";
+CM_ SG_ 1672 MFS_HwVers "
+MFS硬件版本号后两位
+";
+CM_ SG_ 1672 MFS_SwVersM "
+MFS主软件版本号后两位
+";
+CM_ SG_ 1300 MFS_CustBtn "自定义功能键";
+CM_ SG_ 1300 MFS_ReturnBtn "仪表返回按键";
+CM_ SG_ 1300 MFS_LeSwtDispMod "向左切换仪表显示模式";
+CM_ SG_ 1300 MFS_RiSwtDispMod "向右切换仪表显示模式";
+CM_ SG_ 1300 MFS_LeRollUp "左侧滚轮(上滚)";
+CM_ SG_ 1300 MFS_LeRollDwn "左侧滚轮(下滚)";
+CM_ SG_ 1300 MFS_LeRollPress "左侧滚轮(按下)";
+CM_ SG_ 1300 MFS_SrcSwtBtn "音源切换按键/蓝牙电话控制键(复用)";
+CM_ SG_ 1300 MFS_VoiceRctcnBtn "语音识别按键";
+CM_ SG_ 1300 MFS_PrevSongTuneSig "在多媒体播放时可以切换上一曲,在收音机播放时向低频段搜索上一台";
+CM_ SG_ 1300 MFS_NextSongTuneSig "在多媒体播放时可以切换下一曲,在收音机播放时向高频段搜索下一台";
+CM_ SG_ 1300 MFS_RiRollUp "右侧滚轮(上滚)";
+CM_ SG_ 1300 MFS_RiRollDwn "右侧滚轮(下滚)";
+CM_ SG_ 1300 MFS_RiRollPress "右侧滚轮(按下)";
+CM_ SG_ 1300 MFS_SteerWhlHeatgIndcrLampSts "方向盘加热指示灯状态";
+CM_ SG_ 792 ESP_VehSpdVld "
+ABS_ESC信号提示车速是否有效
+When the diagnostic have set the failure code on this signal the value wil be 2.
+";
+CM_ SG_ 792 ESP_VehSpd "
+车速信号
+";
+CM_ SG_ 821 BCM_PosnLampOutpCmd "
+位置灯输出命令
+";
+CM_ SG_ 835 BCM_343_CheckSum "
+BCM_343_报文校验和(0xD7)
+BCM_343_CheckSum
+";
+CM_ SG_ 835 BCM_343_AliveCounter "
+BCM_343_报文计数器
+BCM_343_AliveCounter
+";
+CM_ SG_ 835 BCM_LeFrntDoorSts "
+左前门状态
+";
+CM_ SG_ 835 BCM_RiFrntDoorSts "
+右前门状态
+";
+CM_ SG_ 835 BCM_TrSts "
+后备箱状态
+";
+CM_ SG_ 835 BCM_AntithftSts "
+车身防盗状态
+";
+CM_ SG_ 835 BCM_RiReDoorSts "
+右后门状态
+";
+CM_ SG_ 835 BCM_LeReDoorSts "
+左后门状态
+";
+CM_ SG_ 1310 BCM_ApplianceClsLvl "用电器关闭等级";
+CM_ SG_ 784 CIM_SteerWhlHeatgSwtSts "
+方向盘加热开关状态
+steering wheel heating switch signal.
+";
+BA_DEF_ BO_  "NmMessage" ENUM  "No","Yes";
+BA_DEF_ BO_  "DiagState" ENUM  "No","Yes";
+BA_DEF_ BO_  "DiagRequest" ENUM  "No","Yes";
+BA_DEF_ BO_  "DiagResponse" ENUM  "No","Yes";
+BA_DEF_ BO_  "GenMsgSendType" ENUM  "cyclic","NoMsgSendType","IfActive","Event","CA","CE";
+BA_DEF_ BO_  "GenMsgCycleTime" INT 0 0;
+BA_DEF_ SG_  "GenSigSendType" ENUM  "cyclic","OnChange","OnWrite","IfActive","OnChangeWithRepetition","OnWriteWithRepetition","IfActiveWithRepetition","NoSigSendType","OnChangeAndIfActive","OnChangeAndIfActiveWithRepetition","CA","CE","Event";
+BA_DEF_ SG_  "GenSigStartValue" INT 0 0;
+BA_DEF_ SG_  "GenSigInactiveValue" INT 0 0;
+BA_DEF_ BO_  "GenMsgCycleTimeFast" INT 0 0;
+BA_DEF_ BO_  "GenMsgNrOfRepetition" INT 0 0;
+BA_DEF_ BO_  "GenMsgDelayTime" INT 0 0;
+BA_DEF_  "DBName" STRING ;
+BA_DEF_  "BusBaudate" INT 0 10000;
+BA_DEF_ BU_  "NodeLayerModules" STRING ;
+BA_DEF_ SG_  "GenSigTimeoutValue" INT 0 1000000000;
+BA_DEF_ BO_  "GenMsgCycleTimeActive" INT 0 0;
+BA_DEF_ BU_  "ILUsed" ENUM  "No","Yes";
+BA_DEF_ BU_  "NmNode" ENUM  "Not","Yes";
+BA_DEF_ BU_  "NmStationAddress" HEX 0 65535;
+BA_DEF_ BU_  "NmCAN" INT 0 2;
+BA_DEF_  "Manufacturer" STRING ;
+BA_DEF_  "NmType" STRING ;
+BA_DEF_  "NmBaseAddress" HEX 0 2047;
+BA_DEF_  "NmMessageCount" INT 0 255;
+BA_DEF_ BO_  "GenMsgILSupport" ENUM  "No","Yes";
+BA_DEF_ BO_  "GenMsgStartDelayTime" INT 0 65535;
+BA_DEF_  "BusType" STRING ;
+BA_DEF_ SG_  "sigDespEng" STRING ;
+BA_DEF_ SG_  "sigSecLevel" STRING ;
+BA_DEF_ SG_  "sigConfig" STRING ;
+BA_DEF_ SG_  "sigExplanation" STRING ;
+BA_DEF_DEF_  "NmMessage" "No";
+BA_DEF_DEF_  "DiagState" "No";
+BA_DEF_DEF_  "DiagRequest" "No";
+BA_DEF_DEF_  "DiagResponse" "No";
+BA_DEF_DEF_  "GenMsgSendType" "cyclic";
+BA_DEF_DEF_  "GenMsgCycleTime" 0;
+BA_DEF_DEF_  "GenSigSendType" "cyclic";
+BA_DEF_DEF_  "GenSigStartValue" 0;
+BA_DEF_DEF_  "GenSigInactiveValue" 0;
+BA_DEF_DEF_  "GenMsgCycleTimeFast" 0;
+BA_DEF_DEF_  "GenMsgNrOfRepetition" 0;
+BA_DEF_DEF_  "GenMsgDelayTime" 0;
+BA_DEF_DEF_  "DBName" "";
+BA_DEF_DEF_  "BusBaudate" 500;
+BA_DEF_DEF_  "NodeLayerModules" "CANoeILNLVector.dll";
+BA_DEF_DEF_  "GenSigTimeoutValue" 0;
+BA_DEF_DEF_  "GenMsgCycleTimeActive" 0;
+BA_DEF_DEF_  "ILUsed" "No";
+BA_DEF_DEF_  "NmNode" "Not";
+BA_DEF_DEF_  "NmStationAddress" 0;
+BA_DEF_DEF_  "NmCAN" 0;
+BA_DEF_DEF_  "Manufacturer" "";
+BA_DEF_DEF_  "NmType" "";
+BA_DEF_DEF_  "NmBaseAddress" 1024;
+BA_DEF_DEF_  "NmMessageCount" 128;
+BA_DEF_DEF_  "GenMsgILSupport" "No";
+BA_DEF_DEF_  "GenMsgStartDelayTime" 0;
+BA_DEF_DEF_  "BusType" "CAN";
+BA_DEF_DEF_  "sigDespEng" "";
+BA_DEF_DEF_  "sigSecLevel" "QM";
+BA_DEF_DEF_  "sigConfig" "";
+BA_DEF_DEF_  "sigExplanation" "";
+BA_ "BusBaudate" 500;
+BA_ "NmType" "0";
+BA_ "BusType" "CAN";
+BA_ "DBName" "BJEV_N60ABEP2_IBUS1_Matrix_CAN_V";
+BA_ "NmStationAddress" BU_ MFS 61;
+BA_ "NmNode" BU_ MFS 1;
+BA_ "NmStationAddress" BU_ GW 56;
+BA_ "NmCAN" BU_ GW 0;
+BA_ "NmNode" BU_ GW 1;
+BA_ "NmStationAddress" BU_ PWC 34;
+BA_ "NmNode" BU_ PWC 1;
+BA_ "NmStationAddress" BU_ ICC 36;
+BA_ "NmNode" BU_ ICC 1;
+BA_ "NmStationAddress" BU_ AMP 35;
+BA_ "NmNode" BU_ AMP 1;
+BA_ "NmCAN" BU_ AMP 0;
+BA_ "GenMsgSendType" BO_ 1058 1;
+BA_ "NmMessage" BO_ 1058 1;
+BA_ "GenMsgSendType" BO_ 1059 1;
+BA_ "NmMessage" BO_ 1059 1;
+BA_ "GenMsgSendType" BO_ 1060 1;
+BA_ "NmMessage" BO_ 1060 1;
+BA_ "GenMsgSendType" BO_ 1080 1;
+BA_ "NmMessage" BO_ 1080 1;
+BA_ "GenMsgSendType" BO_ 1085 1;
+BA_ "NmMessage" BO_ 1085 1;
+BA_ "GenMsgCycleTime" BO_ 819 50;
+BA_ "GenMsgCycleTime" BO_ 1321 100;
+BA_ "GenMsgCycleTime" BO_ 1672 1000;
+BA_ "GenMsgCycleTime" BO_ 1300 100;
+BA_ "GenMsgCycleTime" BO_ 792 20;
+BA_ "GenMsgCycleTime" BO_ 821 50;
+BA_ "GenMsgCycleTime" BO_ 835 50;
+BA_ "GenMsgCycleTime" BO_ 1310 100;
+BA_ "GenMsgCycleTime" BO_ 784 20;
+BA_ "GenMsgSendType" BO_ 2015 1;
+BA_ "DiagResponse" BO_ 2015 1;
+BA_ "DiagState" BO_ 2015 1;
+BA_ "GenMsgSendType" BO_ 1943 1;
+BA_ "DiagResponse" BO_ 1943 1;
+BA_ "DiagState" BO_ 1943 1;
+BA_ "GenMsgSendType" BO_ 1951 1;
+BA_ "DiagResponse" BO_ 1951 1;
+BA_ "DiagState" BO_ 1951 1;
+BA_ "GenMsgSendType" BO_ 1927 1;
+BA_ "DiagResponse" BO_ 1927 1;
+BA_ "DiagState" BO_ 1927 1;
+BA_ "GenMsgSendType" BO_ 1935 1;
+BA_ "DiagResponse" BO_ 1935 1;
+BA_ "DiagState" BO_ 1935 1;
+BA_ "sigExplanation" SG_ 1058 PWC_NM_DestAdr "";
+BA_ "sigConfig" SG_ 1058 PWC_NM_DestAdr "";
+BA_ "sigSecLevel" SG_ 1058 PWC_NM_DestAdr "";
+BA_ "sigDespEng" SG_ 1058 PWC_NM_DestAdr "";
+BA_ "GenSigSendType" SG_ 1058 PWC_NM_DestAdr 5;
+BA_ "sigExplanation" SG_ 1058 PWC_NM_Alv "";
+BA_ "sigConfig" SG_ 1058 PWC_NM_Alv "";
+BA_ "sigSecLevel" SG_ 1058 PWC_NM_Alv "";
+BA_ "sigDespEng" SG_ 1058 PWC_NM_Alv "";
+BA_ "GenSigSendType" SG_ 1058 PWC_NM_Alv 5;
+BA_ "sigExplanation" SG_ 1058 PWC_NM_Ring "";
+BA_ "sigConfig" SG_ 1058 PWC_NM_Ring "";
+BA_ "sigSecLevel" SG_ 1058 PWC_NM_Ring "";
+BA_ "sigDespEng" SG_ 1058 PWC_NM_Ring "";
+BA_ "GenSigSendType" SG_ 1058 PWC_NM_Ring 5;
+BA_ "sigExplanation" SG_ 1058 PWC_NM_LimpHome "";
+BA_ "sigConfig" SG_ 1058 PWC_NM_LimpHome "";
+BA_ "sigSecLevel" SG_ 1058 PWC_NM_LimpHome "";
+BA_ "sigDespEng" SG_ 1058 PWC_NM_LimpHome "";
+BA_ "GenSigSendType" SG_ 1058 PWC_NM_LimpHome 5;
+BA_ "sigExplanation" SG_ 1058 PWC_NM_SleepIndcn "";
+BA_ "sigConfig" SG_ 1058 PWC_NM_SleepIndcn "";
+BA_ "sigSecLevel" SG_ 1058 PWC_NM_SleepIndcn "";
+BA_ "sigDespEng" SG_ 1058 PWC_NM_SleepIndcn "";
+BA_ "GenSigSendType" SG_ 1058 PWC_NM_SleepIndcn 5;
+BA_ "sigExplanation" SG_ 1058 PWC_NM_SleepAck "";
+BA_ "sigConfig" SG_ 1058 PWC_NM_SleepAck "";
+BA_ "sigSecLevel" SG_ 1058 PWC_NM_SleepAck "";
+BA_ "sigDespEng" SG_ 1058 PWC_NM_SleepAck "";
+BA_ "GenSigSendType" SG_ 1058 PWC_NM_SleepAck 5;
+BA_ "sigExplanation" SG_ 1059 AMP_NM_DestAdr "";
+BA_ "sigConfig" SG_ 1059 AMP_NM_DestAdr "";
+BA_ "sigSecLevel" SG_ 1059 AMP_NM_DestAdr "";
+BA_ "sigDespEng" SG_ 1059 AMP_NM_DestAdr "";
+BA_ "GenSigSendType" SG_ 1059 AMP_NM_DestAdr 5;
+BA_ "sigExplanation" SG_ 1059 AMP_NM_Alv "";
+BA_ "sigConfig" SG_ 1059 AMP_NM_Alv "";
+BA_ "sigSecLevel" SG_ 1059 AMP_NM_Alv "";
+BA_ "sigDespEng" SG_ 1059 AMP_NM_Alv "";
+BA_ "GenSigSendType" SG_ 1059 AMP_NM_Alv 5;
+BA_ "sigExplanation" SG_ 1059 AMP_NM_Ring "";
+BA_ "sigConfig" SG_ 1059 AMP_NM_Ring "";
+BA_ "sigSecLevel" SG_ 1059 AMP_NM_Ring "";
+BA_ "sigDespEng" SG_ 1059 AMP_NM_Ring "";
+BA_ "GenSigSendType" SG_ 1059 AMP_NM_Ring 5;
+BA_ "sigExplanation" SG_ 1059 AMP_NM_LimpHome "";
+BA_ "sigConfig" SG_ 1059 AMP_NM_LimpHome "";
+BA_ "sigSecLevel" SG_ 1059 AMP_NM_LimpHome "";
+BA_ "sigDespEng" SG_ 1059 AMP_NM_LimpHome "";
+BA_ "GenSigSendType" SG_ 1059 AMP_NM_LimpHome 5;
+BA_ "sigExplanation" SG_ 1059 AMP_NM_SleepIndcn "";
+BA_ "sigConfig" SG_ 1059 AMP_NM_SleepIndcn "";
+BA_ "sigSecLevel" SG_ 1059 AMP_NM_SleepIndcn "";
+BA_ "sigDespEng" SG_ 1059 AMP_NM_SleepIndcn "";
+BA_ "GenSigSendType" SG_ 1059 AMP_NM_SleepIndcn 5;
+BA_ "sigExplanation" SG_ 1059 AMP_NM_SleepAck "";
+BA_ "sigConfig" SG_ 1059 AMP_NM_SleepAck "";
+BA_ "sigSecLevel" SG_ 1059 AMP_NM_SleepAck "";
+BA_ "sigDespEng" SG_ 1059 AMP_NM_SleepAck "";
+BA_ "GenSigSendType" SG_ 1059 AMP_NM_SleepAck 5;
+BA_ "sigExplanation" SG_ 1060 ICC_424_NM_DestAdr "";
+BA_ "sigConfig" SG_ 1060 ICC_424_NM_DestAdr "";
+BA_ "sigSecLevel" SG_ 1060 ICC_424_NM_DestAdr "";
+BA_ "sigDespEng" SG_ 1060 ICC_424_NM_DestAdr "";
+BA_ "GenSigSendType" SG_ 1060 ICC_424_NM_DestAdr 5;
+BA_ "sigExplanation" SG_ 1060 ICC_424_NM_Alv "";
+BA_ "sigConfig" SG_ 1060 ICC_424_NM_Alv "";
+BA_ "sigSecLevel" SG_ 1060 ICC_424_NM_Alv "";
+BA_ "sigDespEng" SG_ 1060 ICC_424_NM_Alv "";
+BA_ "GenSigSendType" SG_ 1060 ICC_424_NM_Alv 5;
+BA_ "sigExplanation" SG_ 1060 ICC_424_NM_Ring "";
+BA_ "sigConfig" SG_ 1060 ICC_424_NM_Ring "";
+BA_ "sigSecLevel" SG_ 1060 ICC_424_NM_Ring "";
+BA_ "sigDespEng" SG_ 1060 ICC_424_NM_Ring "";
+BA_ "GenSigSendType" SG_ 1060 ICC_424_NM_Ring 5;
+BA_ "sigExplanation" SG_ 1060 ICC_424_NM_LimpHome "";
+BA_ "sigConfig" SG_ 1060 ICC_424_NM_LimpHome "";
+BA_ "sigSecLevel" SG_ 1060 ICC_424_NM_LimpHome "";
+BA_ "sigDespEng" SG_ 1060 ICC_424_NM_LimpHome "";
+BA_ "GenSigSendType" SG_ 1060 ICC_424_NM_LimpHome 5;
+BA_ "sigExplanation" SG_ 1060 ICC_424_NM_SleepIndcn "";
+BA_ "sigConfig" SG_ 1060 ICC_424_NM_SleepIndcn "";
+BA_ "sigSecLevel" SG_ 1060 ICC_424_NM_SleepIndcn "";
+BA_ "sigDespEng" SG_ 1060 ICC_424_NM_SleepIndcn "";
+BA_ "GenSigSendType" SG_ 1060 ICC_424_NM_SleepIndcn 5;
+BA_ "sigExplanation" SG_ 1060 ICC_424_NM_SleepAck "";
+BA_ "sigConfig" SG_ 1060 ICC_424_NM_SleepAck "";
+BA_ "sigSecLevel" SG_ 1060 ICC_424_NM_SleepAck "";
+BA_ "sigDespEng" SG_ 1060 ICC_424_NM_SleepAck "";
+BA_ "GenSigSendType" SG_ 1060 ICC_424_NM_SleepAck 5;
+BA_ "sigExplanation" SG_ 1060 ICC_424_KeepWakeUp_KL15 "";
+BA_ "sigConfig" SG_ 1060 ICC_424_KeepWakeUp_KL15 "";
+BA_ "sigSecLevel" SG_ 1060 ICC_424_KeepWakeUp_KL15 "";
+BA_ "sigDespEng" SG_ 1060 ICC_424_KeepWakeUp_KL15 "";
+BA_ "GenSigSendType" SG_ 1060 ICC_424_KeepWakeUp_KL15 5;
+BA_ "sigExplanation" SG_ 1080 GW_438_NM_DestAdr "";
+BA_ "sigConfig" SG_ 1080 GW_438_NM_DestAdr "";
+BA_ "sigSecLevel" SG_ 1080 GW_438_NM_DestAdr "";
+BA_ "sigDespEng" SG_ 1080 GW_438_NM_DestAdr "";
+BA_ "GenSigSendType" SG_ 1080 GW_438_NM_DestAdr 5;
+BA_ "sigExplanation" SG_ 1080 GW_438_NM_Alv "";
+BA_ "sigConfig" SG_ 1080 GW_438_NM_Alv "";
+BA_ "sigSecLevel" SG_ 1080 GW_438_NM_Alv "";
+BA_ "sigDespEng" SG_ 1080 GW_438_NM_Alv "";
+BA_ "GenSigSendType" SG_ 1080 GW_438_NM_Alv 5;
+BA_ "sigExplanation" SG_ 1080 GW_438_NM_Ring "";
+BA_ "sigConfig" SG_ 1080 GW_438_NM_Ring "";
+BA_ "sigSecLevel" SG_ 1080 GW_438_NM_Ring "";
+BA_ "sigDespEng" SG_ 1080 GW_438_NM_Ring "";
+BA_ "GenSigSendType" SG_ 1080 GW_438_NM_Ring 5;
+BA_ "sigExplanation" SG_ 1080 GW_438_NM_LimpHome "";
+BA_ "sigConfig" SG_ 1080 GW_438_NM_LimpHome "";
+BA_ "sigSecLevel" SG_ 1080 GW_438_NM_LimpHome "";
+BA_ "sigDespEng" SG_ 1080 GW_438_NM_LimpHome "";
+BA_ "GenSigSendType" SG_ 1080 GW_438_NM_LimpHome 5;
+BA_ "sigExplanation" SG_ 1080 GW_438_NM_SleepIndcn "";
+BA_ "sigConfig" SG_ 1080 GW_438_NM_SleepIndcn "";
+BA_ "sigSecLevel" SG_ 1080 GW_438_NM_SleepIndcn "";
+BA_ "sigDespEng" SG_ 1080 GW_438_NM_SleepIndcn "";
+BA_ "GenSigSendType" SG_ 1080 GW_438_NM_SleepIndcn 5;
+BA_ "sigExplanation" SG_ 1080 GW_438_NM_SleepAck "";
+BA_ "sigConfig" SG_ 1080 GW_438_NM_SleepAck "";
+BA_ "sigSecLevel" SG_ 1080 GW_438_NM_SleepAck "";
+BA_ "sigDespEng" SG_ 1080 GW_438_NM_SleepAck "";
+BA_ "GenSigSendType" SG_ 1080 GW_438_NM_SleepAck 5;
+BA_ "GenSigStartValue" SG_ 1080 GW_438_KeepWakeUp_KL15 0;
+BA_ "sigExplanation" SG_ 1080 GW_438_KeepWakeUp_KL15 "";
+BA_ "sigConfig" SG_ 1080 GW_438_KeepWakeUp_KL15 "";
+BA_ "sigSecLevel" SG_ 1080 GW_438_KeepWakeUp_KL15 "";
+BA_ "sigDespEng" SG_ 1080 GW_438_KeepWakeUp_KL15 "";
+BA_ "GenSigSendType" SG_ 1080 GW_438_KeepWakeUp_KL15 5;
+BA_ "sigExplanation" SG_ 1085 MFS_NM_DestAdr "";
+BA_ "sigConfig" SG_ 1085 MFS_NM_DestAdr "";
+BA_ "sigSecLevel" SG_ 1085 MFS_NM_DestAdr "";
+BA_ "sigDespEng" SG_ 1085 MFS_NM_DestAdr "";
+BA_ "GenSigSendType" SG_ 1085 MFS_NM_DestAdr 5;
+BA_ "sigExplanation" SG_ 1085 MFS_NM_Alv "";
+BA_ "sigConfig" SG_ 1085 MFS_NM_Alv "";
+BA_ "sigSecLevel" SG_ 1085 MFS_NM_Alv "";
+BA_ "sigDespEng" SG_ 1085 MFS_NM_Alv "";
+BA_ "GenSigSendType" SG_ 1085 MFS_NM_Alv 5;
+BA_ "sigExplanation" SG_ 1085 MFS_NM_Ring "";
+BA_ "sigConfig" SG_ 1085 MFS_NM_Ring "";
+BA_ "sigSecLevel" SG_ 1085 MFS_NM_Ring "";
+BA_ "sigDespEng" SG_ 1085 MFS_NM_Ring "";
+BA_ "GenSigSendType" SG_ 1085 MFS_NM_Ring 5;
+BA_ "sigExplanation" SG_ 1085 MFS_NM_LimpHome "";
+BA_ "sigConfig" SG_ 1085 MFS_NM_LimpHome "";
+BA_ "sigSecLevel" SG_ 1085 MFS_NM_LimpHome "";
+BA_ "sigDespEng" SG_ 1085 MFS_NM_LimpHome "";
+BA_ "GenSigSendType" SG_ 1085 MFS_NM_LimpHome 5;
+BA_ "sigExplanation" SG_ 1085 MFS_NM_SleepIndcn "";
+BA_ "sigConfig" SG_ 1085 MFS_NM_SleepIndcn "";
+BA_ "sigSecLevel" SG_ 1085 MFS_NM_SleepIndcn "";
+BA_ "sigDespEng" SG_ 1085 MFS_NM_SleepIndcn "";
+BA_ "GenSigSendType" SG_ 1085 MFS_NM_SleepIndcn 5;
+BA_ "sigExplanation" SG_ 1085 MFS_NM_SleepAck "";
+BA_ "sigConfig" SG_ 1085 MFS_NM_SleepAck "";
+BA_ "sigSecLevel" SG_ 1085 MFS_NM_SleepAck "";
+BA_ "sigDespEng" SG_ 1085 MFS_NM_SleepAck "";
+BA_ "GenSigSendType" SG_ 1085 MFS_NM_SleepAck 5;
+BA_ "sigExplanation" SG_ 819 PEPS_PwrMod "";
+BA_ "sigConfig" SG_ 819 PEPS_PwrMod "";
+BA_ "sigSecLevel" SG_ 819 PEPS_PwrMod "";
+BA_ "sigDespEng" SG_ 819 PEPS_PwrMod "";
+BA_ "sigExplanation" SG_ 819 PEPS_PwrModVld "";
+BA_ "sigConfig" SG_ 819 PEPS_PwrModVld "";
+BA_ "sigSecLevel" SG_ 819 PEPS_PwrModVld "";
+BA_ "sigDespEng" SG_ 819 PEPS_PwrModVld "";
+BA_ "sigExplanation" SG_ 1321 EHU_SteerWhlPhnKeyBackLi "";
+BA_ "sigConfig" SG_ 1321 EHU_SteerWhlPhnKeyBackLi "";
+BA_ "sigSecLevel" SG_ 1321 EHU_SteerWhlPhnKeyBackLi "";
+BA_ "sigDespEng" SG_ 1321 EHU_SteerWhlPhnKeyBackLi "";
+BA_ "sigExplanation" SG_ 1321 EHU_BackgndBriLvl "";
+BA_ "sigConfig" SG_ 1321 EHU_BackgndBriLvl "";
+BA_ "sigSecLevel" SG_ 1321 EHU_BackgndBriLvl "";
+BA_ "sigDespEng" SG_ 1321 EHU_BackgndBriLvl "";
+BA_ "sigExplanation" SG_ 1672 MFS_SwVersS "";
+BA_ "sigConfig" SG_ 1672 MFS_SwVersS "";
+BA_ "sigSecLevel" SG_ 1672 MFS_SwVersS "";
+BA_ "sigDespEng" SG_ 1672 MFS_SwVersS "";
+BA_ "sigExplanation" SG_ 1672 MFS_PartVers "";
+BA_ "sigConfig" SG_ 1672 MFS_PartVers "";
+BA_ "sigSecLevel" SG_ 1672 MFS_PartVers "";
+BA_ "sigDespEng" SG_ 1672 MFS_PartVers "";
+BA_ "sigExplanation" SG_ 1672 MFS_HwVers "";
+BA_ "sigConfig" SG_ 1672 MFS_HwVers "";
+BA_ "sigSecLevel" SG_ 1672 MFS_HwVers "";
+BA_ "sigDespEng" SG_ 1672 MFS_HwVers "";
+BA_ "sigExplanation" SG_ 1672 MFS_SwVersM "";
+BA_ "sigConfig" SG_ 1672 MFS_SwVersM "";
+BA_ "sigSecLevel" SG_ 1672 MFS_SwVersM "";
+BA_ "sigDespEng" SG_ 1672 MFS_SwVersM "";
+BA_ "sigExplanation" SG_ 1300 MFS_CustBtn "";
+BA_ "sigConfig" SG_ 1300 MFS_CustBtn "";
+BA_ "sigSecLevel" SG_ 1300 MFS_CustBtn "";
+BA_ "sigDespEng" SG_ 1300 MFS_CustBtn "";
+BA_ "sigExplanation" SG_ 1300 MFS_ReturnBtn "";
+BA_ "sigConfig" SG_ 1300 MFS_ReturnBtn "";
+BA_ "sigSecLevel" SG_ 1300 MFS_ReturnBtn "";
+BA_ "sigDespEng" SG_ 1300 MFS_ReturnBtn "";
+BA_ "sigExplanation" SG_ 1300 MFS_LeSwtDispMod "";
+BA_ "sigConfig" SG_ 1300 MFS_LeSwtDispMod "";
+BA_ "sigSecLevel" SG_ 1300 MFS_LeSwtDispMod "";
+BA_ "sigDespEng" SG_ 1300 MFS_LeSwtDispMod "";
+BA_ "sigExplanation" SG_ 1300 MFS_RiSwtDispMod "";
+BA_ "sigConfig" SG_ 1300 MFS_RiSwtDispMod "";
+BA_ "sigSecLevel" SG_ 1300 MFS_RiSwtDispMod "";
+BA_ "sigDespEng" SG_ 1300 MFS_RiSwtDispMod "";
+BA_ "sigExplanation" SG_ 1300 MFS_LeRollUp "";
+BA_ "sigConfig" SG_ 1300 MFS_LeRollUp "";
+BA_ "sigSecLevel" SG_ 1300 MFS_LeRollUp "";
+BA_ "sigDespEng" SG_ 1300 MFS_LeRollUp "";
+BA_ "sigExplanation" SG_ 1300 MFS_LeRollDwn "";
+BA_ "sigConfig" SG_ 1300 MFS_LeRollDwn "";
+BA_ "sigSecLevel" SG_ 1300 MFS_LeRollDwn "";
+BA_ "sigDespEng" SG_ 1300 MFS_LeRollDwn "";
+BA_ "sigExplanation" SG_ 1300 MFS_LeRollPress "";
+BA_ "sigConfig" SG_ 1300 MFS_LeRollPress "";
+BA_ "sigSecLevel" SG_ 1300 MFS_LeRollPress "";
+BA_ "sigDespEng" SG_ 1300 MFS_LeRollPress "";
+BA_ "sigExplanation" SG_ 1300 MFS_SrcSwtBtn "";
+BA_ "sigConfig" SG_ 1300 MFS_SrcSwtBtn "";
+BA_ "sigSecLevel" SG_ 1300 MFS_SrcSwtBtn "";
+BA_ "sigDespEng" SG_ 1300 MFS_SrcSwtBtn "";
+BA_ "sigExplanation" SG_ 1300 MFS_VoiceRctcnBtn "";
+BA_ "sigConfig" SG_ 1300 MFS_VoiceRctcnBtn "";
+BA_ "sigSecLevel" SG_ 1300 MFS_VoiceRctcnBtn "";
+BA_ "sigDespEng" SG_ 1300 MFS_VoiceRctcnBtn "";
+BA_ "sigExplanation" SG_ 1300 MFS_PrevSongTuneSig "";
+BA_ "sigConfig" SG_ 1300 MFS_PrevSongTuneSig "";
+BA_ "sigSecLevel" SG_ 1300 MFS_PrevSongTuneSig "";
+BA_ "sigDespEng" SG_ 1300 MFS_PrevSongTuneSig "";
+BA_ "sigExplanation" SG_ 1300 MFS_NextSongTuneSig "";
+BA_ "sigConfig" SG_ 1300 MFS_NextSongTuneSig "";
+BA_ "sigSecLevel" SG_ 1300 MFS_NextSongTuneSig "";
+BA_ "sigDespEng" SG_ 1300 MFS_NextSongTuneSig "";
+BA_ "sigExplanation" SG_ 1300 MFS_RiRollUp "";
+BA_ "sigConfig" SG_ 1300 MFS_RiRollUp "";
+BA_ "sigSecLevel" SG_ 1300 MFS_RiRollUp "";
+BA_ "sigDespEng" SG_ 1300 MFS_RiRollUp "";
+BA_ "sigExplanation" SG_ 1300 MFS_RiRollDwn "";
+BA_ "sigConfig" SG_ 1300 MFS_RiRollDwn "";
+BA_ "sigSecLevel" SG_ 1300 MFS_RiRollDwn "";
+BA_ "sigDespEng" SG_ 1300 MFS_RiRollDwn "";
+BA_ "sigExplanation" SG_ 1300 MFS_RiRollPress "";
+BA_ "sigConfig" SG_ 1300 MFS_RiRollPress "";
+BA_ "sigSecLevel" SG_ 1300 MFS_RiRollPress "";
+BA_ "sigDespEng" SG_ 1300 MFS_RiRollPress "";
+BA_ "sigExplanation" SG_ 1300 MFS_SteerWhlHeatgIndcrLampSts "";
+BA_ "sigConfig" SG_ 1300 MFS_SteerWhlHeatgIndcrLampSts "";
+BA_ "sigSecLevel" SG_ 1300 MFS_SteerWhlHeatgIndcrLampSts "";
+BA_ "sigDespEng" SG_ 1300 MFS_SteerWhlHeatgIndcrLampSts "";
+BA_ "sigExplanation" SG_ 792 ESP_VehSpdVld "";
+BA_ "sigConfig" SG_ 792 ESP_VehSpdVld "";
+BA_ "sigSecLevel" SG_ 792 ESP_VehSpdVld "";
+BA_ "sigDespEng" SG_ 792 ESP_VehSpdVld "";
+BA_ "sigExplanation" SG_ 792 ESP_VehSpd "";
+BA_ "sigConfig" SG_ 792 ESP_VehSpd "";
+BA_ "sigSecLevel" SG_ 792 ESP_VehSpd "";
+BA_ "sigDespEng" SG_ 792 ESP_VehSpd "";
+BA_ "sigExplanation" SG_ 821 BCM_PosnLampOutpCmd "";
+BA_ "sigConfig" SG_ 821 BCM_PosnLampOutpCmd "";
+BA_ "sigSecLevel" SG_ 821 BCM_PosnLampOutpCmd "";
+BA_ "sigDespEng" SG_ 821 BCM_PosnLampOutpCmd "";
+BA_ "sigExplanation" SG_ 835 BCM_343_CheckSum "";
+BA_ "sigConfig" SG_ 835 BCM_343_CheckSum "";
+BA_ "sigSecLevel" SG_ 835 BCM_343_CheckSum "";
+BA_ "sigDespEng" SG_ 835 BCM_343_CheckSum "";
+BA_ "sigExplanation" SG_ 835 BCM_343_AliveCounter "";
+BA_ "sigConfig" SG_ 835 BCM_343_AliveCounter "";
+BA_ "sigSecLevel" SG_ 835 BCM_343_AliveCounter "";
+BA_ "sigDespEng" SG_ 835 BCM_343_AliveCounter "";
+BA_ "sigExplanation" SG_ 835 BCM_LeFrntDoorSts "";
+BA_ "sigConfig" SG_ 835 BCM_LeFrntDoorSts "";
+BA_ "sigSecLevel" SG_ 835 BCM_LeFrntDoorSts "";
+BA_ "sigDespEng" SG_ 835 BCM_LeFrntDoorSts "";
+BA_ "sigExplanation" SG_ 835 BCM_RiFrntDoorSts "";
+BA_ "sigConfig" SG_ 835 BCM_RiFrntDoorSts "";
+BA_ "sigSecLevel" SG_ 835 BCM_RiFrntDoorSts "";
+BA_ "sigDespEng" SG_ 835 BCM_RiFrntDoorSts "";
+BA_ "sigExplanation" SG_ 835 BCM_TrSts "";
+BA_ "sigConfig" SG_ 835 BCM_TrSts "";
+BA_ "sigSecLevel" SG_ 835 BCM_TrSts "";
+BA_ "sigDespEng" SG_ 835 BCM_TrSts "";
+BA_ "sigExplanation" SG_ 835 BCM_AntithftSts "";
+BA_ "sigConfig" SG_ 835 BCM_AntithftSts "";
+BA_ "sigSecLevel" SG_ 835 BCM_AntithftSts "";
+BA_ "sigDespEng" SG_ 835 BCM_AntithftSts "";
+BA_ "sigExplanation" SG_ 835 BCM_RiReDoorSts "";
+BA_ "sigConfig" SG_ 835 BCM_RiReDoorSts "";
+BA_ "sigSecLevel" SG_ 835 BCM_RiReDoorSts "";
+BA_ "sigDespEng" SG_ 835 BCM_RiReDoorSts "";
+BA_ "sigExplanation" SG_ 835 BCM_LeReDoorSts "";
+BA_ "sigConfig" SG_ 835 BCM_LeReDoorSts "";
+BA_ "sigSecLevel" SG_ 835 BCM_LeReDoorSts "";
+BA_ "sigDespEng" SG_ 835 BCM_LeReDoorSts "";
+BA_ "sigExplanation" SG_ 1310 BCM_ApplianceClsLvl "";
+BA_ "sigConfig" SG_ 1310 BCM_ApplianceClsLvl "";
+BA_ "sigSecLevel" SG_ 1310 BCM_ApplianceClsLvl "";
+BA_ "sigDespEng" SG_ 1310 BCM_ApplianceClsLvl "";
+BA_ "sigExplanation" SG_ 784 CIM_SteerWhlHeatgSwtSts "";
+BA_ "sigConfig" SG_ 784 CIM_SteerWhlHeatgSwtSts "";
+BA_ "sigSecLevel" SG_ 784 CIM_SteerWhlHeatgSwtSts "";
+BA_ "sigDespEng" SG_ 784 CIM_SteerWhlHeatgSwtSts "";
+VAL_ 1060 ICC_424_KeepWakeUp_KL15 1 "Active" 0 "Inactive" ;
+VAL_ 1080 GW_438_KeepWakeUp_KL15 1 "Active" 0 "Inactive" ;
+VAL_ 819 PEPS_PwrMod 7 "Reserved" 6 "Reserved" 5 "Crank Off (Reserved)" 4 "Run" 3 "Crank Pending(动力防盗认证过程中)" 2 "IGN On" 1 "ACC (Reserved)" 0 "Off" ;
+VAL_ 819 PEPS_PwrModVld 3 "Reserved" 2 "Invalid" 1 "Valid" 0 "Initializing" ;
+VAL_ 1321 EHU_SteerWhlPhnKeyBackLi 3 "Reserved" 2 "Call 蓝牙电话来电" 1 "Incoming Call 来电" 0 "Normal 普通状态" ;
+VAL_ 1321 EHU_BackgndBriLvl 15 "Reserved" 14 "Reserved" 13 "Reserved" 12 "Reserved" 11 "Reserved" 10 "Reserved" 9 "Level 10" 8 "Level 9" 7 "Level 8" 6 "Level 7" 5 "Level 6" 4 "Level 5" 3 "Level 4" 2 "Level 3" 1 "Level 2" 0 "Level 1" ;
+VAL_ 1300 MFS_CustBtn 3 "Reserved" 2 "Long Press" 1 "Pressed" 0 "No Pressed" ;
+VAL_ 1300 MFS_ReturnBtn 3 "Reserved" 2 "Long Press" 1 "Pressed" 0 "No Pressed" ;
+VAL_ 1300 MFS_LeSwtDispMod 3 "Reserved" 2 "Long Press" 1 "Pressed" 0 "No Pressed" ;
+VAL_ 1300 MFS_RiSwtDispMod 3 "Reserved" 2 "Long Press" 1 "Pressed" 0 "No Pressed" ;
+VAL_ 1300 MFS_LeRollUp 7 "焦点向上7单位" 6 "焦点向上6单位" 5 "焦点向上5单位" 4 "焦点向上4单位" 3 "焦点向上3单位" 2 "焦点向上2单位" 1 "焦点向上1单位" 0 "No Pressed未按" ;
+VAL_ 1300 MFS_LeRollDwn 7 "焦点向下7单位" 6 "焦点向下6单位" 5 "焦点向下5单位" 4 "焦点向下4单位" 3 "焦点向下3单位" 2 "焦点向下2单位" 1 "焦点向下1单位" 0 "No Pressed未按" ;
+VAL_ 1300 MFS_LeRollPress 3 "长按(按键时间≥10s)" 2 "Long Press" 1 "Pressed" 0 "No Pressed" ;
+VAL_ 1300 MFS_SrcSwtBtn 3 "Reserved" 2 "Long Press" 1 "Pressed" 0 "No Pressed" ;
+VAL_ 1300 MFS_VoiceRctcnBtn 3 "Reserved" 2 "Long Press" 1 "Pressed" 0 "No Pressed" ;
+VAL_ 1300 MFS_PrevSongTuneSig 3 "Reserved" 2 "Long Press" 1 "Pressed" 0 "No Pressed" ;
+VAL_ 1300 MFS_NextSongTuneSig 3 "Reserved" 2 "Long Press" 1 "Pressed" 0 "No Pressed" ;
+VAL_ 1300 MFS_RiRollUp 7 "焦点向上7单位" 6 "焦点向上6单位" 5 "焦点向上5单位" 4 "焦点向上4单位" 3 "焦点向上3单位" 2 "焦点向上2单位" 1 "焦点向上1单位" 0 "No Pressed未按" ;
+VAL_ 1300 MFS_RiRollDwn 7 "焦点向下7单位" 6 "焦点向下6单位" 5 "焦点向下5单位" 4 "焦点向下4单位" 3 "焦点向下3单位" 2 "焦点向下2单位" 1 "焦点向下1单位" 0 "No Pressed未按" ;
+VAL_ 1300 MFS_RiRollPress 3 "Reserved" 2 "Long Press" 1 "Pressed" 0 "No Pressed" ;
+VAL_ 1300 MFS_SteerWhlHeatgIndcrLampSts 3 "Reserved" 2 "不满足加热条件" 1 "On" 0 "Off" ;
+VAL_ 792 ESP_VehSpdVld 3 "Reserved" 2 "Invalid" 1 "Valid" 0 "Initializing" ;
+VAL_ 821 BCM_PosnLampOutpCmd 3 "All On" 2 "Right Park On" 1 "Left Park On" 0 "Off" ;
+VAL_ 835 BCM_LeFrntDoorSts 1 "Open" 0 "Closed" ;
+VAL_ 835 BCM_RiFrntDoorSts 1 "Open" 0 "Closed" ;
+VAL_ 835 BCM_TrSts 1 "Open" 0 "Closed" ;
+VAL_ 835 BCM_AntithftSts 3 "报警" 2 "设防" 1 "预设防" 0 "解防" ;
+VAL_ 835 BCM_RiReDoorSts 1 "Open" 0 "Closed" ;
+VAL_ 835 BCM_LeReDoorSts 1 "Open" 0 "Closed" ;
+VAL_ 1310 BCM_ApplianceClsLvl 7 "Reserved" 6 "Reserved" 5 "Reserved" 4 "Reserved" 3 "关闭等级3" 2 "关闭等级2" 1 "关闭等级1" 0 "不关闭" ;
+VAL_ 784 CIM_SteerWhlHeatgSwtSts 3 "Invalid" 2 "Reserved" 1 "On 方向盘加热开关信号有效" 0 "Off 无效" ;
+

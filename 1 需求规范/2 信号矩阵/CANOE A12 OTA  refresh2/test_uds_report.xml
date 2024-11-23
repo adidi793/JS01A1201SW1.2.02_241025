@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<testmodule starttime="2024-10-14 00:41:38" timestamp="  11.733138" verdicts="2_basic">
+  <verdict time="2024-10-14 00:41:39" timestamp="  12.243138" endtime="2024-10-14 00:41:39" endtimestamp="  12.243138" result="pass" />
+  <title>test_uds</title>
+  <testlogfiles>
+    <testlogfile file="LOG\Logging.blf" logbegin="Active at test start" logend="Active at test end" />
+  </testlogfiles>
+  <engineer>
+    <xinfo>
+      <name>Windows Login Name</name>
+      <description>linboyi</description>
+    </xinfo>
+  </engineer>
+  <testsetup>
+    <xinfo>
+      <name>Version</name>
+      <description>CANoe.ISO11783.J1939.CANopen.CAN.LIN.MOST.FlexRay.J1587.Ethernet.AMD/XCP.Scope /pro 12.0.77 (SP1)</description>
+    </xinfo>
+    <xinfo>
+      <name>Configuration</name>
+      <description>E:\(0)Project\(6)Leap\4 软件测试\CANOE A12 OTA  refresh2\N60.cfg</description>
+    </xinfo>
+    <xinfo>
+      <name>Database BJEV_N60AB(EP2)_IBUS1_MFS_CAN_V2.0 on CAN</name>
+      <description>E:\(0)Project\(6)Leap\4 软件测试\CANOE A12 OTA  refresh2\BJEV_N60AB(EP2)_IBUS1_MFS_CAN_V2.0.dbc (2024-10-09 10:10:59)</description>
+    </xinfo>
+    <xinfo>
+      <name>Database BJEV_N61_fault on CAN</name>
+      <description>E:\(0)Project\(6)Leap\4 软件测试\CANOE A12 OTA  refresh2\BJEV_N61_fault.dbc (2024-10-09 10:10:44)</description>
+    </xinfo>
+    <xinfo>
+      <name>Database LP_CAN通讯协议_COM_CAN_SWB_20240705 on CAN</name>
+      <description>E:\(0)Project\(6)Leap\4 软件测试\CANOE A12 OTA  refresh2\LP_CAN通讯协议_COM_CAN_SWB_20240705.dbc (2024-10-09 10:10:23)</description>
+    </xinfo>
+    <xinfo>
+      <name>Database new on CAN</name>
+      <description>E:\(0)Project\(6)Leap\4 软件测试\CANOE A12 OTA  refresh2\\new.dbc (2024-10-09 10:09:55)</description>
+    </xinfo>
+    <xinfo>
+      <name>Diagnostic Description of GW</name>
+      <description>Base_Variant, en-US, E:\(0)Project\(6)Leap\4 软件测试\CANOE A12 OTA  refresh2\MFS_211210.cdd (V1.1, 2021-12-10 09:45:02+08:00)</description>
+    </xinfo>
+    <xinfo>
+      <name>Test Module Name</name>
+      <description>test_uds</description>
+    </xinfo>
+    <xinfo>
+      <name>Test Module File</name>
+      <description>E:\(0)Project\(6)Leap\4 软件测试\CANOE A12 OTA  refresh2\test_uds.can</description>
+    </xinfo>
+    <xinfo>
+      <name>Last modification of Test Module File</name>
+      <description>2024-10-14, 00:39:17</description>
+    </xinfo>
+    <xinfo>
+      <name>Windows Computer Name</name>
+      <description>LXX</description>
+    </xinfo>
+    <xinfo>
+      <name>Nodelayer Module OSEKNM01</name>
+      <description>OSEK-NM Vector Informatik GmbH 1.6.74 2017-09-20, D:\Program Files\Vector CANoe 12.0\Exec32\OSEKNM01.dll</description>
+    </xinfo>
+    <xinfo>
+      <name>Nodelayer Module J1939TestServiceLibraryNL</name>
+      <description>J1939 Test Service Library for CANoe, Version 12.0.77.0, D:\Program Files\Vector CANoe 12.0\Exec32\J1939TestServiceLibraryNL.dll</description>
+    </xinfo>
+    <xinfo>
+      <name>Nodelayer Module CANOEILNLVECTOR</name>
+      <description>CANoe Interaction Layer NL (Vector) Version 3.17.66 (Jan 30 2019 12:34:12) , D:\Program Files\Vector CANoe 12.0\Exec32\CANOEILNLVECTOR.DLL</description>
+    </xinfo>
+  </testsetup>
+  <hardware name="CAN Channel Interfaces" category="CategoryCANIF">
+    <xinfoset type="device">
+      <xinfoobject type="device">
+      <xinfo key="channel">
+        <name>Channel</name>
+        <description>1</description>
+      </xinfo>
+      <xinfo key="device">
+        <name>Device</name>
+        <description>CANcaseXL</description>
+      </xinfo>
+      <xinfo key="serialnumber">
+        <name>Serial number</name>
+        <description>64277</description>
+      </xinfo>
+      <xinfo key="driverdllversion">
+        <name>Driver DLL version</name>
+        <description>11.0.20</description>
+      </xinfo>
+      <xinfo key="driverversion">
+        <name>Driver version</name>
+        <description>8.7.16</description>
+      </xinfo>
+      </xinfoobject>
+    </xinfoset>
+  </hardware>
+</testmodule>
+<!--footprint="5c093a871a648095b79ac014397ff12c" version="1"-->

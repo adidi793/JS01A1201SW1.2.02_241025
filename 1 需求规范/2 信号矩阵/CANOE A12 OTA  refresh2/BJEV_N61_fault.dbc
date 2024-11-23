@@ -1,0 +1,543 @@
+VERSION ""
+
+
+NS_ : 
+	NS_DESC_
+	CM_
+	BA_DEF_
+	BA_
+	VAL_
+	CAT_DEF_
+	CAT_
+	FILTER
+	BA_DEF_DEF_
+	EV_DATA_
+	ENVVAR_DATA_
+	SGTYPE_
+	SGTYPE_VAL_
+	BA_DEF_SGTYPE_
+	BA_SGTYPE_
+	SIG_TYPE_REF_
+	VAL_TABLE_
+	SIG_GROUP_
+	SIG_VALTYPE_
+	SIGTYPE_VALTYPE_
+	BO_TX_BU_
+	BA_DEF_REL_
+	BA_REL_
+	BA_DEF_DEF_REL_
+	BU_SG_REL_
+	BU_EV_REL_
+	BU_BO_REL_
+	SG_MUL_VAL_
+
+BS_:
+
+BU_: TestNode
+
+
+BO_ 144 TestFrame_170: 8 TestNode
+
+BO_ 78 TestFrame_169: 8 TestNode
+
+BO_ 82 TestFrame_168: 8 TestNode
+
+BO_ 98 TestFrame_167: 8 TestNode
+
+BO_ 70 TestFrame_166: 8 TestNode
+
+BO_ 54 TestFrame_161: 8 TestNode
+
+BO_ 48 TestFrame_160: 8 TestNode
+
+BO_ 53 TestFrame_157: 8 TestNode
+
+BO_ 100 TestFrame_140: 8 TestNode
+
+BO_ 1955 TestFrame_138: 8 TestNode
+
+BO_ 125 TestFrame_137: 8 TestNode
+
+BO_ 122 TestFrame_136: 8 TestNode
+
+BO_ 119 TestFrame_135: 8 TestNode
+
+BO_ 115 TestFrame_134: 8 TestNode
+
+BO_ 1971 TestFrame_132: 8 TestNode
+
+BO_ 1066 TestFrame_131: 8 TestNode
+
+BO_ 1065 TestFrame_130: 8 TestNode
+
+BO_ 1064 TestFrame_129: 8 TestNode
+
+BO_ 1063 TestFrame_128: 8 TestNode
+
+BO_ 1682 TestFrame_127: 8 TestNode
+
+BO_ 1639 TestFrame_126: 8 TestNode
+
+BO_ 1627 TestFrame_125: 8 TestNode
+
+BO_ 1659 TestFrame_123: 8 TestNode
+
+BO_ 1573 TestFrame_122: 8 TestNode
+
+BO_ 1572 TestFrame_121: 8 TestNode
+
+BO_ 1062 TestFrame_120: 8 TestNode
+
+BO_ 1658 TestFrame_119: 8 TestNode
+
+BO_ 1552 TestFrame_118: 8 TestNode
+
+BO_ 1657 TestFrame_117: 8 TestNode
+
+BO_ 1601 TestFrame_116: 8 TestNode
+
+BO_ 1061 TestFrame_115: 8 TestNode
+
+BO_ 1655 TestFrame_114: 8 TestNode
+
+BO_ 1056 TestFrame_113: 8 TestNode
+
+BO_ 1048 TestFrame_112: 8 TestNode
+
+BO_ 1035 TestFrame_111: 8 TestNode
+
+BO_ 1028 TestFrame_110: 8 TestNode
+
+BO_ 1417 TestFrame_109: 8 TestNode
+
+BO_ 1084 TestFrame_108: 8 TestNode
+
+BO_ 1642 TestFrame_107: 8 TestNode
+
+BO_ 1654 TestFrame_106: 8 TestNode
+
+BO_ 1583 TestFrame_105: 8 TestNode
+
+BO_ 1077 TestFrame_104: 8 TestNode
+
+BO_ 1170 TestFrame_103: 8 TestNode
+
+BO_ 1641 TestFrame_102: 8 TestNode
+
+BO_ 1416 TestFrame_101: 8 TestNode
+
+BO_ 921 TestFrame_100: 8 TestNode
+
+BO_ 883 TestFrame_99: 8 TestNode
+
+BO_ 896 TestFrame_98: 8 TestNode
+
+BO_ 891 TestFrame_97: 8 TestNode
+
+BO_ 1331 TestFrame_96: 8 TestNode
+
+BO_ 1330 TestFrame_95: 8 TestNode
+
+BO_ 1328 TestFrame_94: 8 TestNode
+
+BO_ 1320 TestFrame_93: 8 TestNode
+
+BO_ 1318 TestFrame_92: 8 TestNode
+
+BO_ 822 TestFrame_91: 8 TestNode
+
+BO_ 1397 TestFrame_88: 8 TestNode
+
+BO_ 1386 TestFrame_87: 8 TestNode
+
+BO_ 1381 TestFrame_86: 8 TestNode
+
+BO_ 1299 TestFrame_85: 8 TestNode
+
+BO_ 1393 TestFrame_84: 8 TestNode
+
+BO_ 1362 TestFrame_83: 8 TestNode
+
+BO_ 1289 TestFrame_82: 8 TestNode
+
+BO_ 1337 TestFrame_81: 8 TestNode
+
+BO_ 1311 TestFrame_80: 8 TestNode
+
+BO_ 1669 TestFrame_79: 8 TestNode
+
+BO_ 1643 TestFrame_78: 8 TestNode
+
+BO_ 1476 TestFrame_77: 8 TestNode
+
+BO_ 851 TestFrame_76: 8 TestNode
+
+BO_ 801 TestFrame_75: 8 TestNode
+
+BO_ 1264 TestFrame_74: 8 TestNode
+
+BO_ 793 TestFrame_73: 8 TestNode
+
+BO_ 818 TestFrame_72: 8 TestNode
+
+BO_ 1390 TestFrame_71: 8 TestNode
+
+BO_ 1364 TestFrame_70: 8 TestNode
+
+BO_ 816 TestFrame_69: 8 TestNode
+
+BO_ 1314 TestFrame_68: 8 TestNode
+
+BO_ 847 TestFrame_67: 8 TestNode
+
+BO_ 845 TestFrame_66: 8 TestNode
+
+BO_ 843 TestFrame_65: 8 TestNode
+
+BO_ 831 TestFrame_64: 8 TestNode
+
+BO_ 829 TestFrame_63: 8 TestNode
+
+BO_ 827 TestFrame_62: 8 TestNode
+
+BO_ 815 TestFrame_61: 8 TestNode
+
+BO_ 813 TestFrame_60: 8 TestNode
+
+BO_ 811 TestFrame_59: 8 TestNode
+
+BO_ 1313 TestFrame_58: 8 TestNode
+
+BO_ 1304 TestFrame_57: 8 TestNode
+
+BO_ 1298 TestFrame_56: 8 TestNode
+
+BO_ 1269 TestFrame_55: 8 TestNode
+
+BO_ 1267 TestFrame_54: 8 TestNode
+
+BO_ 1265 TestFrame_53: 8 TestNode
+
+BO_ 808 TestFrame_52: 8 TestNode
+
+BO_ 1358 TestFrame_51: 8 TestNode
+
+BO_ 1338 TestFrame_50: 8 TestNode
+
+BO_ 1067 TestFrame_49: 8 TestNode
+
+BO_ 927 TestFrame_48: 8 TestNode
+
+BO_ 926 TestFrame_47: 8 TestNode
+
+BO_ 925 TestFrame_46: 8 TestNode
+
+BO_ 923 TestFrame_45: 8 TestNode
+
+BO_ 922 TestFrame_44: 8 TestNode
+
+BO_ 920 TestFrame_43: 8 TestNode
+
+BO_ 919 TestFrame_42: 8 TestNode
+
+BO_ 918 TestFrame_41: 8 TestNode
+
+BO_ 917 TestFrame_40: 8 TestNode
+
+BO_ 916 TestFrame_39: 8 TestNode
+
+BO_ 915 TestFrame_38: 8 TestNode
+
+BO_ 914 TestFrame_37: 8 TestNode
+
+BO_ 582 TestFrame_36: 8 TestNode
+
+BO_ 774 TestFrame_35: 8 TestNode
+
+BO_ 773 TestFrame_34: 8 TestNode
+
+BO_ 616 TestFrame_33: 8 TestNode
+
+BO_ 913 TestFrame_32: 8 TestNode
+
+BO_ 912 TestFrame_31: 8 TestNode
+
+BO_ 911 TestFrame_30: 8 TestNode
+
+BO_ 910 TestFrame_29: 8 TestNode
+
+BO_ 909 TestFrame_28: 8 TestNode
+
+BO_ 907 TestFrame_27: 8 TestNode
+
+BO_ 393 TestFrame_26: 8 TestNode
+
+BO_ 905 TestFrame_25: 8 TestNode
+
+BO_ 904 TestFrame_24: 8 TestNode
+
+BO_ 903 TestFrame_23: 8 TestNode
+
+BO_ 878 TestFrame_22: 8 TestNode
+
+BO_ 875 TestFrame_21: 8 TestNode
+
+BO_ 660 TestFrame_20: 8 TestNode
+
+BO_ 805 TestFrame_19: 8 TestNode
+
+BO_ 855 TestFrame_18: 8 TestNode
+
+BO_ 803 TestFrame_17: 8 TestNode
+
+BO_ 532 TestFrame_16: 8 TestNode
+
+BO_ 537 TestFrame_15: 8 TestNode
+
+BO_ 450 TestFrame_14: 8 TestNode
+
+BO_ 1137 TestFrame_13: 8 TestNode
+
+BO_ 823 TestFrame_12: 8 TestNode
+
+BO_ 578 TestFrame11: 8 TestNode
+
+BO_ 566 TestFrame10: 8 TestNode
+
+BO_ 454 TestFrame_09: 8 TestNode
+
+BO_ 549 TestFrame_08: 8 TestNode
+
+BO_ 331 TestFrame_007: 8 TestNode
+
+BO_ 293 TestFrame_06: 8 TestNode
+
+BO_ 837 TestFrame_05: 8 TestNode
+
+BO_ 1350 TestFrame_04: 8 TestNode
+
+BO_ 348 TestFrame_03: 8 TestNode
+
+BO_ 438 TestFrame_02: 8 TestNode
+
+BO_ 1297 TestFram_01: 8 TestNode
+
+
+
+CM_ "Version:V1.0,Date:2019/5/16,Author:Àî¹úÃÈ,Review:,Approval:,Description:(MFS)»ùÓÚ¡¶BJEV_N60AB(EP1-3)_IBUS1_Matrix_CAN_V3.1_20190315¡·£¬±àÖÆEP2½×¶Î³õ°æÐ­Òé¡£;
+Version:V1.0,Date:2019/5/20,Author:Àî¹úÃÈ,Review:,Approval:,Description:(MFS)Event±¨ÎÄ£¬ÐÅºÅ·¢ËÍÀàÐÍ¡°OnWrite¡±¾ù¸ÄÎª¡°OnWriteWithRepetition¡±¡££¨±ä¸üÀ´Ô´£º20190422Ñî¿­OA±ä¸üµ¥£©;
+Version:V1.0,Date:2019/6/19,Author:Àî¹úÃÈ,Review:,Approval:,Description:(MFS)MFSÐÂÔö½ÓÊÕICC_0x529µÄ¡°±³¾°¹âÁÁ¶ÈµÈ¼¶¡±¡££¨±ä¸üÀ´Ô´£º20180525Ö£¹ú³¼OA±ä¸üµ¥£©;
+Version:V1.0,Date:2019/6/19,Author:Àî¹úÃÈ,Review:,Approval:,Description:(MFS)ICC_0x529£¬¡°EHU_SteerWhlPhnKeyBackLi ·½ÏòÅÌµç»°°´¼ü±³¹â¡±ÐÅºÅ¸üÐÂ£¬ÎïÀíÖµ·¶Î§À©´ó£¬µ÷ÕûÎ»ÖÃ¡££¨±ä¸üÀ´Ô´£º20180525Ö£¹ú³¼OA±ä¸üµ¥£©;
+Version:V1.0,Date:2019/6/19,Author:Àî¹úÃÈ,Review:,Approval:,Description:(MFS)MFSÐÂÔö½ÓÊÕCIM_0x310µÄ¡°CIM_SteerWhlHeatgSwtSts  ·½ÏòÅÌ¼ÓÈÈ¿ª¹Ø×´Ì¬¡±¡££¨±ä¸üÀ´Ô´£º20180525Ö£¹ú³¼OA±ä¸üµ¥£©;
+Version:V1.0,Date:2019/6/19,Author:Àî¹úÃÈ,Review:,Approval:,Description:(MFS)MFSÐÂÔö½ÓÊÕBCM_0x335µÄ¡°BCM_PosnLampOutpCmd 
+Î»ÖÃµ";
+BA_DEF_ BO_  "NmMessage" ENUM  "No","Yes";
+BA_DEF_ BO_  "DiagState" ENUM  "No","Yes";
+BA_DEF_ BO_  "DiagRequest" ENUM  "No","Yes";
+BA_DEF_ BO_  "DiagResponse" ENUM  "No","Yes";
+BA_DEF_ BO_  "GenMsgSendType" ENUM  "cyclic","NoMsgSendType","IfActive","Event","CA","CE";
+BA_DEF_ BO_  "GenMsgCycleTime" INT 0 0;
+BA_DEF_ SG_  "GenSigSendType" ENUM  "cyclic","OnChange","OnWrite","IfActive","OnChangeWithRepetition","OnWriteWithRepetition","IfActiveWithRepetition","NoSigSendType","OnChangeAndIfActive","OnChangeAndIfActiveWithRepetition","CA","CE","Event";
+BA_DEF_ SG_  "GenSigStartValue" INT 0 0;
+BA_DEF_ SG_  "GenSigInactiveValue" INT 0 0;
+BA_DEF_ BO_  "GenMsgCycleTimeFast" INT 0 0;
+BA_DEF_ BO_  "GenMsgNrOfRepetition" INT 0 0;
+BA_DEF_ BO_  "GenMsgDelayTime" INT 0 0;
+BA_DEF_  "DBName" STRING ;
+BA_DEF_  "BusBaudate" INT 0 10000;
+BA_DEF_ BU_  "NodeLayerModules" STRING ;
+BA_DEF_ SG_  "GenSigTimeoutValue" INT 0 1000000000;
+BA_DEF_ BO_  "GenMsgCycleTimeActive" INT 0 0;
+BA_DEF_ BU_  "ILUsed" ENUM  "No","Yes";
+BA_DEF_ BU_  "NmNode" ENUM  "Not","Yes";
+BA_DEF_ BU_  "NmStationAddress" HEX 0 65535;
+BA_DEF_ BU_  "NmCAN" INT 0 2;
+BA_DEF_  "Manufacturer" STRING ;
+BA_DEF_  "NmType" STRING ;
+BA_DEF_  "NmBaseAddress" HEX 0 2047;
+BA_DEF_  "NmMessageCount" INT 0 255;
+BA_DEF_ BO_  "GenMsgILSupport" ENUM  "No","Yes";
+BA_DEF_ BO_  "GenMsgStartDelayTime" INT 0 65535;
+BA_DEF_  "BusType" STRING ;
+BA_DEF_ SG_  "sigDespEng" STRING ;
+BA_DEF_ SG_  "sigSecLevel" STRING ;
+BA_DEF_ SG_  "sigConfig" STRING ;
+BA_DEF_ SG_  "sigExplanation" STRING ;
+BA_DEF_DEF_  "NmMessage" "No";
+BA_DEF_DEF_  "DiagState" "No";
+BA_DEF_DEF_  "DiagRequest" "No";
+BA_DEF_DEF_  "DiagResponse" "No";
+BA_DEF_DEF_  "GenMsgSendType" "cyclic";
+BA_DEF_DEF_  "GenMsgCycleTime" 0;
+BA_DEF_DEF_  "GenSigSendType" "cyclic";
+BA_DEF_DEF_  "GenSigStartValue" 0;
+BA_DEF_DEF_  "GenSigInactiveValue" 0;
+BA_DEF_DEF_  "GenMsgCycleTimeFast" 0;
+BA_DEF_DEF_  "GenMsgNrOfRepetition" 0;
+BA_DEF_DEF_  "GenMsgDelayTime" 0;
+BA_DEF_DEF_  "DBName" "";
+BA_DEF_DEF_  "BusBaudate" 500;
+BA_DEF_DEF_  "NodeLayerModules" "CANoeILNLVector.dll";
+BA_DEF_DEF_  "GenSigTimeoutValue" 0;
+BA_DEF_DEF_  "GenMsgCycleTimeActive" 0;
+BA_DEF_DEF_  "ILUsed" "No";
+BA_DEF_DEF_  "NmNode" "Not";
+BA_DEF_DEF_  "NmStationAddress" 0;
+BA_DEF_DEF_  "NmCAN" 0;
+BA_DEF_DEF_  "Manufacturer" "";
+BA_DEF_DEF_  "NmType" "";
+BA_DEF_DEF_  "NmBaseAddress" 1024;
+BA_DEF_DEF_  "NmMessageCount" 128;
+BA_DEF_DEF_  "GenMsgILSupport" "No";
+BA_DEF_DEF_  "GenMsgStartDelayTime" 0;
+BA_DEF_DEF_  "BusType" "CAN";
+BA_DEF_DEF_  "sigDespEng" "";
+BA_DEF_DEF_  "sigSecLevel" "QM";
+BA_DEF_DEF_  "sigConfig" "";
+BA_DEF_DEF_  "sigExplanation" "";
+BA_ "BusBaudate" 500;
+BA_ "DBName" "BJEV_N60ABEP2_IBUS1_Matrix_CAN_V";
+BA_ "GenMsgCycleTime" BO_ 144 300;
+BA_ "GenMsgCycleTime" BO_ 78 220;
+BA_ "GenMsgCycleTime" BO_ 82 200;
+BA_ "GenMsgCycleTime" BO_ 98 20;
+BA_ "GenMsgCycleTime" BO_ 70 100;
+BA_ "GenMsgCycleTime" BO_ 54 20;
+BA_ "GenMsgCycleTime" BO_ 48 200;
+BA_ "GenMsgCycleTime" BO_ 53 100;
+BA_ "GenMsgCycleTime" BO_ 100 20;
+BA_ "GenMsgCycleTime" BO_ 1955 20;
+BA_ "GenMsgCycleTime" BO_ 125 1320;
+BA_ "GenMsgCycleTime" BO_ 122 1320;
+BA_ "GenMsgCycleTime" BO_ 119 1320;
+BA_ "GenMsgCycleTime" BO_ 115 1320;
+BA_ "GenMsgCycleTime" BO_ 1971 40;
+BA_ "GenMsgCycleTime" BO_ 1066 1400;
+BA_ "GenMsgCycleTime" BO_ 1065 1400;
+BA_ "GenMsgCycleTime" BO_ 1064 1400;
+BA_ "GenMsgCycleTime" BO_ 1063 1400;
+BA_ "GenMsgCycleTime" BO_ 1682 1000;
+BA_ "GenMsgCycleTime" BO_ 1639 1000;
+BA_ "GenMsgCycleTime" BO_ 1627 1000;
+BA_ "GenMsgCycleTime" BO_ 1659 1000;
+BA_ "GenMsgCycleTime" BO_ 1573 1000;
+BA_ "GenMsgCycleTime" BO_ 1572 1000;
+BA_ "GenMsgCycleTime" BO_ 1062 1400;
+BA_ "GenMsgCycleTime" BO_ 1658 1000;
+BA_ "GenMsgCycleTime" BO_ 1552 1000;
+BA_ "GenMsgCycleTime" BO_ 1657 1000;
+BA_ "GenMsgCycleTime" BO_ 1601 1000;
+BA_ "GenMsgCycleTime" BO_ 1061 1400;
+BA_ "GenMsgCycleTime" BO_ 1655 1000;
+BA_ "GenMsgCycleTime" BO_ 1056 1400;
+BA_ "GenMsgCycleTime" BO_ 1048 1400;
+BA_ "GenMsgCycleTime" BO_ 1035 1400;
+BA_ "GenMsgCycleTime" BO_ 1028 1400;
+BA_ "GenMsgCycleTime" BO_ 1417 500;
+BA_ "GenMsgCycleTime" BO_ 1084 1400;
+BA_ "GenMsgCycleTime" BO_ 1642 1000;
+BA_ "GenMsgCycleTime" BO_ 1654 1020;
+BA_ "GenMsgCycleTime" BO_ 1583 1000;
+BA_ "GenMsgCycleTime" BO_ 1077 1400;
+BA_ "GenMsgCycleTime" BO_ 1170 100;
+BA_ "GenMsgCycleTime" BO_ 1641 1000;
+BA_ "GenMsgCycleTime" BO_ 1416 500;
+BA_ "GenMsgCycleTime" BO_ 921 100;
+BA_ "GenMsgCycleTime" BO_ 883 100;
+BA_ "GenMsgCycleTime" BO_ 896 100;
+BA_ "GenMsgCycleTime" BO_ 891 100;
+BA_ "GenMsgCycleTime" BO_ 1331 100;
+BA_ "GenMsgCycleTime" BO_ 1330 100;
+BA_ "GenMsgCycleTime" BO_ 1328 100;
+BA_ "GenMsgCycleTime" BO_ 1320 100;
+BA_ "GenMsgCycleTime" BO_ 1318 100;
+BA_ "GenMsgCycleTime" BO_ 822 100;
+BA_ "GenMsgCycleTime" BO_ 1397 100;
+BA_ "GenMsgCycleTime" BO_ 1386 100;
+BA_ "GenMsgCycleTime" BO_ 1381 100;
+BA_ "GenMsgCycleTime" BO_ 1299 100;
+BA_ "GenMsgCycleTime" BO_ 1393 100;
+BA_ "GenMsgCycleTime" BO_ 1362 100;
+BA_ "GenMsgCycleTime" BO_ 1289 100;
+BA_ "GenMsgCycleTime" BO_ 1337 100;
+BA_ "GenMsgCycleTime" BO_ 1311 100;
+BA_ "GenMsgCycleTime" BO_ 1669 1000;
+BA_ "GenMsgCycleTime" BO_ 1643 1000;
+BA_ "GenMsgCycleTime" BO_ 1476 100;
+BA_ "GenMsgCycleTime" BO_ 851 100;
+BA_ "GenMsgCycleTime" BO_ 801 50;
+BA_ "GenMsgCycleTime" BO_ 1264 100;
+BA_ "GenMsgCycleTime" BO_ 793 50;
+BA_ "GenMsgCycleTime" BO_ 818 50;
+BA_ "GenMsgCycleTime" BO_ 1390 100;
+BA_ "GenMsgCycleTime" BO_ 1364 100;
+BA_ "GenMsgCycleTime" BO_ 816 50;
+BA_ "GenMsgCycleTime" BO_ 1314 100;
+BA_ "GenMsgCycleTime" BO_ 847 40;
+BA_ "GenMsgCycleTime" BO_ 845 40;
+BA_ "GenMsgCycleTime" BO_ 843 40;
+BA_ "GenMsgCycleTime" BO_ 831 40;
+BA_ "GenMsgCycleTime" BO_ 829 40;
+BA_ "GenMsgCycleTime" BO_ 827 40;
+BA_ "GenMsgCycleTime" BO_ 815 40;
+BA_ "GenMsgCycleTime" BO_ 813 40;
+BA_ "GenMsgCycleTime" BO_ 811 40;
+BA_ "GenMsgCycleTime" BO_ 1313 100;
+BA_ "GenMsgCycleTime" BO_ 1304 100;
+BA_ "GenMsgCycleTime" BO_ 1298 100;
+BA_ "GenMsgCycleTime" BO_ 1269 100;
+BA_ "GenMsgCycleTime" BO_ 1267 100;
+BA_ "GenMsgCycleTime" BO_ 1265 100;
+BA_ "GenMsgCycleTime" BO_ 808 50;
+BA_ "GenMsgCycleTime" BO_ 1358 100;
+BA_ "GenMsgCycleTime" BO_ 1338 100;
+BA_ "GenMsgCycleTime" BO_ 1067 1400;
+BA_ "GenMsgCycleTime" BO_ 927 100;
+BA_ "GenMsgCycleTime" BO_ 926 100;
+BA_ "GenMsgCycleTime" BO_ 925 100;
+BA_ "GenMsgCycleTime" BO_ 923 100;
+BA_ "GenMsgCycleTime" BO_ 922 100;
+BA_ "GenMsgCycleTime" BO_ 920 100;
+BA_ "GenMsgCycleTime" BO_ 919 100;
+BA_ "GenMsgCycleTime" BO_ 918 100;
+BA_ "GenMsgCycleTime" BO_ 917 100;
+BA_ "GenMsgCycleTime" BO_ 916 100;
+BA_ "GenMsgCycleTime" BO_ 915 100;
+BA_ "GenMsgCycleTime" BO_ 914 100;
+BA_ "GenMsgCycleTime" BO_ 582 20;
+BA_ "GenMsgCycleTime" BO_ 774 20;
+BA_ "GenMsgCycleTime" BO_ 773 20;
+BA_ "GenMsgCycleTime" BO_ 616 20;
+BA_ "GenMsgCycleTime" BO_ 913 100;
+BA_ "GenMsgCycleTime" BO_ 912 100;
+BA_ "GenMsgCycleTime" BO_ 911 100;
+BA_ "GenMsgCycleTime" BO_ 910 100;
+BA_ "GenMsgCycleTime" BO_ 909 100;
+BA_ "GenMsgCycleTime" BO_ 907 100;
+BA_ "GenMsgCycleTime" BO_ 393 20;
+BA_ "GenMsgCycleTime" BO_ 905 100;
+BA_ "GenMsgCycleTime" BO_ 904 100;
+BA_ "GenMsgCycleTime" BO_ 903 100;
+BA_ "GenMsgCycleTime" BO_ 878 100;
+BA_ "GenMsgCycleTime" BO_ 875 100;
+BA_ "GenMsgCycleTime" BO_ 660 20;
+BA_ "GenMsgCycleTime" BO_ 805 40;
+BA_ "GenMsgCycleTime" BO_ 855 100;
+BA_ "GenMsgCycleTime" BO_ 803 40;
+BA_ "GenMsgCycleTime" BO_ 532 10;
+BA_ "GenMsgCycleTime" BO_ 537 20;
+BA_ "GenMsgCycleTime" BO_ 450 10;
+BA_ "GenMsgCycleTime" BO_ 1137 100;
+BA_ "GenMsgCycleTime" BO_ 823 100;
+BA_ "GenMsgCycleTime" BO_ 578 10;
+BA_ "GenMsgCycleTime" BO_ 566 20;
+BA_ "GenMsgCycleTime" BO_ 454 10;
+BA_ "GenMsgCycleTime" BO_ 549 20;
+BA_ "GenMsgCycleTime" BO_ 331 10;
+BA_ "GenMsgCycleTime" BO_ 293 10;
+BA_ "GenMsgCycleTime" BO_ 837 50;
+BA_ "GenMsgCycleTime" BO_ 1350 100;
+BA_ "GenMsgCycleTime" BO_ 348 10;
+BA_ "GenMsgCycleTime" BO_ 438 10;
+BA_ "GenMsgCycleTime" BO_ 1297 100;
+

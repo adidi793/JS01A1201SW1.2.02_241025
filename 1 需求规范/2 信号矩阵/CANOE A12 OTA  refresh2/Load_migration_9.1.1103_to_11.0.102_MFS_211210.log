@@ -1,0 +1,222 @@
+Encoding: utf-8
+Detected dtd version 9.1.1103
+VCANdelaPersistorImpl::GetFileVersion: DTD version '9.1.1103' detected
+Loading 'E:\(0)Project\(6)Leap\4 软件测试\CANOE_TEST_hex（20230131）\MFS_211210.cdd'...
+  dtd version: file 9.1.1103, program 11.0.102
+Document supports the languages (en-US)
+Document contains the uptodate languages (en-US)
+Template: Vector UDS
+  template data loaded
+  variant 'Base_Variant' loaded
+Document version: V1.1
+Done loading.
+Checking consistency of document. This may take a while, please be patient...
+Namespace 'Diagnostic class': Non-unique names found:
+   (qpath:/Base_Variant/ECU_Identification/DID_0xF196_1_2)
+   (qpath:/Base_Variant/ECU_Identification/DID_0xF196_1_3)
+Warning: The Failure Type Byte  '0x71' of DTC '0x996071: 自定义功能按键长时间（30S）卡滞故障'  of 'qpath:/Base_Variant/FaultMemory' is not a valid value of the FMI/FTB datatype 'qpath://[DATATYPE]SAE_J2012_Failure_Type_Byte'.
+Warning: The Failure Type Byte  '0x71' of DTC '0x996171: 返回功能按键长时间（30S）卡滞故障'  of 'qpath:/Base_Variant/FaultMemory' is not a valid value of the FMI/FTB datatype 'qpath://[DATATYPE]SAE_J2012_Failure_Type_Byte'.
+Warning: The Failure Type Byte  '0x71' of DTC '0x996271: 向左切换仪表按键长时间（30S）卡滞故障'  of 'qpath:/Base_Variant/FaultMemory' is not a valid value of the FMI/FTB datatype 'qpath://[DATATYPE]SAE_J2012_Failure_Type_Byte'.
+Warning: The Failure Type Byte  '0x71' of DTC '0x996371: 向右切换仪表按键长时间（30S）卡滞故障'  of 'qpath:/Base_Variant/FaultMemory' is not a valid value of the FMI/FTB datatype 'qpath://[DATATYPE]SAE_J2012_Failure_Type_Byte'.
+Warning: The Failure Type Byte  '0x71' of DTC '0x996471: 左侧滚轮（上滚）按键长时间（30S）卡滞故障'  of 'qpath:/Base_Variant/FaultMemory' is not a valid value of the FMI/FTB datatype 'qpath://[DATATYPE]SAE_J2012_Failure_Type_Byte'.
+Warning: The Failure Type Byte  '0x71' of DTC '0x996571: 左侧滚轮（下滚）按键长时间（30S）卡滞故障'  of 'qpath:/Base_Variant/FaultMemory' is not a valid value of the FMI/FTB datatype 'qpath://[DATATYPE]SAE_J2012_Failure_Type_Byte'.
+Warning: The Failure Type Byte  '0x71' of DTC '0x996671: 左侧滚轮（按下）按键长时间（30S）卡滞故障'  of 'qpath:/Base_Variant/FaultMemory' is not a valid value of the FMI/FTB datatype 'qpath://[DATATYPE]SAE_J2012_Failure_Type_Byte'.
+Warning: The Failure Type Byte  '0x71' of DTC '0x996771: MODE功能按键长时间（30S）卡滞故障'  of 'qpath:/Base_Variant/FaultMemory' is not a valid value of the FMI/FTB datatype 'qpath://[DATATYPE]SAE_J2012_Failure_Type_Byte'.
+Warning: The Failure Type Byte  '0x71' of DTC '0x996871: 语音识别功能按键长时间（30S）卡滞故障'  of 'qpath:/Base_Variant/FaultMemory' is not a valid value of the FMI/FTB datatype 'qpath://[DATATYPE]SAE_J2012_Failure_Type_Byte'.
+Warning: The Failure Type Byte  '0x71' of DTC '0x996971: 上一曲功能按键长时间（30S）卡滞故障'  of 'qpath:/Base_Variant/FaultMemory' is not a valid value of the FMI/FTB datatype 'qpath://[DATATYPE]SAE_J2012_Failure_Type_Byte'.
+Warning: The Failure Type Byte  '0x71' of DTC '0x996A71: 下一曲功能按键长时间（30S）卡滞故障'  of 'qpath:/Base_Variant/FaultMemory' is not a valid value of the FMI/FTB datatype 'qpath://[DATATYPE]SAE_J2012_Failure_Type_Byte'.
+Warning: The Failure Type Byte  '0x71' of DTC '0x996B71: 右侧滚轮（上滚）功能按键长时间（30S）卡滞故障'  of 'qpath:/Base_Variant/FaultMemory' is not a valid value of the FMI/FTB datatype 'qpath://[DATATYPE]SAE_J2012_Failure_Type_Byte'.
+Warning: The Failure Type Byte  '0x71' of DTC '0x996C71: 右侧滚轮（下滚）功能按键长时间（30S）卡滞故障'  of 'qpath:/Base_Variant/FaultMemory' is not a valid value of the FMI/FTB datatype 'qpath://[DATATYPE]SAE_J2012_Failure_Type_Byte'.
+Warning: The Failure Type Byte  '0x71' of DTC '0x996D71: 右侧滚轮（按下）功能按键长时间（30S）卡滞故障'  of 'qpath:/Base_Variant/FaultMemory' is not a valid value of the FMI/FTB datatype 'qpath://[DATATYPE]SAE_J2012_Failure_Type_Byte'.
+Warning: The Failure Type Byte  '0x87' of DTC '0xD72187: MFS与ICC通讯丢失'  of 'qpath:/Base_Variant/FaultMemory' is not a valid value of the FMI/FTB datatype 'qpath://[DATATYPE]SAE_J2012_Failure_Type_Byte'.
+Warning: The Failure Type Byte  '0x87' of DTC '0xD72287: MFS与BCM通讯丢失'  of 'qpath:/Base_Variant/FaultMemory' is not a valid value of the FMI/FTB datatype 'qpath://[DATATYPE]SAE_J2012_Failure_Type_Byte'.
+Warning: The Failure Type Byte  '0x87' of DTC '0xD72387: MFS与PEPS通讯丢失'  of 'qpath:/Base_Variant/FaultMemory' is not a valid value of the FMI/FTB datatype 'qpath://[DATATYPE]SAE_J2012_Failure_Type_Byte'.
+Warning: The Failure Type Byte  '0x87' of DTC '0xD72487: MFS与CIM通讯丢失'  of 'qpath:/Base_Variant/FaultMemory' is not a valid value of the FMI/FTB datatype 'qpath://[DATATYPE]SAE_J2012_Failure_Type_Byte'.
+Warning: The Failure Type Byte  '0x86' of DTC '0xD72586: MFS NM Limphome故障'  of 'qpath:/Base_Variant/FaultMemory' is not a valid value of the FMI/FTB datatype 'qpath://[DATATYPE]SAE_J2012_Failure_Type_Byte'.
+Warning: The Failure Type Byte  '0x88' of DTC '0xD72688: CAN总线通信故障'  of 'qpath:/Base_Variant/FaultMemory' is not a valid value of the FMI/FTB datatype 'qpath://[DATATYPE]SAE_J2012_Failure_Type_Byte'.
+Shortcut Qualifier 'DID_0xF196_Read' of service 'qpath:/Base_Variant/ECU_Identification/DID_0xF196/[SERVICE]Read' is also used by service 'qpath:/Base_Variant/ECU_Identification/DID_0xF196_1/[SERVICE]Read'.
+Shortcut Qualifiers must be unique within a variant.
+Please change the Shortcut Qualifier to resolve the conflict.
+
+Shortcut Qualifier 'DID_0xF196_Write' of service 'qpath:/Base_Variant/ECU_Identification/DID_0xF196/[SERVICE]Write' is also used by service 'qpath:/Base_Variant/ECU_Identification/DID_0xF196_1_1/[SERVICE]Write'.
+Shortcut Qualifiers must be unique within a variant.
+Please change the Shortcut Qualifier to resolve the conflict.
+
+Shortcut Qualifier 'DID_0xF196_Read' of service 'qpath:/Base_Variant/ECU_Identification/DID_0xF196_1_2/[SERVICE]Read' is also used by service 'qpath:/Base_Variant/ECU_Identification/DID_0xF196_1/[SERVICE]Read'.
+Shortcut Qualifiers must be unique within a variant.
+Please change the Shortcut Qualifier to resolve the conflict.
+
+Shortcut Qualifier 'DID_0xF196_Write' of service 'qpath:/Base_Variant/ECU_Identification/DID_0xF196_1_2/[SERVICE]Write' is also used by service 'qpath:/Base_Variant/ECU_Identification/DID_0xF196_1_1/[SERVICE]Write'.
+Shortcut Qualifiers must be unique within a variant.
+Please change the Shortcut Qualifier to resolve the conflict.
+
+Shortcut Qualifier 'DID_0xF196_Read' of service 'qpath:/Base_Variant/ECU_Identification/DID_0xF196_1_3/[SERVICE]Read' is also used by service 'qpath:/Base_Variant/ECU_Identification/DID_0xF196_1/[SERVICE]Read'.
+Shortcut Qualifiers must be unique within a variant.
+Please change the Shortcut Qualifier to resolve the conflict.
+
+Shortcut Qualifier 'DID_0xF196_Write' of service 'qpath:/Base_Variant/ECU_Identification/DID_0xF196_1_3/[SERVICE]Write' is also used by service 'qpath:/Base_Variant/ECU_Identification/DID_0xF196_1_1/[SERVICE]Write'.
+Shortcut Qualifiers must be unique within a variant.
+Please change the Shortcut Qualifier to resolve the conflict.
+
+Inconsistencies detected.
+ComParamMan: Unidentified ComParam UudtCanIdType
+ComParamMan: Unidentified ComParam TesterPresentPhys
+ComParamMan: Unidentified ComParam TesterPresentFunc
+ComParamMan: Trying to insert already existent communication parameter 'BusType' into ComParamCollection
+ComParamMan: Trying to insert already existent communication parameter 'TransportProtocolType' into ComParamCollection
+ComParamMan: Trying to insert already existent communication parameter 'AddrScheme' into ComParamCollection
+ComParamMan: Trying to insert already existent communication parameter 'CanIdType' into ComParamCollection
+ComParamMan: Trying to insert already existent communication parameter 'ReqCanId' into ComParamCollection
+ComParamMan: Trying to insert already existent communication parameter 'ResCanId' into ComParamCollection
+ComParamMan: Trying to insert already existent communication parameter 'AddrSchemeFunc' into ComParamCollection
+ComParamMan: Trying to insert already existent communication parameter 'CanIdTypeFunc' into ComParamCollection
+ComParamMan: Trying to insert already existent communication parameter 'ReqCanIdFunc' into ComParamCollection
+ComParamMan: Trying to insert already existent communication parameter 'UudtResCanId' into ComParamCollection
+ComParamMan: Unidentified ComParam UudtCanIdType
+ComParamMan: Trying to insert already existent communication parameter 'UudtCanIdType' into ComParamCollection
+ComParamMan: Trying to insert already existent communication parameter 'P2Client' into ComParamCollection
+ComParamMan: Trying to insert already existent communication parameter 'P2Server' into ComParamCollection
+ComParamMan: Trying to insert already existent communication parameter 'P2ExClient' into ComParamCollection
+ComParamMan: Trying to insert already existent communication parameter 'P2ExServer' into ComParamCollection
+ComParamMan: Trying to insert already existent communication parameter 'S3Client' into ComParamCollection
+ComParamMan: Trying to insert already existent communication parameter 'S3Server' into ComParamCollection
+ComParamMan: Trying to insert already existent communication parameter 'P3ClientPhys' into ComParamCollection
+ComParamMan: Unidentified ComParam TesterPresentPhys
+ComParamMan: Trying to insert already existent communication parameter 'TesterPresentPhys' into ComParamCollection
+ComParamMan: Trying to insert already existent communication parameter 'P3ClientFunc' into ComParamCollection
+ComParamMan: Unidentified ComParam TesterPresentFunc
+ComParamMan: Trying to insert already existent communication parameter 'TesterPresentFunc' into ComParamCollection
+ComParamMan: Trying to insert already existent communication parameter 'StMin' into ComParamCollection
+ComParamMan: Trying to insert already existent communication parameter 'Blocksize' into ComParamCollection
+ComParamMan: Trying to insert already existent communication parameter 'TimeoutAs' into ComParamCollection
+ComParamMan: Trying to insert already existent communication parameter 'TimeoutAr' into ComParamCollection
+ComParamMan: Trying to insert already existent communication parameter 'TimeoutBs' into ComParamCollection
+ComParamMan: Trying to insert already existent communication parameter 'TimeBr' into ComParamCollection
+ComParamMan: Trying to insert already existent communication parameter 'TimeCs' into ComParamCollection
+ComParamMan: Trying to insert already existent communication parameter 'TimeoutCr' into ComParamCollection
+ComParamMan: Trying to insert already existent communication parameter 'MaxLengthTpMessage' into ComParamCollection
+ComParamMan: Trying to insert already existent communication parameter 'Baudrate' into ComParamCollection
+ComParamMan: Trying to insert already existent communication parameter 'CANFrameFillerByte' into ComParamCollection
+ComParamMan: Trying to insert already existent communication parameter 'FillerByteHandling' into ComParamCollection
+ComParamMan: Unidentified ComParam RC21Handling
+ComParamMan: Unidentified ComParam RC21RequestTime
+ComParamMan: Unidentified ComParam RC21CompletionTimeout
+ComParamMan: Unidentified ComParam RC78Handling
+ComParamMan: Unidentified ComParam RC78CompletionTimeout
+ComParamMan: Unidentified ComParam DiagnosticConnectionRef
+ComParamMan: Unidentified ComParam DiagnosticProtocolPriority
+ComParamMan: Trying to insert already existent communication parameter 'BusType' into ComParamCollection
+ComParamMan: Trying to insert already existent communication parameter 'TransportProtocolType' into ComParamCollection
+ComParamMan: Trying to insert already existent communication parameter 'AddrScheme' into ComParamCollection
+ComParamMan: Trying to insert already existent communication parameter 'CanIdType' into ComParamCollection
+ComParamMan: Trying to insert already existent communication parameter 'ReqCanId' into ComParamCollection
+ComParamMan: Trying to insert already existent communication parameter 'ResCanId' into ComParamCollection
+ComParamMan: Trying to insert already existent communication parameter 'P2Client' into ComParamCollection
+ComParamMan: Trying to insert already existent communication parameter 'P2Server' into ComParamCollection
+ComParamMan: Trying to insert already existent communication parameter 'P2ExClient' into ComParamCollection
+ComParamMan: Trying to insert already existent communication parameter 'P2ExServer' into ComParamCollection
+ComParamMan: Trying to insert already existent communication parameter 'S3Client' into ComParamCollection
+ComParamMan: Trying to insert already existent communication parameter 'S3Server' into ComParamCollection
+ComParamMan: Trying to insert already existent communication parameter 'P3ClientPhys' into ComParamCollection
+ComParamMan: Unidentified ComParam TesterPresentPhys
+ComParamMan: Trying to insert already existent communication parameter 'TesterPresentPhys' into ComParamCollection
+ComParamMan: Trying to insert already existent communication parameter 'StMin' into ComParamCollection
+ComParamMan: Trying to insert already existent communication parameter 'Blocksize' into ComParamCollection
+ComParamMan: Trying to insert already existent communication parameter 'TimeoutAs' into ComParamCollection
+ComParamMan: Trying to insert already existent communication parameter 'TimeoutAr' into ComParamCollection
+ComParamMan: Trying to insert already existent communication parameter 'TimeoutBs' into ComParamCollection
+ComParamMan: Trying to insert already existent communication parameter 'TimeBr' into ComParamCollection
+ComParamMan: Trying to insert already existent communication parameter 'TimeCs' into ComParamCollection
+ComParamMan: Trying to insert already existent communication parameter 'TimeoutCr' into ComParamCollection
+ComParamMan: Trying to insert already existent communication parameter 'MaxLengthTpMessage' into ComParamCollection
+ComParamMan: Trying to insert already existent communication parameter 'Baudrate' into ComParamCollection
+ComParamMan: Trying to insert already existent communication parameter 'CANFrameFillerByte' into ComParamCollection
+ComParamMan: Trying to insert already existent communication parameter 'FillerByteHandling' into ComParamCollection
+ComParamMan: Trying to insert already existent communication parameter 'AddrSchemeFunc' into ComParamCollection
+ComParamMan: Trying to insert already existent communication parameter 'CanIdTypeFunc' into ComParamCollection
+ComParamMan: Trying to insert already existent communication parameter 'ReqCanIdFunc' into ComParamCollection
+ComParamMan: Unidentified ComParam CanFdDataBaudrate
+ComParamMan: Unidentified ComParam CanFdDataTSeg1
+ComParamMan: Unidentified ComParam CanFdDataTSeg2
+ComParamMan: Unidentified ComParam CanFdDataSjw
+ComParamMan: Unidentified ComParam TSeg1
+ComParamMan: Unidentified ComParam TSeg2
+ComParamMan: Unidentified ComParam Sjw
+ComParamMan: Unidentified ComParam CanFdHandling
+ComParamMan: Unidentified ComParam CanFdBrsHandling
+ComParamMan: Unidentified ComParam CanFdMaxDlc
+ComParamMan: Unidentified ComParam MaxTPMessageLength
+ComParamMan: Unidentified ComParam AutoP2Handling
+ComParamMan: Trying to insert already existent communication parameter 'BusType' into ComParamCollection
+ComParamMan: Trying to insert already existent communication parameter 'TransportProtocolType' into ComParamCollection
+ComParamMan: Trying to insert already existent communication parameter 'AddrScheme' into ComParamCollection
+ComParamMan: Trying to insert already existent communication parameter 'CanIdType' into ComParamCollection
+ComParamMan: Trying to insert already existent communication parameter 'ReqCanId' into ComParamCollection
+ComParamMan: Trying to insert already existent communication parameter 'ResCanId' into ComParamCollection
+ComParamMan: Trying to insert already existent communication parameter 'EcuAddress' into ComParamCollection
+ComParamMan: Trying to insert already existent communication parameter 'TesterAddress' into ComParamCollection
+ComParamMan: Trying to insert already existent communication parameter 'AddrSchemeFunc' into ComParamCollection
+ComParamMan: Trying to insert already existent communication parameter 'CanIdTypeFunc' into ComParamCollection
+ComParamMan: Trying to insert already existent communication parameter 'ReqCanIdFunc' into ComParamCollection
+ComParamMan: Trying to insert already existent communication parameter 'P2Client' into ComParamCollection
+ComParamMan: Trying to insert already existent communication parameter 'P2Server' into ComParamCollection
+ComParamMan: Trying to insert already existent communication parameter 'P2ExClient' into ComParamCollection
+ComParamMan: Trying to insert already existent communication parameter 'P2ExServer' into ComParamCollection
+ComParamMan: Trying to insert already existent communication parameter 'S3Client' into ComParamCollection
+ComParamMan: Trying to insert already existent communication parameter 'S3Server' into ComParamCollection
+ComParamMan: Trying to insert already existent communication parameter 'P3ClientPhys' into ComParamCollection
+ComParamMan: Unidentified ComParam TesterPresentPhys
+ComParamMan: Trying to insert already existent communication parameter 'TesterPresentPhys' into ComParamCollection
+ComParamMan: Trying to insert already existent communication parameter 'P3ClientFunc' into ComParamCollection
+ComParamMan: Unidentified ComParam TesterPresentFunc
+ComParamMan: Trying to insert already existent communication parameter 'TesterPresentFunc' into ComParamCollection
+ComParamMan: Trying to insert already existent communication parameter 'StMin' into ComParamCollection
+ComParamMan: Trying to insert already existent communication parameter 'Blocksize' into ComParamCollection
+ComParamMan: Trying to insert already existent communication parameter 'TimeoutAs' into ComParamCollection
+ComParamMan: Trying to insert already existent communication parameter 'TimeoutAr' into ComParamCollection
+ComParamMan: Trying to insert already existent communication parameter 'TimeoutBs' into ComParamCollection
+ComParamMan: Trying to insert already existent communication parameter 'TimeBr' into ComParamCollection
+ComParamMan: Trying to insert already existent communication parameter 'TimeCs' into ComParamCollection
+ComParamMan: Trying to insert already existent communication parameter 'TimeoutCr' into ComParamCollection
+ComParamMan: Trying to insert already existent communication parameter 'MaxLengthTpMessage' into ComParamCollection
+ComParamMan: Trying to insert already existent communication parameter 'Baudrate' into ComParamCollection
+ComParamMan: Trying to insert already existent communication parameter 'CANFrameFillerByte' into ComParamCollection
+ComParamMan: Trying to insert already existent communication parameter 'FillerByteHandling' into ComParamCollection
+ComParamMan: Unidentified ComParam CanFdDataBaudrate
+ComParamMan: Trying to insert already existent communication parameter 'CanFdDataBaudrate' into ComParamCollection
+ComParamMan: Unidentified ComParam CanFdDataTSeg1
+ComParamMan: Trying to insert already existent communication parameter 'CanFdDataTSeg1' into ComParamCollection
+ComParamMan: Unidentified ComParam CanFdDataTSeg2
+ComParamMan: Trying to insert already existent communication parameter 'CanFdDataTSeg2' into ComParamCollection
+ComParamMan: Unidentified ComParam CanFdDataSjw
+ComParamMan: Trying to insert already existent communication parameter 'CanFdDataSjw' into ComParamCollection
+ComParamMan: Unidentified ComParam TSeg1
+ComParamMan: Trying to insert already existent communication parameter 'TSeg1' into ComParamCollection
+ComParamMan: Unidentified ComParam TSeg2
+ComParamMan: Trying to insert already existent communication parameter 'TSeg2' into ComParamCollection
+ComParamMan: Unidentified ComParam Sjw
+ComParamMan: Trying to insert already existent communication parameter 'Sjw' into ComParamCollection
+ComParamMan: Unidentified ComParam CanFdHandling
+ComParamMan: Trying to insert already existent communication parameter 'CanFdHandling' into ComParamCollection
+ComParamMan: Unidentified ComParam CanFdBrsHandling
+ComParamMan: Trying to insert already existent communication parameter 'CanFdBrsHandling' into ComParamCollection
+ComParamMan: Unidentified ComParam CanFdMaxDlc
+ComParamMan: Trying to insert already existent communication parameter 'CanFdMaxDlc' into ComParamCollection
+ComParamMan: Unidentified ComParam MaxTPMessageLength
+ComParamMan: Trying to insert already existent communication parameter 'MaxTPMessageLength' into ComParamCollection
+ComParamMan: Unidentified ComParam AutoP2Handling
+ComParamMan: Trying to insert already existent communication parameter 'AutoP2Handling' into ComParamCollection
+ComParamMan: Unidentified ComParam DiagnosticConnectionRef
+ComParamMan: Trying to insert already existent communication parameter 'DiagnosticConnectionRef' into ComParamCollection
+ComParamMan: Unidentified ComParam DiagnosticProtocolPriority
+ComParamMan: Trying to insert already existent communication parameter 'DiagnosticProtocolPriority' into ComParamCollection
+ComParamMan: Unidentified ComParam DiagnosticConnectionRef
+ComParamMan: Trying to insert already existent communication parameter 'DiagnosticConnectionRef' into ComParamCollection
+ComParamMan: Unidentified ComParam DiagnosticProtocolPriority
+ComParamMan: Trying to insert already existent communication parameter 'DiagnosticProtocolPriority' into ComParamCollection
+ComParamMan: Unidentified ComParam DiagnosticConnectionRef
+ComParamMan: Trying to insert already existent communication parameter 'DiagnosticConnectionRef' into ComParamCollection
+ComParamMan: Unidentified ComParam DiagnosticProtocolPriority
+ComParamMan: Trying to insert already existent communication parameter 'DiagnosticProtocolPriority' into ComParamCollection
+Checking service prefixes in base variant 'Base_Variant' ... OK
+Non-fatal inconsistencies detected in document.

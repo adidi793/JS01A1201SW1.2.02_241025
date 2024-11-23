@@ -1,0 +1,196 @@
+/*@!Encoding:936*/
+includes
+{
+  
+}
+
+variables
+{
+  message 0x782    TesterPresent;
+  message 0x7DF    Msg_Tx_Test_pres;
+  const dword SENDING_TIMEOUT = 500; //诊断发送请求超时
+  const word P2serverValue=50;      //ms
+  const dword RESPONSE_TIMEOUT = 2000; 
+}
+
+void test_1(){
+   TesterPresent.dlc=8;//定义报文长度，默认为0
+  TesterPresent.can=1;//定义报文发送在哪条can线上,默认为1
+  TesterPresent.byte(0)=0x07;//定义报文的第一个字节数据，默认为0
+  TesterPresent.byte(1)=0x22;
+  TesterPresent.byte(2)=0xF1;
+  TesterPresent.byte(3)=0x90;
+  TesterPresent.byte(4)=0xF1;
+  TesterPresent.byte(5)=0x98;
+  TesterPresent.byte(6)=0xF1;
+  TesterPresent.byte(7)=0x97;
+  output(TesterPresent);//发送报文
+}
+
+void DiagTest_system_name_F197_Read(){
+   TesterPresent.dlc=8;//定义报文长度，默认为0
+  TesterPresent.can=1;//定义报文发送在哪条can线上,默认为1
+  TesterPresent.byte(0)=0x03;//定义报文的第一个字节数据，默认为0
+  TesterPresent.byte(1)=0x22;
+  TesterPresent.byte(2)=0xF1;
+  TesterPresent.byte(3)=0x97;
+  TesterPresent.byte(4)=0xAA;
+  TesterPresent.byte(5)=0xAA;
+  TesterPresent.byte(6)=0xAA;
+  TesterPresent.byte(7)=0xAA;
+  output(TesterPresent);//发送报文
+  //testWaitForTimeout(1);
+  Msg_Tx_Test_pres.dlc=8;//定义报文长度，默认为0
+  Msg_Tx_Test_pres.can=1;//定义报文发送在哪条can线上,默认为1
+  //Msg_Tx_Test_pres.byte(0)=0x03;//定义报文的第一个字节数据，默认为0
+  //Msg_Tx_Test_pres.byte(1)=0x22;
+  //Msg_Tx_Test_pres.byte(2)=0x0f1;
+  //Msg_Tx_Test_pres.byte(3)=0x95;
+  Msg_Tx_Test_pres.byte(0)=0x02;//定义报文的第一个字节数据，默认为0
+  Msg_Tx_Test_pres.byte(1)=0x3E;
+  Msg_Tx_Test_pres.byte(2)=0x00;
+  output(Msg_Tx_Test_pres);//发送报文
+}
+
+void DiagTest_system_name_F190_Read(){
+  TesterPresent.dlc=8;//定义报文长度，默认为0
+  TesterPresent.can=1;//定义报文S发送在哪条can线上,默认为1
+  TesterPresent.byte(0)=0x10;//定义报文的第一个字节数据，默认为0
+  TesterPresent.byte(1)=0x14;
+  TesterPresent.byte(2)=0x2E;
+  TesterPresent.byte(3)=0xF1;
+  TesterPresent.byte(4)=0x90;
+  TesterPresent.byte(5)=0x00;
+  TesterPresent.byte(6)=0xBB;
+  TesterPresent.byte(7)=0xCC;
+  output(TesterPresent);//发送报文
+  
+  Msg_Tx_Test_pres.dlc=8;//定义报文长度，默认为0
+  Msg_Tx_Test_pres.can=1;//定义报文发送在哪条can线上,默认为1
+  Msg_Tx_Test_pres.byte(0)=0x02;//定义报文的第一个字节数据，默认为0
+  Msg_Tx_Test_pres.byte(1)=0x3E;
+  Msg_Tx_Test_pres.byte(2)=0x80;
+  output(Msg_Tx_Test_pres);//发送报文
+  testWaitForTimeout(150);
+  output(Msg_Tx_Test_pres);//发送报文
+  testWaitForTimeout(2);
+  TesterPresent.byte(0)=0x21;//定义报文的第一个字节数据，默认为0
+  TesterPresent.byte(1)=0xDD;
+  TesterPresent.byte(2)=0xEE;
+  TesterPresent.byte(3)=0xFF;
+  TesterPresent.byte(4)=0xAB;
+  TesterPresent.byte(5)=0xCD;
+  TesterPresent.byte(6)=0xEF;
+  TesterPresent.byte(7)=0xBA;
+  output(TesterPresent);//发送报文
+  testWaitForTimeout(2);
+  output(Msg_Tx_Test_pres);//发送报文
+  testWaitForTimeout(2);
+  TesterPresent.byte(0)=0x22;//定义报文的第一个字节数据，默认为0
+  TesterPresent.byte(1)=0xDC;
+  TesterPresent.byte(2)=0xFE;
+  TesterPresent.byte(3)=0xBD;
+  TesterPresent.byte(4)=0xEE;
+  TesterPresent.byte(5)=0xFA;
+  TesterPresent.byte(6)=0xFB;
+  TesterPresent.byte(7)=0xAC;
+  output(TesterPresent);//发送报文
+  testWaitForTimeout(2);
+  output(Msg_Tx_Test_pres);//发送报文
+
+}
+
+void Diag_SwitchToExtendedSession()
+{
+  diagRequest vetronics.ExtendedDiagnosticSession_Start req;
+  diagSendRequest(req);
+  testWaitForTimeout(20);
+  if (TestWaitForDiagRequestSent(req, SENDING_TIMEOUT)== 1)
+  {
+    TestReportWriteDiagObject (req);
+    testStepPass("Request send Successfully!!");
+  }
+}
+
+void  SeedKeyEXTSupplier(byte raw_seed[], byte cook_key[]) {
+    dword tmp_seed;
+    dword tmp_key;
+    tmp_key = 0;
+    tmp_seed = raw_seed[0];
+    tmp_seed <<= 8;
+    tmp_seed |= raw_seed[1];
+    tmp_seed <<= 8;
+    tmp_seed |= raw_seed[2];
+    tmp_seed <<= 8;
+    tmp_seed |= raw_seed[3];
+    tmp_key = ((((tmp_seed >> 4)^tmp_seed) << 3)^tmp_seed);
+    cook_key[0] = (byte)((tmp_key & 0xff000000) >> 24); //高字节
+    cook_key[1] = (byte)((tmp_key & 0x00ff0000) >> 16);
+    cook_key[2] = (byte)((tmp_key & 0x0000ff00) >> 8);
+    cook_key[3] = (byte)((tmp_key & 0x000000ff));       //低字节
+
+}
+
+void Diag_SecurityLevel_1_Unlock(){
+  long status;
+  byte seedArray[4];
+  byte keyArray[4];
+  int i;
+  
+  diagRequest vetronics.SeedLevel1_Request Seedreq;
+  diagRequest vetronics.KeyLevel1_Send Keysend;
+  diagSendRequest(Seedreq);
+      if (TestWaitForDiagRequestSent(Seedreq, SENDING_TIMEOUT) == 1) {
+        TestReportWriteDiagObject(Seedreq);
+        testStepPass("请求发送成功!!");
+    } else {
+        testStepFail("请求发送失败!!");
+    }
+    if (testWaitForDiagResponseStart(Seedreq, P2serverValue) == 1) {
+        if (TestWaitForDiagResponse(Seedreq, RESPONSE_TIMEOUT) == 1) {
+            status = diagGetLastResponseCode(Seedreq);
+            if (status != -1) {
+                testStepFail("无响应，测试失败!!");
+            } else if (status == -1) {
+                TestReportWriteDiagResponse(Seedreq);
+                testStepPass("成功收到肯定响应!!");
+            }
+        }
+    } else {
+        testStepFail("超时，测试失败!!");
+    }
+    for (i = 0; i < elcount(seedArray); i++) {
+        seedArray[i] = DiagGetRespPrimitiveByte(Seedreq, i + 2);
+    }
+    SeedKeyEXTSupplier(seedArray, keyArray);
+    DiagSetParameterRaw(Keysend, "SecurityKey", keyArray, elCount(keyArray));
+    diagSendRequest(Keysend);
+    if (TestWaitForDiagRequestSent(Keysend, SENDING_TIMEOUT) == 1) {
+      TestReportWriteDiagObject(Keysend);
+      testStepPass("请求发送成功!!");
+    } else {
+      testStepFail("请求发送失败!!");
+    }
+}
+
+void MainTest()
+{
+  /* 
+  注意，这个函数无法在simulation node CAPL中使用的
+  注意参数不要等于0，等于0就无限挂起了
+  */
+  testWaitForTimeout(10); //
+  test_1();
+  #if 0
+  
+  Diag_SwitchToExtendedSession();
+  testWaitForTimeout(10);
+  Diag_SecurityLevel_1_Unlock();
+  testWaitForTimeout(10);
+  DiagTest_system_name_F197_Read();
+  testWaitForTimeout(150);
+  DiagTest_system_name_F190_Read();
+  #endif
+  testWaitForTimeout(200);
+
+}

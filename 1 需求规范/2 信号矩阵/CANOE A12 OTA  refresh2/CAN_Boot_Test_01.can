@@ -1,0 +1,2448 @@
+/*@!Encoding:936*/
+includes
+{
+  #include "CRC32_BJ.cin"
+  #include "RecordLog.cin"
+  #include "ReadHexfile.cin"
+}
+
+variables
+{
+  long CharLenAPP,CharLenDriver,CharLenX509Cer;
+  byte SPRMIBit=0;  //肯定抑制位：1=set；
+  char TEST_STEP[4]="000";
+  dword gTestStep;
+  //时间参数
+  const dword RESPONSE_TIMEOUT = 2000;  
+  const dword SENDING_TIMEOUT = 500; 
+  word tCANInit=600;    //上电初始化时间参数
+  const word P2serverValue=50;      //ms
+  word P2serverExValue=200;  //实际值除以10 （例如：2000ms/10=200）
+  
+  
+  char PartNum_MFS[19]={'5', '0', '2', '5', '3', '7', '4', '-', 'A', 'A', 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
+  byte BootloaderSWNum[10]={0x4D,0x46,0x53,0x20,0x22,0x01,0x04,0x30,0x30,0x33};   //bootloader软件版本号
+  byte FingerprintDate[3]={0x22,0x01,0x10};             //指纹信息——日期
+  byte Fingerprint[6]={0x01,0x02,0x03,0x04,0x05,0x06};  //指纹信息
+  byte Programming_Date[4]={0x20,0x24,0x08,0x1D};  //编程日期 BCD码
+  byte GroupOfDtc_ClearDTC[3]={0xFF,0xFF,0xFF};  //DTC 信息组别-所有组别
+  
+  byte system_name_F197[16]={'L', 'P', '-', 'S', 'W', 'B', '0', '8',  '0',  '-', 'A', 'A', 0x00, 0x00, 0x00, 0x00};
+  byte system_supplier_ECU_hardware_Version_F150[10]={'0', '.', '0', '0', '.', '0', '1', 0x00, 0x00, 0x00};
+  byte Software_Version_F189_NOW[10]={'0', '.', '0', '0', '.', '0', '3', 0x00, 0x00, 0x00};
+  byte Software_Version_F189_UPDATE[10]={'0', '.', '0', '0', '.', '0', '4', 0x00, 0x00, 0x00};
+  message ESP_0x318 msg318;
+
+  
+  word UDS36BockLength;
+
+
+
+
+  char FlashDriverFilename[512];
+  char s19Filename[512];
+  char X509CerFilename[512];
+  byte dataBuffer[0x20000];
+
+  long data_len[1];
+  long MEM_START_ADDR[1];
+  //long transferData_idx=0;
+   
+  const int gSeedArraySize= 4;
+  const int gKeyArraySize= 4;
+  byte gSeedArray[gSeedArraySize];
+  byte gKeyArray[gKeyArraySize];
+  
+  
+}
+
+void MainTest()
+{ 
+
+  long handle;
+  long CharLen;
+  double ValeInput;
+  char resultStr[100];
+
+  #if 1
+  long result=10;
+
+
+  strncat(FlashDriverFilename, "..\\CANOE_TEST\\file_hex\\1-MFW-Drv-D01(1).hex", 200); 
+  strncat(s19Filename, "..\\CANOE_TEST\\file_hex\\2-MFW-App-A01(1).hex", 200); 
+  openPanel("N60_boot");
+
+  result=TestWaitForSysVar(sysvar::TK_TestCase::OK_Button,60000);
+  if(result!=1)
+  {
+    stop();
+    write("stop= %d",result);
+    testWaitForTimeout(1000);
+  }
+  else
+  {
+//    write("FlashDriveraddressLen= %d;APPaddressLen= %d ",CharLenAPP,CharLenDriver);
+//    if(CharLenAPP==0 || CharLenDriver==0 )
+//    {
+//      write("提示：没有选择要下载的文件！使用默认文件！");
+//      write("FlashDriveraddressLen= %s;APPaddressLen= %s ",FlashDriverFilename,s19Filename);
+//      //stop();
+//    }
+    closePanel("N60_boot");
+  }
+  testWaitForTimeout(100);
+  #endif
+
+  handle = TestWaitForTesterConfirmation("是否设置肯定响应抑制位，“yes”肯定响应抑制位置位，否则清零！", 60000);
+  switch (handle)
+  {
+    case (0):
+      //SPRMIBit=0;
+      break;
+    case (1):
+      SPRMIBit=1;
+      break;
+    case (2):
+      SPRMIBit=0;
+      break;
+    default:
+      SPRMIBit=0;
+  }
+    
+  write("SPRMIBit: %d", SPRMIBit);
+  
+
+
+  #if 1
+  
+  //write("S19_File= %d",S19_File);
+  
+  Diag_ResetTestStep();
+  
+  testModuleTitle("N61_Bootloader_test");
+  testModuleDescription("bootloader刷写流程测试");
+  testGroupBegin("step 1 预编程","预编程步骤测试");
+  TestLogClose();
+  testWaitForTimeout(1000);
+  TestLogOpen();
+  testWaitForTimeout(1000);
+  
+  DiagTest_system_name_F197_Read();
+  DiagTest_system_supplier_ECU_hardware_Version_F150_Read();
+  DiagTest_Manufacturer_ECU_Software_Version_F189_Read();
+  //Diagtest_Session_Switch();
+  Extended_Session_Switch();
+  //testWaitForTimeout(1000);
+  //Diagtest_CheckProgrammingPrecondition(SPRMIBit);
+  DiagTest_ControlDTCSettingOff(SPRMIBit);
+  DiagTest_DisableRxAndDisableTxControl(SPRMIBit);
+  //DiagTest_BootloaderSoftwareVersionNumberRead();
+  //后续可能会用到*****************************************
+  //diagSetTarget("GW");
+  //diagSetP2Timeouts(50,900);
+  
+  
+  //write( "Current P2 = %d", diagGetP2Extended ());
+  //diagSetP2Extended (-1);
+  //write( "diagSetP2Extended (-1): %d", diagSetP2Extended (-1));
+  //write( "Current P2 = %d", diagGetP2Extended (0));
+  //write( "Original value at interface = %d", diagGetP2Timeout(50));
+  //write( "Original value at interface = %d", diagGetP2Timeout(50));
+  //********************************************************
+  
+  //DiagTest_ControlDTCSettingOff();
+  //DiagTest_DisableRxAndDisableTxControl();
+  //DiagTest_BootloaderSoftwareVersionNumberRead();
+  
+  testGroupEnd();
+  
+  #if 1
+  testGroupBegin("step 2 主编程","主编程步骤测试");
+  Programming_Session_Switch();
+  DiagTest_unlock_LV11();
+  DiagTest_CheckLegitimacy();
+  DaigTestCheckVersion_Start();
+  DiagTest_ApplicationSofwareFingerprintWrite();
+  DiagTest_ProgrammingDatetWrite();
+  DiagTest_RequestDownload();
+  DiagTest_UploadDownloadTransmit();  //下载flashDriver
+  DiagTestUpload_Download_Stop();
+  DiagTestStartChekRoutine_Start(SPRMIBit);
+  DiagTestStartEraseMemory_Start();
+  DiagTest_RequestDownloadApp();
+  DiagTest_UploadDownloadTransmit();  //下载App
+  DiagTestUpload_Download_Stop();
+  DaigTestCheckProgrammingIntegrityALL_Start();
+  DaigTestCheckProgrammingDependencies_Start();
+ 
+  testGroupEnd();
+  #endif
+  #if 1
+  testGroupBegin("step 3 后编程","后编程步骤测试");
+ 
+  DaigTestHard_Reset_Reset();
+  Extended_Session_Switch();
+  DaigTestEnableRxAndEnableTx_Control();
+  DaigTestControlDTCSetting_On();
+  DiagTest_ClearDiagnosticInformation();
+  Diagtest_Session_Switch();
+  diagStopTesterPresent ();   //Tester Present requests 
+  //TestDaigSparePartNumberRead();
+  TestLogClose();
+  testGroupEnd();
+  #endif
+   #endif 
+}
+
+on message ESP_0x318
+{
+  msg318=this;
+  //testStep(TEST_EXPLAIN,"报文:ID=%lX DLC=%d byte[]=%02lX %02lX %02lX %02lX %02lX %02lX %02lX %02lX",msg318.id,
+          //msg318.dlc,msg318.byte(0),msg318.byte(1),msg318.byte(2),msg318.byte(3),msg318.byte(4),
+           // msg318.byte(5),msg318.byte(6),msg318.byte(7));
+          //testStep(TEST_STEP,"ESP_VehSpd:%4.2fkm/h",(msg318.ESP_VehSpd*0.1));
+}
+
+on envVar Env_APPaddress                              //文件的环境变量
+{
+  
+ 
+  CharLenAPP=getValue(Env_APPaddress,s19Filename);
+  write("Env_APPaddress= %s",s19Filename);
+ 
+}
+
+on envVar Env_FlashDriveraddress
+{ 
+  CharLenDriver=getValue(Env_FlashDriveraddress,FlashDriverFilename);
+   write("Env_FlashDriveraddress= %s",FlashDriverFilename);
+}
+
+on envVar Env_X509CerAddr
+{ 
+  CharLenX509Cer=getValue(Env_X509CerAddr,X509CerFilename);
+   write("Env_X509CerAddr= %s",X509CerFilename);
+}
+
+on sysvar TK_TestCase::OK_Button
+{
+  CharLenAPP=getValue(Env_APPaddress,s19Filename);
+  write("Env_APPaddress= %s",s19Filename);
+  CharLenDriver=getValue(Env_FlashDriveraddress,FlashDriverFilename);
+  write("Env_FlashDriveraddress= %s",FlashDriverFilename);
+  CharLenX509Cer=getValue(Env_X509CerAddr,X509CerFilename);
+  write("Env_X509CerAddr= %s",X509CerFilename);
+  if(CharLenDriver==0 || CharLenAPP==0)
+  {
+    write("缺少APP或flashDriver文件！！！");
+    closePanel("N60_boot");
+    stop();
+  }
+  //closePanel("N60_boot");
+}
+
+on sysvar TK_TestCase::Cancel_Button
+{
+  closePanel("N60_boot");
+  stop();
+}
+
+
+
+//进入默认会话
+testcase Diagtest_Session_Switch()
+{
+  long status;
+  TestCaseTitle("Diagnosis_01", "DiagTest_Session_Control");
+  testCaseDescription("This test case used to verify Session switch function. Totally 3 steps.\n");
+  testCaseDescription("Step 19.1: Enter Default Session\n");
+  
+  //进入Default Session
+  {
+    Diag_IncrementTestStep();
+    TestCaseComment("Switch to Default Session");
+    status = Diag_SwitchToDefaultSession(SPRMIBit);
+    if(status != 0)
+    {
+      if(status!=2)
+      {
+        testStepFail(TEST_STEP, "Default Session Switch Falied!!");
+      }
+    }  
+    else
+      testStepPass(TEST_STEP, "Default Session Switch Successfully!!");
+  }
+}
+testcase Extended_Session_Switch()
+{
+  long status;
+  TestCaseTitle("Extended_Session", "Extended_Session_Control");
+  testCaseDescription("This test case used to verify Session switch function. Totally 2 steps.\n");
+  //testCaseDescription("Step 01: Enter Default Session\n");
+  testCaseDescription("Step 1.1: Switch to Extended Session\n");
+  testCaseDescription("Step 1.2: Check P2 and P2Ex parameters\n");
+  //testCaseDescription("Step 03: Switch to Default Session Again");
+  //进入Extended Session
+  {
+    Diag_IncrementTestStep();
+    testCaseComment("切换到扩展会话");
+    status=Diag_SwitchToExtendedSession(SPRMIBit);
+    if(status != 0)
+    {
+      if(status!=2)
+      {
+        testStepFail(TEST_STEP, "切换到扩展会话失败!!");
+      }
+      else
+      {
+        testStepPass(TEST_STEP, "切换到扩展会话成功!!");
+      }
+    }
+      
+    else
+      testStepPass(TEST_STEP, "切换到扩展会话成功!!");
+  } 
+}
+testcase Programming_Session_Switch()
+{
+  long status;
+  TestCaseTitle("Programming_Session", "Programming_Session_Control");
+  testCaseDescription("This test case used to verify Session switch function. Totally 3 steps.\n");
+  //testCaseDescription("Step 01: Enter Default Session\n");
+  //testCaseDescription("Step 02: Switch to Extended Session\n");
+  testCaseDescription("Step 6.1: Switch to Default Session Again");
+
+  //进入Programming Session
+  {
+    Diag_IncrementTestStep();
+    TestCaseComment("Switch to Default Session");
+    //if( 0 != diagSetTarget( "MFS")) write( "Error setting target!");//diagSetTarget("ICC");
+    testStep(TEST_STEP, "Current P2 = %d", diagGetP2Extended (0));
+    //diagSetTarget("GW");
+    status = Diag_SwitchToProgrammingSession(SPRMIBit);
+    if(status != 0)
+    {
+        testStepFail(TEST_STEP, "Programming Session Switch Falied!!");
+    }
+    else
+      testStepPass(TEST_STEP, "Programming Session Switch Successfully!!");
+  }
+  
+}
+//预编程条件检查
+testcase Diagtest_CheckProgrammingPrecondition(byte SPRMIB)
+{
+  long status,SPRMIB_STATUS;
+  //long retval; 
+  
+  diagRequest GW.CheckProgrammingPrecondition_Start req;
+  
+  TestCaseTitle("RoutineControl", "Check_Programming_Precondition");
+  testCaseDescription("This test case used to verify Routine Control function. Totally 1 steps.\n");
+  testCaseDescription("Step 2.1: Check_Programming_Precondition\n");
+  //testCaseDescription("此测试用例用于验证预编程条件.\n");
+  //预编程条件检查
+  
+    Diag_IncrementTestStep();
+    testCaseComment("预编程条件检查");
+  
+//  if(SPRMIB)
+//  {
+//    diagSetSuppressResp (req,1);
+//  }
+    
+  SPRMIB_STATUS=diagGetSuppressResp(req);
+  
+    //retval=1;
+    diagSendRequest(req);
+    if (TestWaitForDiagRequestSent(req, SENDING_TIMEOUT)== 1)
+    {
+      TestReportWriteDiagObject (req);
+      testStepPass(TEST_STEP, "预编程条件检查发送成功!!");
+    }
+    else
+    {
+      testStepFail(TEST_STEP, "预编程条件检查发送失败!!");
+    }
+      
+    //if(SPRMIB_STATUS==0)
+    //{
+    if(testWaitForDiagResponseStart(req, P2serverValue) == 1)
+    {
+      if(TestWaitForDiagResponse(req, RESPONSE_TIMEOUT) == 1)
+      {
+        status = DiagGetLastResponseCode(req);
+        if (status > 0)
+        {
+          //retval = status;
+          
+          //testStepFail(TEST_STEP, "预编程条件检查失败!!");
+          testStep(TEST_STEP,"报文:ID=%lX DLC=%d byte[]=%02lX %02lX %02lX %02lX %02lX %02lX %02lX %02lX",msg318.id,
+          msg318.dlc,msg318.byte(0),msg318.byte(1),msg318.byte(2),msg318.byte(3),msg318.byte(4),
+            msg318.byte(5),msg318.byte(6),msg318.byte(7));
+          
+          testStep(TEST_STEP,"ESP_VehSpd:%4.2fkm/h",(msg318.ESP_VehSpd*0.1));
+          TestReportWriteDiagResponse (req);
+          testStepFail(TEST_STEP, "收到否响应, NRC = 0x%.2x;测试失败！", status);
+        }
+        else if (-1 == status)
+        {
+          
+          testStep(TEST_STEP,"报文:ID=%lX DLC=%d byte[]=%02lX %02lX %02lX %02lX %02lX %02lX %02lX %02lX",msg318.id,
+          msg318.dlc,msg318.byte(0),msg318.byte(1),msg318.byte(2),msg318.byte(3),msg318.byte(4),
+            msg318.byte(5),msg318.byte(6),msg318.byte(7));
+          testStep(TEST_STEP,"ESP_VehSpd:%4.2fkm/h",(msg318.ESP_VehSpd*0.1));
+          TestReportWriteDiagResponse (req);
+          testStepPass(TEST_STEP, "成功收到肯定响应!!");
+        }
+        else 
+        {
+          testStepFail(TEST_STEP, "无响应 !! 测试失败!!");
+          //testStepFail(TEST_STEP, "预编程条件检查失败!!");
+        }
+      }
+    }
+    else 
+    {
+      testStepFail(TEST_STEP, "超时 !! 测试失败!!");
+    }
+    //}
+}
+
+//清除 DTC 信息
+testcase DiagTest_ClearDiagnosticInformation()
+{
+  long status;
+  
+  diagRequest GW.FaultMemory_Clear req;
+  TestCaseTitle("ClearDiagnosticInformation", "ClearDiagnosticInformation");
+  testCaseDescription("This test case used to verify ClearDiagnosticInformation function. Totally 1 steps.\n");
+  testCaseDescription("Step 10.1: ClearDiagnosticInformation\n");
+  //testCaseDescription("Step 02: ApplicationSofwareFingerprintWrite, ApplicationSofwareFingerprintWrite\n");
+  TestCaseComment("清除诊断信息");
+  Diag_IncrementTestStep();
+  diagSetParameterRaw(req,"GroupOfDtc",GroupOfDtc_ClearDTC,elCount(GroupOfDtc_ClearDTC));
+  diagSendRequest(req);
+  if (TestWaitForDiagRequestSent(req, SENDING_TIMEOUT)== 1)
+  {
+    TestReportWriteDiagObject (req);
+    testStepPass(TEST_STEP, "清除DTC 发送成功!!");
+  }
+  else
+  {
+    testStepFail(TEST_STEP, "清除DTC 发送失败!!");
+  }
+  if(testWaitForDiagResponseStart(req, P2serverValue) == 1)
+  {
+    if(TestWaitForDiagResponse(req, RESPONSE_TIMEOUT) == 1)
+    {
+     status = DiagGetLastResponseCode(req);
+     if (status > 0)
+     {
+       //retval = status;
+      TestReportWriteDiagResponse (req);
+       testStepFail(TEST_STEP, "收到否定响应, NRC = 0x%.2x;测试失败！", status);
+       //testStepFail(TEST_STEP, "写指纹失败!!");
+     }
+     else if (-1 == status)
+     {
+       TestReportWriteDiagResponse (req);
+       testStepPass(TEST_STEP, "清除DTC成功!!");
+        
+     }
+     else 
+     {
+       testStepFail(TEST_STEP, "无响应!! 测试失败!!");
+       //testStepFail(TEST_STEP, "Bootloader Software Version Number Read Falied!!");
+     }
+   }
+  }
+  else
+  {
+    testStepFail(TEST_STEP, "超时!! 测试失败!!");
+  }
+}
+
+//DTC控制设置OFF
+testcase DiagTest_ControlDTCSettingOff(byte SPRMIB)
+{
+  long status,SPRMIB_STATUS;
+  diagRequest GW.ControlDTCSetting_Off req;
+  TestCaseTitle("ControlDTCSetting", "Control DTC Setting OFF");
+  testCaseDescription("This test case used to verify Control DTC Setting function. Totally 1 steps.\n");
+  testCaseDescription("Step 3.1: Control DTC Setting OFF\n");
+  
+  //testCaseDescription("此测试用例用于验证DTC控制设置TX,RX OFF .\n");
+  Diag_IncrementTestStep();
+  testCaseComment("DTC控制设置");
+  
+  if(SPRMIB)
+  {
+    diagSetSuppressResp (req,1);
+  }
+    
+  SPRMIB_STATUS=diagGetSuppressResp(req);
+  
+  diagSendRequest(req);
+  if (TestWaitForDiagRequestSent(req, SENDING_TIMEOUT)== 1)
+  {
+    TestReportWriteDiagObject (req);
+    testStepPass(TEST_STEP, "Request send Successfully!!");
+  }
+  else
+  {
+    testStepFail(TEST_STEP, "Request send failed!!");
+  }
+  if(SPRMIB_STATUS==0)
+  {
+    if(testWaitForDiagResponseStart(req, P2serverValue) == 1)
+    {
+      if(TestWaitForDiagResponse(req, RESPONSE_TIMEOUT) == 1)
+      {
+        status = DiagGetLastResponseCode(req);
+        if (status > 0)
+        {
+          //retval = status;
+          TestReportWriteDiagResponse (req);
+          testStepFail(TEST_STEP, "Control DTC Setting OFF Falied, NRC = 0x%.2x", status);
+          //testStepFail(TEST_STEP, "Control DTC Setting OFF Falied!!");
+          
+        }
+        else if (-1 == status)
+        {
+          TestReportWriteDiagResponse (req);
+          testStepPass(TEST_STEP, "Control DTC Setting OFF Successfully!!");
+          
+        }
+        else 
+        {
+          testStepFail(TEST_STEP, "No response!! Test failed!!");
+          testStepFail(TEST_STEP, "Control DTC Setting OFF Falied!!");
+        }
+      }
+    }
+    else{
+      testStepFail(TEST_STEP, "超时!! Test failed!!");
+      testWaitForTimeout(500);
+    }
+  }  
+}
+
+//通信控制
+testcase DiagTest_DisableRxAndDisableTxControl(byte SPRMIB)
+{
+  long status,SPRMIB_STATUS,sendStatus2;
+  diagRequest GW.DisableRxAndDisableTx_Control req;
+  TestCaseTitle("communication control", "Disable Rx And Disable Tx Control");
+  testCaseDescription("This test case used to verify communication control function. Totally 1 steps.\n");
+  testCaseDescription("Step 4.1: Disable Rx And Disable Tx Control\n");
+  //testCaseDescription("此测试用例用于验证通信控制 TX,RX  .\n");
+  testCaseComment("通信控制");
+  Diag_IncrementTestStep();
+  diagSetParameter(req,"CommunicationType",0x01);
+  
+  if(SPRMIB)
+  {
+    diagSetSuppressResp (req,1);
+  }
+    
+  SPRMIB_STATUS=diagGetSuppressResp(req);
+  
+  diagSendRequest(req);
+  sendStatus2=TestWaitForDiagRequestSent(req, SENDING_TIMEOUT);
+  if (sendStatus2== 1)
+  {
+    TestReportWriteDiagObject (req);
+    testStepPass(TEST_STEP, "Disable Rx And Disable Tx Control Successfully!!");
+    
+  }
+  else
+  {
+    testStepFail(TEST_STEP, "Request send failed!! %d",sendStatus2);
+  }
+  if(SPRMIB_STATUS==0)
+  {
+    if(testWaitForDiagResponseStart(req, P2serverValue) == 1)
+    {
+      if(TestWaitForDiagResponse(req, RESPONSE_TIMEOUT) == 1)
+      {
+        status = DiagGetLastResponseCode(req);
+        if (status > 0)
+        {
+          //retval = status;
+          TestReportWriteDiagResponse (req);
+          testStepFail(TEST_STEP, "Disable Rx And Disable Tx Control Falied, NRC = 0x%.2x", status);
+          //testStepFail(TEST_STEP, "Disable Rx And Disable Tx Control Falied!!");
+          
+        }
+        else if (-1 == status)
+        {
+          TestReportWriteDiagResponse (req);
+          testStepPass(TEST_STEP, "Disable Rx And Disable Tx Control Successfully!!");
+          
+        }
+        else 
+        {
+          testStepFail(TEST_STEP, "No response!! Test failed!!");
+          testStepFail(TEST_STEP, "Disable Rx And Disable Tx Control Falied!!");
+        }
+      }
+    }
+    else
+    {
+      testStepFail(TEST_STEP, "超时!! Test failed!!");
+      testWaitForTimeout(500);
+    }
+  }  
+}
+
+//读取ECU产品型号
+testcase DiagTest_system_name_F197_Read() {
+    long status;
+    byte DATA_0xF197[16];
+    int i;
+    char out_array[17]; //out_array要比源数据的长度多一个字节，调用strncat()函数时，会在末尾添加一位空字符
+    diagRequest GW.System_Name_or_Engine_Type_Read req;
+    TestCaseTitle("Read System Name or Engine Type", "System Name or Engine Type Read");
+    testCaseDescription("This test case used to verify Read System Name or Engine Type function. Totally 1 steps.\n");
+    testCaseDescription("Step 1.5: System Name or Engine Type Read\n");
+    //testCaseDescription("此测试用例用于验证通信控制 TX,RX  .\n");
+    Diag_IncrementTestStep();
+    testCaseComment("读取ECU产品型号");
+    diagSendRequest(req);
+    if (TestWaitForDiagRequestSent(req, SENDING_TIMEOUT) == 1) {
+        TestReportWriteDiagObject(req);
+        testStepPass(TEST_STEP, "读取ECU产品型号请求发送成功!!");
+        
+    } else {
+        testStepFail(TEST_STEP, "读取ECU产品型号请求发送失败!!");
+    }
+    
+    if (testWaitForDiagResponseStart(req, P2serverValue) == 1) {
+        if (TestWaitForDiagResponse(req, RESPONSE_TIMEOUT) == 1) {
+            // testCaseComment("Bootloader RESPONSE_TIMEOUT");
+            status = DiagGetLastResponseCode(req);
+            if (status > 0) {
+                //retval = status;
+                TestReportWriteDiagResponse(req);
+                testStepFail(TEST_STEP, "收到否肯响应, NRC = 0x%.2x;测试失败！", status);
+                //testStepFail(TEST_STEP, "读boot版本号请求失败!!");
+                
+            } else if (-1 == status) {
+                TestReportWriteDiagResponse(req);
+                // testStepPass(TEST_STEP, "成功收到肯定响应!!");
+                testCaseComment("检查ECU产品型号正确性");
+                //testStep("254","Bootloader SW num");
+                for (i = 0; i < elcount(DATA_0xF197); i++) {
+                    DATA_0xF197[i] = DiagGetRespPrimitiveByte(req, i + 3);
+                    if (DATA_0xF197[i] != system_name_F197[i]) {
+                        GBF_ConvertASCIIArrTostr(DATA_0xF197,out_array);
+                        testStepFail(TEST_STEP, "ECU产品型号错误: %s!!", out_array);
+                        break;
+                    }
+                }
+                if (i == elcount(DATA_0xF197)) {
+                    GBF_ConvertASCIIArrTostr(DATA_0xF197,out_array);
+                    Write("out_array=%s", out_array);
+                    testStepPass(TEST_STEP, "ECU产品型号正确: %s!!", out_array);
+                }
+            } else {
+                testStepFail(TEST_STEP, "无响应!! 测试失败!!");
+                //testStepFail(TEST_STEP, "Bootloader Software Version Number Read Falied!!");
+            }
+        }
+        
+    } else {
+        testStepFail(TEST_STEP, "超时!! 测试失败!!");
+    }
+}
+
+//读取主机厂ECU硬件版本号
+testcase DiagTest_system_supplier_ECU_hardware_Version_F150_Read() {
+    long status;
+    byte DATA_0xF150[10];
+    int i;
+    char out_array[11]; //out_array要比源数据的长度多一个字节，调用strncat()函数时，会在末尾添加一位空字符
+    diagRequest GW.System_Supplier_ECU_Hardware_Version_Read req;
+    TestCaseTitle("Read System Supplier ECU Hardware Version", "System Supplier ECU Hardware Version Read");
+    testCaseDescription("This test case used to verify Read System Supplier ECU Hardware Version function. Totally 1 steps.\n");
+    testCaseDescription("Step 1.5: System Supplier ECU Hardware Version Read\n");
+    //testCaseDescription("此测试用例用于验证通信控制 TX,RX  .\n");
+    Diag_IncrementTestStep();
+    testCaseComment("读取主机厂ECU硬件版本号");
+    diagSendRequest(req);
+    if (TestWaitForDiagRequestSent(req, SENDING_TIMEOUT) == 1) {
+        TestReportWriteDiagObject(req);
+        testStepPass(TEST_STEP, "读取主机厂ECU硬件版本号请求发送成功!!");
+        
+    } else {
+        testStepFail(TEST_STEP, "读取主机厂ECU硬件版本号请求发送失败!!");
+    }
+    
+    if (testWaitForDiagResponseStart(req, P2serverValue) == 1) {
+        if (TestWaitForDiagResponse(req, RESPONSE_TIMEOUT) == 1) {
+            // testCaseComment("Bootloader RESPONSE_TIMEOUT");
+            status = DiagGetLastResponseCode(req);
+            if (status > 0) {
+                //retval = status;
+                TestReportWriteDiagResponse(req);
+                testStepFail(TEST_STEP, "收到否肯响应, NRC = 0x%.2x;测试失败！", status);
+                //testStepFail(TEST_STEP, "读boot版本号请求失败!!");
+                
+            } else if (-1 == status) {
+                TestReportWriteDiagResponse(req);
+                // testStepPass(TEST_STEP, "成功收到肯定响应!!");
+                testCaseComment("检查主机厂ECU硬件版本号正确性");
+                //testStep("254","Bootloader SW num");
+                for (i = 0; i < elcount(DATA_0xF150); i++) {
+                    DATA_0xF150[i] = DiagGetRespPrimitiveByte(req, i + 3);
+                    if (DATA_0xF150[i] != system_supplier_ECU_hardware_Version_F150[i]) {
+                        GBF_ConvertASCIIArrTostr(DATA_0xF150,out_array);
+                        testStepFail(TEST_STEP, "主机厂ECU硬件版本号错误: %s!!", out_array);
+                        break;
+                    }
+                }
+                if (i == elcount(DATA_0xF150)) {
+                    GBF_ConvertASCIIArrTostr(DATA_0xF150,out_array);
+                    Write("out_array=%s", out_array);
+                    testStepPass(TEST_STEP, "主机厂ECU硬件版本号正确: %s!!", out_array);
+                }
+            } else {
+                testStepFail(TEST_STEP, "无响应!! 测试失败!!");
+                //testStepFail(TEST_STEP, "Bootloader Software Version Number Read Falied!!");
+            }
+        }
+        
+    } else {
+        testStepFail(TEST_STEP, "超时!! 测试失败!!");
+    }
+}
+
+//读取主机厂ECU软件版本号
+testcase DiagTest_Manufacturer_ECU_Software_Version_F189_Read() {
+    long status;
+    byte DATA_0xF189[10];
+    int i;
+    char out_array[11]; //out_array要比源数据的长度多一个字节，调用strncat()函数时，会在末尾添加一位空字符
+    diagRequest GW.Manufacturer_ECU_Software_Version_Read req;
+    TestCaseTitle("Read Manufacturer ECU Software Version", "Manufacturer ECU Software Version Read");
+    testCaseDescription("This test case used to verify Read Manufacturer ECU Software Version function. Totally 1 steps.\n");
+    testCaseDescription("Step 1.5: Manufacturer ECU Software Version Read\n");
+    //testCaseDescription("此测试用例用于验证通信控制 TX,RX  .\n");
+    Diag_IncrementTestStep();
+    testCaseComment("读取主机厂ECU软件版本号");
+    diagSendRequest(req);
+    if (TestWaitForDiagRequestSent(req, SENDING_TIMEOUT) == 1) {
+        TestReportWriteDiagObject(req);
+        testStepPass(TEST_STEP, "读取主机厂ECU软件版本号请求发送成功!!");
+        
+    } else {
+        testStepFail(TEST_STEP, "读取主机厂ECU软件版本号请求发送失败!!");
+    }
+    
+    if (testWaitForDiagResponseStart(req, P2serverValue) == 1) {
+        if (TestWaitForDiagResponse(req, RESPONSE_TIMEOUT) == 1) {
+            // testCaseComment("Bootloader RESPONSE_TIMEOUT");
+            status = DiagGetLastResponseCode(req);
+            if (status > 0) {
+                //retval = status;
+                TestReportWriteDiagResponse(req);
+                testStepFail(TEST_STEP, "收到否肯响应, NRC = 0x%.2x;测试失败！", status);
+                //testStepFail(TEST_STEP, "读boot版本号请求失败!!");
+                
+            } else if (-1 == status) {
+                TestReportWriteDiagResponse(req);
+                // testStepPass(TEST_STEP, "成功收到肯定响应!!");
+                testCaseComment("检查主机厂ECU软件版本号正确性");
+                //testStep("254","Bootloader SW num");
+                for (i = 0; i < elcount(DATA_0xF189); i++) {
+                    DATA_0xF189[i] = DiagGetRespPrimitiveByte(req, i + 3);
+                    if (DATA_0xF189[i] < Software_Version_F189_NOW[i]) {
+                        GBF_ConvertASCIIArrTostr(DATA_0xF189,out_array);
+                        testStepFail(TEST_STEP, "主机厂ECU软件版本号错误: %s!!", out_array);
+                        break;
+                    }
+                    else if(DATA_0xF189[i] > Software_Version_F189_NOW[i]){
+                      i = elcount(DATA_0xF189);
+                    }
+                    else{}
+                }
+                if (i == elcount(DATA_0xF189)) {
+                    GBF_ConvertASCIIArrTostr(DATA_0xF189,out_array);
+                    Write("out_array=%s", out_array);
+                    testStepPass(TEST_STEP, "主机厂ECU软件版本号正确: %s!!", out_array);
+                }
+            } else {
+                testStepFail(TEST_STEP, "无响应!! 测试失败!!");
+                //testStepFail(TEST_STEP, "Bootloader Software Version Number Read Falied!!");
+            }
+        }
+        
+    } else {
+        testStepFail(TEST_STEP, "超时!! 测试失败!!");
+    }
+}
+
+//读boot版本号
+testcase DiagTest_BootloaderSoftwareVersionNumberRead()
+{
+  long status,sendStatus1;
+  byte bootSW_Num[10];
+  int i;
+  diagRequest GW.BootloaderSoftwareVersionNumber_Read req;
+  TestCaseTitle("Read the software version number", "Bootloader Software Version Number Read");
+  testCaseDescription("This test case used to verify Read the software version number function. Totally 1 steps.\n");
+  testCaseDescription("Step 5.1: Bootloader Software Version Number Read\n");
+  //testCaseDescription("此测试用例用于验证通信控制 TX,RX  .\n");
+  Diag_IncrementTestStep();
+  testCaseComment("读boot版本号");
+  diagSendRequest(req);
+  sendStatus1=TestWaitForDiagRequestSent(req, SENDING_TIMEOUT);
+  if (sendStatus1== 1)
+  {
+    TestReportWriteDiagObject (req);
+    testStepPass(TEST_STEP, "读boot版本号请求发送成功!!");
+    
+  }
+  else
+  {
+    testStepFail(TEST_STEP, "读boot版本号请求发送失败!! %d",sendStatus1);
+  }
+  
+  if(testWaitForDiagResponseStart(req, P2serverValue) == 1)
+  {
+    if(TestWaitForDiagResponse(req, RESPONSE_TIMEOUT) == 1)
+    {
+      testCaseComment("Bootloader RESPONSE_TIMEOUT");
+     status = DiagGetLastResponseCode(req);
+     if (status > 0)
+     {
+       //retval = status;
+       TestReportWriteDiagResponse (req);
+       testStepFail(TEST_STEP, "收到否肯响应, NRC = 0x%.2x;测试失败！", status);
+       //testStepFail(TEST_STEP, "读boot版本号请求失败!!");
+      
+     }
+     else if (-1 == status)
+     {
+      TestReportWriteDiagResponse (req);
+       testStepPass(TEST_STEP, "成功收到肯定响应!!");
+     }
+     else 
+     {
+       testStepFail(TEST_STEP, "无响应!! 测试失败!!");
+       //testStepFail(TEST_STEP, "Bootloader Software Version Number Read Falied!!");
+     }
+    }
+    
+   }
+   else
+   {
+    testStepFail(TEST_STEP, "超时!! 测试失败!!");
+   }
+  #if 0
+  for(i=0;i<elcount(bootSW_Num);i++)
+  {
+    bootSW_Num[i]=DiagGetRespPrimitiveByte(req,i+3);
+  }
+  testCaseComment("检查Bootloader软件版本号正确性");
+  //testStep("254","Bootloader SW num");
+  for(i=0;i<10;i++)
+  {
+    if(bootSW_Num[i]!=BootloaderSWNum[i])
+    {
+      testStepFail(TEST_STEP, "Bootloader 软件版本号错误!!");
+      break;
+    }
+  }
+  if(i==10)
+  {
+    testStepPass(TEST_STEP, "Bootloader 软件版本号正确！Test Pass !!");
+  }
+  #endif
+}
+//安全访问3FlashRequest
+testcase DiagTest_unlock_LV11()
+{
+  long status;
+  TestCaseTitle("safety access", "unlock LV11");
+  testCaseDescription("This test case used to verify safety access function. Totally 4 steps.\n");
+  testCaseDescription("Step 7.1: Request the seed\n");
+  testCaseDescription("Step 7.2: generate the secret key\n");
+  testCaseDescription("Step 7.3: Send the secret key\n");
+  testCaseDescription("Step 7.4: unlock\n");
+  //testCaseDescription("Step 02: Unlock LV1, then unlock LV2\n");
+  TestCaseComment("安全访问unlock_LV11");
+  if((status = Diag_SecurityLevel_1_Unlock(SPRMIBit))!= 0)
+  {
+    testStepFail(TEST_STEP, "安全级别11解锁失败!!");
+  }
+  else
+    testStepPass(TEST_STEP, "安全级别11解锁成功!!");
+
+}
+
+//数据传输UploadDownloadTransmit
+testcase DiagTest_CheckLegitimacy()
+{
+  long status;
+  byte memAddr[4];
+  byte memSize[4];
+  int j,i;
+  long k,BlockNumVal=0;
+  long BlockSequenceCounterMax;
+  long Tx_num;
+  byte Data_Tx[3000];
+  byte NumBlock;
+  diagRequest GW.CheckLegitimacy_Start req;
+  
+  data_len[0]=0;
+  TestCaseTitle("Programming Legitimacy Check", "Programming_Legitimacy_Check");
+  testCaseDescription("This test case used to verify Programming Legitimacy Check function. Totally 1 steps.\n");
+  testCaseDescription("Step 15.1: Programming Legitimacy checking\n");
+  //testCaseDescription("Step 02: UploadDownloadTransmit, Upload Download Transmit\n");
+  TestCaseComment("请求下载X509Cer");
+  Diag_IncrementTestStep();
+  MEM_START_ADDR[0]=0; //这里只是为了筹齐格式
+  Read_HexFile(X509CerFilename,dataBuffer,MEM_START_ADDR,data_len);
+  
+  if (data_len[0]== 1322)
+  {
+    testStepPass(TEST_STEP, "6000例程参数长度正确!!");
+    diagSetParameterRaw(req,"RoutineControlOption",dataBuffer,data_len[0]);
+    diagSendRequest(req);
+    //Write("seedArray:%lX", data_len);
+    #if 1
+    if (TestWaitForDiagRequestSent(req, SENDING_TIMEOUT)== 1)
+    {
+      TestReportWriteDiagObject (req);
+      testStepPass(TEST_STEP, "数据传输发送成功!!");
+    }
+    else
+    {
+      testStepFail(TEST_STEP, "数据传输发送失败!!");
+    }
+    #endif
+    if(testWaitForDiagResponseStart(req, P2serverValue) == 1)
+    {
+      if(TestWaitForDiagResponse(req, RESPONSE_TIMEOUT) == 1)
+      {
+        status = DiagGetLastResponseCode(req);
+        if (status > 0)
+        {
+          //retval = status;
+          TestReportWriteDiagResponse (req);
+          testStepFail(TEST_STEP, "收到否定响应, NRC = 0x%.2x;测试失败！", status);
+          //testStepFail(TEST_STEP, "数据传输失败!!");
+        }
+        else if (-1 == status)
+        {
+          TestReportWriteDiagResponse (req);
+          testStepPass(TEST_STEP, "数据传输成功!!");
+        }
+        else 
+        {
+          testStepFail(TEST_STEP, "无响应!! 测试失败!!");
+        //testStepFail(TEST_STEP, "Bootloader Software Version Number Read Falied!!");
+        }
+      }
+    }
+    else
+    {
+      testStepFail(TEST_STEP, "超时!! 测试失败!!");
+    }
+  }
+  else
+  {
+    testStepFail(TEST_STEP, "6000例程参数长度错误!!");
+  }
+}
+
+//版本校验
+testcase DaigTestCheckVersion_Start()
+{
+  long status;
+  byte result=1;
+  diagRequest GW.CheckVersion_Start req;
+  TestCaseTitle("Programming Version Check", "Programming_Version_Check");
+  testCaseDescription("This test case used to verify Programming Version Check function. Totally 1 steps.\n");
+  testCaseDescription("Step 15.1: Programming Version checking\n");
+  //testCaseDescription("Step 02: DiagTestProgrammingDependencyCheck, DiagTestProgrammingDependencyCheck\n");
+  TestCaseComment("编程版本检查");
+  Diag_IncrementTestStep();
+  diagSendRequest(req);
+  if (TestWaitForDiagRequestSent(req, SENDING_TIMEOUT)== 1)
+  {
+    TestReportWriteDiagObject (req);
+    testStepPass(TEST_STEP, "编程版本检查发送成功!!");
+  }
+  else
+  {
+    testStepFail(TEST_STEP, "编程版本检查发送失败!!");
+  }
+  if(testWaitForDiagResponseStart(req, P2serverValue) == 1)
+  {
+    if(testWaitForDiagResponse(req,(RESPONSE_TIMEOUT)) == 1)
+    {
+      status = DiagGetLastResponseCode(req);
+      if (status > 0)
+      {
+        //retval = status;
+        TestReportWriteDiagResponse (req);
+        testStepFail(TEST_STEP, "收到否定响应, NRC = 0x%.2x;测试失败！", status);
+        //testStepFail(TEST_STEP, "编程依赖性检查失败!!");
+      }
+      else if (-1 == status)
+      {
+        TestReportWriteDiagResponse (req);
+        testStepPass(TEST_STEP, "成功收到肯定响应!!");
+		    result = DiagGetRespPrimitiveByte(req, 4); 
+		    if(result==0x4)
+		    {
+			    testStepPass(TEST_STEP, "编程版本检查结果正确!!");
+		    }
+		    else
+		    {
+			    testStepFail(TEST_STEP, "编程版本检查结果错误!!");
+		    }
+      }
+      else 
+      {
+        Write("status:%d", status);
+        testStepFail(TEST_STEP, "无响应!! 测试失败!!");
+        //testStepFail(TEST_STEP, "Bootloader Software Version Number Read Falied!!");
+      }
+    }
+  }
+   else 
+   {
+     testStepFail(TEST_STEP, "超时!! 测试失败!!");
+   }
+}
+
+//写指纹ApplicationSofwareFingerprint_Write
+testcase DiagTest_ApplicationSofwareFingerprintWrite()
+{
+  long status;
+  
+  diagRequest GW._ApplicationSofwareFingerprint_Write req;
+  TestCaseTitle("Fingerprint Write", "Application Sofware Fingerprint Write");
+  testCaseDescription("This test case used to verify Fingerprint Write function. Totally 1 steps.\n");
+  testCaseDescription("Step 10.1: Application Sofware Fingerprint Write\n");
+  //testCaseDescription("Step 02: ApplicationSofwareFingerprintWrite, ApplicationSofwareFingerprintWrite\n");
+  TestCaseComment("APP 写指纹");
+  Diag_IncrementTestStep();
+  diagSetParameterRaw(req,"Date",FingerprintDate,elCount(FingerprintDate));
+  diagSetParameterRaw(req,"Fingerprint",Fingerprint,elCount(Fingerprint));
+  diagSendRequest(req);
+  if (TestWaitForDiagRequestSent(req, SENDING_TIMEOUT)== 1)
+  {
+    TestReportWriteDiagObject (req);
+    testStepPass(TEST_STEP, "写指纹APP 发送成功!!");
+  }
+  else
+  {
+    testStepFail(TEST_STEP, "发送失败!!");
+  }
+  if(testWaitForDiagResponseStart(req, P2serverValue) == 1)
+  {
+    if(TestWaitForDiagResponse(req, RESPONSE_TIMEOUT) == 1)
+    {
+     status = DiagGetLastResponseCode(req);
+     if (status > 0)
+     {
+       //retval = status;
+      TestReportWriteDiagResponse (req);
+       testStepFail(TEST_STEP, "收到否定响应, NRC = 0x%.2x;测试失败！", status);
+       //testStepFail(TEST_STEP, "写指纹失败!!");
+     }
+     else if (-1 == status)
+     {
+       TestReportWriteDiagResponse (req);
+       testStepPass(TEST_STEP, "写指纹APP成功!!");
+        
+     }
+     else 
+     {
+       testStepFail(TEST_STEP, "无响应!! 测试失败!!");
+       //testStepFail(TEST_STEP, "Bootloader Software Version Number Read Falied!!");
+     }
+   }
+  }
+  else
+  {
+    testStepFail(TEST_STEP, "超时!! 测试失败!!");
+  }
+}
+
+//写重编程日期
+testcase DiagTest_ProgrammingDatetWrite()
+{
+  long status;
+  
+  diagRequest GW.Programming_Date_Write req;
+  TestCaseTitle("Programming Date Write", "Programming Date Write");
+  testCaseDescription("This test case used to verify Programming Date function. Totally 1 steps.\n");
+  testCaseDescription("Step 10.1: Programming Date Write\n");
+  //testCaseDescription("Step 02: ApplicationSofwareFingerprintWrite, ApplicationSofwareFingerprintWrite\n");
+  TestCaseComment("BOOT 写入编程日期");
+  Diag_IncrementTestStep();
+  diagSetParameterRaw(req,"Date",Programming_Date,elCount(Programming_Date));
+  diagSendRequest(req);
+  if (TestWaitForDiagRequestSent(req, SENDING_TIMEOUT)== 1)
+  {
+    TestReportWriteDiagObject (req);
+    testStepPass(TEST_STEP, "写指纹APP 发送成功!!");
+  }
+  else
+  {
+    testStepFail(TEST_STEP, "发送失败!!");
+  }
+  if(testWaitForDiagResponseStart(req, P2serverValue) == 1)
+  {
+    if(TestWaitForDiagResponse(req, RESPONSE_TIMEOUT) == 1)
+    {
+     status = DiagGetLastResponseCode(req);
+     if (status > 0)
+     {
+       //retval = status;
+      TestReportWriteDiagResponse (req);
+       testStepFail(TEST_STEP, "收到否定响应, NRC = 0x%.2x;测试失败！", status);
+       //testStepFail(TEST_STEP, "写指纹失败!!");
+     }
+     else if (-1 == status)
+     {
+       TestReportWriteDiagResponse (req);
+       testStepPass(TEST_STEP, "写指纹APP成功!!");
+        
+     }
+     else 
+     {
+       testStepFail(TEST_STEP, "无响应!! 测试失败!!");
+       //testStepFail(TEST_STEP, "Bootloader Software Version Number Read Falied!!");
+     }
+   }
+  }
+  else
+  {
+    testStepFail(TEST_STEP, "超时!! 测试失败!!");
+  }
+}
+
+void Request34Download(byte AddrStr[],byte DataSize[])
+{
+  long status;
+  int i;
+  byte Num_temp,temp_val;
+  byte fdBockLength[15];
+  diagRequest GW.Upload_Download_RequestDownload req;
+  diagSetParameterRaw(req,"Address",AddrStr,elCount(AddrStr));
+  diagSetParameterRaw(req,"Size",DataSize,elCount(DataSize));
+  diagSendRequest(req);
+  if (TestWaitForDiagRequestSent(req, (10*SENDING_TIMEOUT))== 1)
+  {
+    TestReportWriteDiagObject (req);
+    testStepPass(TEST_STEP, "请求下载发送成功!!");
+  }
+  else
+  {
+    testStepFail(TEST_STEP, "发送失败!!");
+  }
+  if(testWaitForDiagResponseStart(req, P2serverValue) == 1)
+  {
+    if(TestWaitForDiagResponse(req, RESPONSE_TIMEOUT) == 1)
+    {
+     status = DiagGetLastResponseCode(req);
+     if (status > 0)
+     {
+       //retval = status;
+      TestReportWriteDiagResponse (req);
+       testStepFail(TEST_STEP, "收到否肯写响应, NRC = 0x%.2x;测试失败！", status);
+       //testStepFail(TEST_STEP, "请求下载失败!!");
+     }
+     else if (-1 == status)
+     {
+        temp_val = DiagGetRespPrimitiveByte(req, 1);  
+        Num_temp=temp_val>>4;
+        UDS36BockLength=0;
+        for (i=0;i<Num_temp;i++)
+        {
+          fdBockLength[i] = DiagGetRespPrimitiveByte(req, i+ 2); 
+          UDS36BockLength=UDS36BockLength<<8;
+          if(i<2) UDS36BockLength=UDS36BockLength + (word)fdBockLength[i];
+          
+        }
+        TestReportWriteDiagResponse (req);
+        Write("UDS36BockLength:%lX", UDS36BockLength);
+        testStepPass(TEST_STEP, "成功收到肯定响应!!");
+     }
+     else 
+     {
+       testStepFail(TEST_STEP, "无响应!! 测试失败!!");
+       //testStepFail(TEST_STEP, "Bootloader Software Version Number Read Falied!!");
+     }
+   }
+  }
+  else
+  {
+    testStepFail(TEST_STEP, "超时!! 测试失败!!");
+  }
+}
+//请求下载flashDriver RequestDownload
+testcase DiagTest_RequestDownload()
+{
+  long status;
+  byte memAddr[4];
+  byte memSize[4];
+  data_len[0]=0;
+  TestCaseTitle("RequestDownload", "Request Download");
+  testCaseDescription("This test case used to verify Request Download function. Totally 1 steps.\n");
+  testCaseDescription("Step 9.1: Request Download\n");
+  //testCaseDescription("Step 02: RequestDownload, Request Download\n");
+  TestCaseComment("请求下载flashDriver");
+  Diag_IncrementTestStep();
+  MEM_START_ADDR[0]=0;
+
+  Read_HexFile(FlashDriverFilename,dataBuffer,MEM_START_ADDR,data_len);
+
+  memAddr[0] = (byte)(MEM_START_ADDR[0]>>24);
+  memAddr[1] = (byte)(MEM_START_ADDR[0]>>16);
+  memAddr[2] = (byte)(MEM_START_ADDR[0]>>8);
+  memAddr[3] = (byte)(MEM_START_ADDR[0]);
+        
+  memSize[0] = (byte)(data_len[0]>>24);
+  memSize[1] = (byte)(data_len[0]>>16);
+  memSize[2] = (byte)(data_len[0]>>8);
+  memSize[3] = (byte)(data_len[0]);
+  Write("mem_Address:%lx;data_len=%lx", MEM_START_ADDR[0],data_len[0]);
+  
+  Request34Download(memAddr,memSize);
+  
+}
+//数据传输UploadDownloadTransmit
+testcase DiagTest_UploadDownloadTransmit()
+{
+  long status;
+  int j,i;
+  long k,BlockNumVal=0;
+  long BlockSequenceCounterMax;
+  long Tx_num;
+  byte Data_Tx[3000];
+  byte NumBlock;
+  TestCaseTitle("UploadDownloadTransmit", "Upload Download Transmit");
+  testCaseDescription("This test case used to verify Upload Download Transmit function. Totally 1 steps.\n");
+  testCaseDescription("Step 9.1: Upload Download Transmit\n");
+  //testCaseDescription("Step 02: UploadDownloadTransmit, Upload Download Transmit\n");
+  if(UDS36BockLength>3000)
+  {
+    Write("UDS36BockLength长度超出范围！！！！");
+  }
+  if((data_len[0] %(UDS36BockLength-2)==0))
+  {
+    BlockSequenceCounterMax=(data_len[0] /(UDS36BockLength-2));
+    
+  }
+  else
+  {
+    BlockSequenceCounterMax=(data_len[0] /(UDS36BockLength-2))+1;
+    
+  }
+  Write("BlockSequenceCounterMax:%lX", BlockSequenceCounterMax);
+  k=0;
+  
+  for (i=1;i<=BlockSequenceCounterMax;i++)
+  {
+    Tx_num=0;
+    for(j=0;j<(UDS36BockLength-2);j++)
+    {
+      Data_Tx[j]=dataBuffer[k++];
+      if(k>(data_len[0]-1)) break;
+    }
+
+    if(j==(UDS36BockLength-2))
+    {
+      Tx_num=(UDS36BockLength-2);
+    }
+    else
+    {
+      Tx_num=j+1;
+    }
+    //Write("for Tx_num:%lX", Tx_num);
+    NumBlock=i;
+    if(NumBlock==0||i==1)
+    {
+      TestStep("1.0", "Communication prepared" );
+      TestCaseReportMeasuredValue("数据传输块",BlockNumVal);
+      BlockNumVal++;
+    }
+    status=TransmitFlashDriverData(Data_Tx,i,Tx_num);
+
+  }
+}
+
+//请求数据传输退出Upload_Download_Stop
+testcase DiagTestUpload_Download_Stop()
+{
+  long status;
+  diagRequest GW.Upload_Download_Stop req;
+  TestCaseTitle("Upload_Download_Stop", "Upload_Download_Stop");
+  testCaseDescription("This test case used to verify Upload Download Stop function. Totally 1 steps.\n");
+  testCaseDescription("Step 11.1: Request Transfer Exit\n");
+  //testCaseDescription("Step 02:Upload_Download_Stop, Upload_Download_Stop\n");
+  TestCaseComment("请求数据传输退出");
+  Diag_IncrementTestStep();
+  diagSendRequest(req);
+  if (TestWaitForDiagRequestSent(req, SENDING_TIMEOUT)== 1)
+  {
+    TestReportWriteDiagObject (req);
+    testStepPass(TEST_STEP, "请求数据传输退出发送成功!!");
+  }
+  else
+  {
+    testStepFail(TEST_STEP, "请求数据传输退出发送失败!!");
+  }
+  if(testWaitForDiagResponseStart(req, P2serverValue) == 1)
+  {
+    if(TestWaitForDiagResponse(req, RESPONSE_TIMEOUT) == 1)
+    {
+     status = DiagGetLastResponseCode(req);
+     if (status > 0)
+     {
+       //retval = status;
+      TestReportWriteDiagResponse (req);
+       testStepFail(TEST_STEP, "收到否定响应, NRC = 0x%.2x;测试失败！", status);
+       //testStepFail(TEST_STEP, "请求数据传输退出失败!!");
+     }
+     else if (-1 == status)
+     {
+      TestReportWriteDiagResponse (req);
+        testStepPass(TEST_STEP, "成功收到肯定响应!!");
+     }
+     else 
+     {
+       testStepFail(TEST_STEP, "无响应!! 测试失败!!");
+       //testStepFail(TEST_STEP, "Bootloader Software Version Number Read Falied!!");
+     }
+   }
+  }
+  else
+  {
+    testStepFail(TEST_STEP, "超时!! 测试失败!!");
+  }
+}
+//完整性校验StartChekRoutine_Start
+testcase DiagTestStartChekRoutine_Start(byte SPRMIB)
+{
+  long status,SPRMIB_STATUS;
+  dword CRCnum;
+  byte CRCbyte[4];
+  byte result=1;
+  diagRequest GW.StartChekRoutine_Start req;
+  TestCaseTitle("Start Chek Routine Start", "StartChekRoutine_Start");
+  testCaseDescription("This test case used to verify Start Chek Routine Start function. Totally 1 steps.\n");
+  testCaseDescription("Step 12.1: Completeness check\n");
+  //testCaseDescription("Step 02:StartChekRoutine_Start, StartChekRoutine_Start\n");
+  TestCaseComment("完整性校验");
+  
+//  if(SPRMIB)
+//  {
+//    diagSetSuppressResp (req,1);
+//  }
+    
+  SPRMIB_STATUS=diagGetSuppressResp(req);
+  
+  
+  Diag_IncrementTestStep();
+  Write("data_len:%lX", data_len[0]);
+
+  CRCnum=CRC32_BJ(dataBuffer,data_len[0],0xFFFFFFFF);
+
+
+  CRCnum^=0xFFFFFFFF;
+  CRCbyte[3]= CRCnum;
+  CRCbyte[2]= CRCnum>>8;
+  CRCbyte[1]= CRCnum>>16;
+  CRCbyte[0]= CRCnum>>24;
+  Write("CRCbyte[0]:%lX,%lX,%lX,%lX", CRCbyte[0],CRCbyte[1],CRCbyte[2],CRCbyte[3]);
+  diagSetParameterRaw(req,"CheckDriverDataValidity",CRCbyte,elCount(CRCbyte));
+  //diagSetParameterRaw(req,"Size",memSize,elCount(memSize));
+  
+  diagSendRequest(req);
+  if (TestWaitForDiagRequestSent(req, SENDING_TIMEOUT)== 1)
+  {
+    TestReportWriteDiagObject (req);
+    testStepPass(TEST_STEP, "完整性校验发送成功!!"); 
+  }
+  else
+  {
+    testStepFail(TEST_STEP, "完整性校验发送失败!!");
+  }
+  if(testWaitForDiagResponseStart(req, P2serverValue) == 1)
+  {
+    if(TestWaitForDiagResponse(req, RESPONSE_TIMEOUT) == 1)
+    {
+     status = DiagGetLastResponseCode(req);
+     if (status > 0)
+     {
+       //retval = status;
+      TestReportWriteDiagResponse (req);
+       testStepFail(TEST_STEP, "收到否定响应, NRC = 0x%.2x;测试失败！", status);
+       //testStepFail(TEST_STEP, "完整性校验退出失败!!");
+     }
+     else if (-1 == status)
+     {
+        TestReportWriteDiagResponse (req);
+        testStepPass(TEST_STEP, "成功收到肯定响应!!");
+        result = DiagGetRespPrimitiveByte(req, 4); 
+        Write("for result:%lX", result);
+        if(result==4)
+        {
+          testStepPass(TEST_STEP, "完整性校验结果正确!!");
+        }
+        else
+        {
+          testStepFail(TEST_STEP, "完整性校验结果错误!!");
+        }
+     }
+     else 
+     {
+       testStepFail(TEST_STEP, "无响应!! 测试失败!!");
+       //testStepFail(TEST_STEP, "Bootloader Software Version Number Read Falied!!");
+     }
+   }
+  }
+  else
+  {
+    testStepFail(TEST_STEP, "超时!! 测试失败!!");
+  }
+}
+//擦除内存 StartEraseMemory_Start
+testcase DiagTestStartEraseMemory_Start()
+{
+  long status;
+  byte Address[4];
+  byte MemorySize[4];
+  byte result=1;
+  diagRequest GW.StartEraseMemory_Start req;
+  TestCaseTitle("Start Erase Memory Start", "StartEraseMemory_Start");
+  testCaseDescription("This test case used to verify Start Erase Memory Start function. Totally 1 steps.\n");
+  testCaseDescription("Step 13.1: Erase the memory\n");
+  //testCaseDescription("Step 02:StartEraseMemory_Start, StartEraseMemory_Start\n");
+  TestCaseComment("擦除内存");
+  data_len[0]=0;
+  MEM_START_ADDR[0]=0;
+  Diag_IncrementTestStep();
+  Read_HexFile(s19Filename,dataBuffer,MEM_START_ADDR,data_len);
+  Address[3]=MEM_START_ADDR[0];
+  Address[2]=MEM_START_ADDR[0]>>8;
+  Address[1]=MEM_START_ADDR[0]>>16;
+  Address[0]=MEM_START_ADDR[0]>>24;
+  MemorySize[3]=data_len[0];
+  MemorySize[2]=data_len[0]>>8;
+  MemorySize[1]=data_len[0]>>16;
+  MemorySize[0]=data_len[0]>>24;
+  Write("Address[0]:%lX,%lX,%lX,%lX", Address[0],Address[1],Address[2],Address[3]);
+  Write("MemorySize[0]:%lX,%lX,%lX,%lX", MemorySize[0],MemorySize[1],MemorySize[2],MemorySize[3]);
+
+  diagSetParameterRaw(req,"MemoryAddress",Address,elCount(Address));
+  diagSetParameterRaw(req,"MemorySize",MemorySize,elCount(MemorySize));
+  //diagStopTesterPresent ();
+  diagSendRequest(req);
+  if (TestWaitForDiagRequestSent(req, SENDING_TIMEOUT)== 1)
+  {
+    TestReportWriteDiagObject (req);
+    testStepPass(TEST_STEP, "擦除内存发送成功!!");
+  }
+  else
+  {
+    testStepFail(TEST_STEP, "擦除内存发送失败!!");
+  }
+  
+  
+  if(testWaitForDiagResponseStart(req, P2serverValue) == 1)
+  {
+    if(testWaitForDiagResponse(req,(3*RESPONSE_TIMEOUT)) == 1)
+    {
+      status = DiagGetLastResponseCode(req);
+      if (status > 0)
+      {
+        //retval = status;
+        TestReportWriteDiagResponse (req);
+        testStepFail(TEST_STEP, "收到否定响应, NRC = 0x%.2x;测试失败！", status);
+        //testStepFail(TEST_STEP, "擦除内存失败!!");
+      }
+      else if (-1 == status)
+      {
+        TestReportWriteDiagResponse (req);
+        testStepPass(TEST_STEP, "成功收到肯定响应!!");
+		    result = DiagGetRespPrimitiveByte(req, 4); 
+		    if(result==0x4)
+		    {
+			    testStepPass(TEST_STEP, "擦除内存结果正确!!");
+		    }
+		    else
+		    {
+			    testStepFail(TEST_STEP, "擦除内存结果错误!!");
+		    }
+      }
+      else 
+      {
+        Write("status:%d", status);
+        testStepFail(TEST_STEP, "无响应!! 测试失败!!");
+        //testStepFail(TEST_STEP, "Bootloader Software Version Number Read Falied!!");
+      }
+    }
+  }
+   else 
+   {
+     testStepFail(TEST_STEP, "超时!! 测试失败!!");
+   }
+  //diagStartTesterPresent();
+}
+//请求下载APP RequestDownload
+testcase DiagTest_RequestDownloadApp()
+{
+  long status;
+  byte Address[4];
+  byte MemorySize[4];
+
+  
+   //请求下载APP RequestDownload
+  TestCaseTitle("Request Download", "Request Download");
+  testCaseDescription("This test case used to verify Request Download function. Totally 1 steps.\n");
+  testCaseDescription("Step 14.1: Request Download APP\n");
+  //testCaseDescription("Step 02: RequestDownload, Request Download\n");
+  TestCaseComment("请求下载app");
+  Diag_IncrementTestStep();
+  
+
+  Address[3]=MEM_START_ADDR[0];
+  Address[2]=MEM_START_ADDR[0]>>8;
+  Address[1]=MEM_START_ADDR[0]>>16;
+  Address[0]=MEM_START_ADDR[0]>>24;
+  MemorySize[3]=data_len[0];
+  MemorySize[2]=data_len[0]>>8;
+  MemorySize[1]=data_len[0]>>16;
+  MemorySize[0]=data_len[0]>>24;
+  Write("mem_Address:%lx", MEM_START_ADDR[0]);
+  
+  Request34Download(Address,MemorySize);
+  
+}
+
+//检查编程完整性（所有待下载文件）
+testcase DaigTestCheckProgrammingIntegrityALL_Start()
+{
+  long status;
+  byte result=1;
+  diagRequest GW.CheckProgrammingPrecondition_Start req;
+  TestCaseTitle("Programming IntegrityALL Check", "Programming_IntegrityALL_Check");
+  testCaseDescription("This test case used to verify Programming IntegrityALL Check function. Totally 1 steps.\n");
+  testCaseDescription("Step 15.1: Programming IntegrityALL checking\n");
+  //testCaseDescription("Step 02: DiagTestProgrammingDependencyCheck, DiagTestProgrammingDependencyCheck\n");
+  TestCaseComment("编程完整性（所有待下载文件）检查");
+  Diag_IncrementTestStep();
+  diagSendRequest(req);
+  if (TestWaitForDiagRequestSent(req, SENDING_TIMEOUT)== 1)
+  {
+    TestReportWriteDiagObject (req);
+    testStepPass(TEST_STEP, "编程完整性（所有待下载文件）检查发送成功!!");
+  }
+  else
+  {
+    testStepFail(TEST_STEP, "编程完整性（所有待下载文件）检查发送失败!!");
+  }
+  if(testWaitForDiagResponseStart(req, P2serverValue) == 1)
+  {
+    if(testWaitForDiagResponse(req,(RESPONSE_TIMEOUT)) == 1)
+    {
+      status = DiagGetLastResponseCode(req);
+      if (status > 0)
+      {
+        //retval = status;
+        TestReportWriteDiagResponse (req);
+        testStepFail(TEST_STEP, "收到否定响应, NRC = 0x%.2x;测试失败！", status);
+        //testStepFail(TEST_STEP, "编程依赖性检查失败!!");
+      }
+      else if (-1 == status)
+      {
+        TestReportWriteDiagResponse (req);
+        testStepPass(TEST_STEP, "成功收到肯定响应!!");
+		    result = DiagGetRespPrimitiveByte(req, 4); 
+		    if(result==0x4)
+		    {
+			    testStepPass(TEST_STEP, "编程完整性（所有待下载文件）检查结果正确!!");
+		    }
+		    else
+		    {
+			    testStepFail(TEST_STEP, "编程完整性（所有待下载文件）检查结果错误!!");
+		    }
+      }
+      else 
+      {
+        Write("status:%d", status);
+        testStepFail(TEST_STEP, "无响应!! 测试失败!!");
+        //testStepFail(TEST_STEP, "Bootloader Software Version Number Read Falied!!");
+      }
+    }
+  }
+   else 
+   {
+     testStepFail(TEST_STEP, "超时!! 测试失败!!");
+   }
+}
+
+//编程依赖性检查CheckProgrammingDependencies_Start
+testcase DaigTestCheckProgrammingDependencies_Start()
+{
+  long status;
+  byte result=1;
+  diagRequest GW.CheckProgrammingDependencies_Start req;
+  TestCaseTitle("Programming Dependency Check", "Programming_Dependency_Check");
+  testCaseDescription("This test case used to verify Programming Dependency Check function. Totally 1 steps.\n");
+  testCaseDescription("Step 15.1: Programming dependency checking\n");
+  //testCaseDescription("Step 02: DiagTestProgrammingDependencyCheck, DiagTestProgrammingDependencyCheck\n");
+  TestCaseComment("编程依赖性检查");
+  Diag_IncrementTestStep();
+  diagSendRequest(req);
+  if (TestWaitForDiagRequestSent(req, SENDING_TIMEOUT)== 1)
+  {
+    TestReportWriteDiagObject (req);
+    testStepPass(TEST_STEP, "编程依赖性检查发送成功!!");
+  }
+  else
+  {
+    testStepFail(TEST_STEP, "编程依赖性检查发送失败!!");
+  }
+  if(testWaitForDiagResponseStart(req, P2serverValue) == 1)
+  {
+    if(testWaitForDiagResponse(req,(RESPONSE_TIMEOUT)) == 1)
+    {
+      status = DiagGetLastResponseCode(req);
+      if (status > 0)
+      {
+        //retval = status;
+        TestReportWriteDiagResponse (req);
+        testStepFail(TEST_STEP, "收到否定响应, NRC = 0x%.2x;测试失败！", status);
+        //testStepFail(TEST_STEP, "编程依赖性检查失败!!");
+      }
+      else if (-1 == status)
+      {
+        TestReportWriteDiagResponse (req);
+        testStepPass(TEST_STEP, "成功收到肯定响应!!");
+		    result = DiagGetRespPrimitiveByte(req, 4); 
+		    if(result==0x4)
+		    {
+			    testStepPass(TEST_STEP, "编程依赖性检查结果正确!!");
+		    }
+		    else
+		    {
+			    testStepFail(TEST_STEP, "编程依赖性检查结果错误!!");
+		    }
+      }
+      else 
+      {
+        Write("status:%d", status);
+        testStepFail(TEST_STEP, "无响应!! 测试失败!!");
+        //testStepFail(TEST_STEP, "Bootloader Software Version Number Read Falied!!");
+      }
+    }
+  }
+   else 
+   {
+     testStepFail(TEST_STEP, "超时!! 测试失败!!");
+   }
+}
+//ECU复位 Hard_Reset_Reset
+testcase DaigTestHard_Reset_Reset()
+{
+  long status,result;
+  dword checkId;
+  diagRequest GW.Hard_Reset_Reset req;
+  TestCaseTitle("ECU Hard Reset", "ECU Hard Reset");
+  testCaseDescription("This test case used to verify ECU Hard Reset function. Totally 1 steps.\n");
+  testCaseDescription("Step 16.1: ECU Hard Reset\n");
+  //testCaseDescription("Step 02: ECU Hard Reset, ECU Hard Reset\n");
+  TestCaseComment("ECU硬件复位");
+  Diag_IncrementTestStep();
+  
+    // checks the distance between two messages
+  checkId = ChkStart_MsgDistViolation (Diag_MFS_Resp, SWB_305, 10, tCANInit);
+  TestAddCondition(checkId);
+  
+  diagSendRequest(req);
+  if (TestWaitForDiagRequestSent(req, SENDING_TIMEOUT)== 1)
+  {
+    TestReportWriteDiagObject (req);
+    testStepPass(TEST_STEP, "ECU硬件复位发送成功!!");
+  }
+  else
+  {
+    testStepFail(TEST_STEP, "ECU硬件复位发送失败!!");
+  }
+  if(testWaitForDiagResponseStart(req, P2serverValue) == 1)
+  {
+    if(testWaitForDiagResponse(req,(RESPONSE_TIMEOUT)) == 1)
+    {
+      status = DiagGetLastResponseCode(req);
+      if (status > 0)
+      {
+        //retval = status;
+        TestReportWriteDiagResponse (req);
+        testStepFail(TEST_STEP, "收到否定响应, NRC = 0x%.2x;测试失败！", status);
+        //testStepFail(TEST_STEP, "ECU硬件复位失败!!");
+      }
+      else if (-1 == status)
+      {
+        TestReportWriteDiagResponse (req);
+        testStepPass(TEST_STEP, "成功收到肯定响应!!");
+        //result = TestWaitForSignalsAvailable(MFS, tCANInit);
+        result =TestWaitForMessage(0x305, tCANInit);
+        if(result>0)
+        {
+          testStepPass(TEST_STEP, "ECU硬件复位时间 < tCANInit!!");
+        
+        }
+        else
+        {
+          if(result==0) 
+          {
+            testStepFail(TEST_STEP, "ECU硬件复位时间 > tCANInit!!");
+          }
+          else
+          {
+            testStepFail(TEST_STEP, "错误!!");
+          }
+        }
+      }
+      else 
+      {
+        Write("status:%d", status);
+        testStepFail(TEST_STEP, "无响应!! 测试失败!!");
+        //testStepFail(TEST_STEP, "Bootloader Software Version Number Read Falied!!");
+      }
+    }
+  }
+   else 
+   {
+     testStepFail(TEST_STEP, "超时!! 测试失败!!");
+   }
+  // sequence of different actions and waiting conditions
+  //TestWaitForTimeout(1000);
+  TestRemoveCondition(checkId);
+}
+//通信控制开启EnableRxAndEnableTx_Control
+testcase DaigTestEnableRxAndEnableTx_Control()
+{
+  long status;
+  diagRequest GW.EnableRxAndEnableTx_Control req;
+  TestCaseTitle("EnableRxAndEnableTx_Control", "EnableRxAndEnableTx_Control");
+  testCaseDescription("This test case used to verify communication control function. Totally 1 steps.\n");
+  testCaseDescription("Step 17.1: Enable Rx And Enable Tx Control\n");
+  //testCaseDescription("Step 02: EnableRxAndEnableTx_Control, EnableRxAndEnableTx_Control\n");
+  TestCaseComment("通信控制开启");
+  Diag_IncrementTestStep();
+  diagSetParameter(req,"CommunicationType",0x01);
+  diagSendRequest(req);
+  if (TestWaitForDiagRequestSent(req, SENDING_TIMEOUT)== 1)
+  {
+    TestReportWriteDiagObject (req);
+    testStepPass(TEST_STEP, "通信控制开启发送成功!!");
+  }
+  else
+  {
+    testStepFail(TEST_STEP, "通信控制开启发送失败!!");
+  }
+  if(testWaitForDiagResponseStart(req, P2serverValue) == 1)
+  {
+    if(testWaitForDiagResponse(req,(RESPONSE_TIMEOUT)) == 1)
+    {
+      status = DiagGetLastResponseCode(req);
+      if (status > 0)
+      {
+        //retval = status;
+        TestReportWriteDiagResponse (req);
+        testStepFail(TEST_STEP, "收到否定响应, NRC = 0x%.2x;测试失败！", status);
+        //testStepFail(TEST_STEP, "通信控制开启失败!!");
+      }
+      else if (-1 == status)
+      {
+        TestReportWriteDiagResponse (req);
+        testStepPass(TEST_STEP, "成功收到肯定响应!!");
+      }
+      else 
+      {
+        Write("status:%d", status);
+        testStepFail(TEST_STEP, "无响应!! 测试失败!!");
+        //testStepFail(TEST_STEP, "Bootloader Software Version Number Read Falied!!");
+      }
+    }
+   }
+   else 
+   {
+     testStepFail(TEST_STEP, "超时!! 测试失败!!");
+   }
+}
+//DTC控制开启ControlDTCSetting_On
+testcase DaigTestControlDTCSetting_On()
+{
+  long status;
+  diagRequest GW.ControlDTCSetting_On req;
+  TestCaseTitle("Control DTC Setting On", "ControlDTCSetting_On");
+  testCaseDescription("This test case used to verify Control DTC Setting function. Totally 1 steps.\n");
+  testCaseDescription("Step 18.1: Control DTC Setting On\n");
+  //testCaseDescription("Step 02: ControlDTCSetting_On, ControlDTCSetting_On\n");
+  TestCaseComment("DTC控制开启");
+  Diag_IncrementTestStep();
+  diagSendRequest(req);
+  if (TestWaitForDiagRequestSent(req, SENDING_TIMEOUT)== 1)
+  {
+    TestReportWriteDiagObject (req);
+    testStepPass(TEST_STEP, "DTC控制开启发送成功!!");
+  }
+  else
+  {
+    testStepFail(TEST_STEP, "DTC控制开启发送失败!!");
+  }
+  if(testWaitForDiagResponseStart(req, P2serverValue) == 1)
+  {
+    if(testWaitForDiagResponse(req,(RESPONSE_TIMEOUT)) == 1)
+    {
+      status = DiagGetLastResponseCode(req);
+      if (status > 0)
+      {
+        //retval = status;
+        TestReportWriteDiagResponse (req);
+        testStepFail(TEST_STEP, "收到否定响应, NRC = 0x%.2x;测试失败！", status);
+        //testStepFail(TEST_STEP, "DTC控制开启失败!!");
+      }
+      else if (-1 == status)
+      {
+        TestReportWriteDiagResponse (req);
+        testStepPass(TEST_STEP, "成功收到肯定响应!!");
+      }
+      else 
+      {
+        Write("status:%d", status);
+        testStepFail(TEST_STEP, "无响应!! 测试失败!!");
+        //testStepFail(TEST_STEP, "Bootloader Software Version Number Read Falied!!");
+      }
+    }
+   }
+   else 
+   {
+     testStepFail(TEST_STEP, "超时!! 测试失败!!");
+   }
+} 
+//读零部件号Spare_Part_Number_Read
+testcase TestDaigSparePartNumberRead()
+{
+  long status;
+  int i;
+  byte PartNumber[9];
+  //char in_array[50]="123";
+  char out_array[10];
+  diagRequest GW.Spare_Part_Number_Read req;
+  TestCaseTitle("SparePartNumberRead", "Spare Part Number Read");
+  testCaseDescription("This test case used to verify Read PartNumber function. Totally 1 steps.\n");
+  testCaseDescription("Step 20.1: Reading part Number\n");
+  //testCaseDescription("Step 02: SparePartNumberRead, Spare Part Number Read\n");
+  TestCaseComment("读零部件号，N61零部件号应该为： ",PartNum_MFS);
+  Diag_IncrementTestStep();
+  diagSendRequest(req);
+  if (TestWaitForDiagRequestSent(req, SENDING_TIMEOUT)== 1)
+  {
+    TestReportWriteDiagObject (req);
+    testStepPass(TEST_STEP, "读零部件号发送成功!!");
+  }
+  else
+  {
+    testStepFail(TEST_STEP, "读零部件号发送失败!!");
+  }
+  if(testWaitForDiagResponseStart(req, P2serverValue) == 1)
+  {
+    if(testWaitForDiagResponse(req,(RESPONSE_TIMEOUT)) == 1)
+    {
+      status = DiagGetLastResponseCode(req);
+      if (status > 0)
+      {
+        //retval = status;
+        TestReportWriteDiagResponse (req);
+        testStepFail(TEST_STEP, "收到否定响应, NRC = 0x%.2x;测试失败！", status);
+        //testStepFail(TEST_STEP, "读零部件号失败!!");
+      }
+      else if (-1 == status)
+      {
+        TestReportWriteDiagResponse (req);
+        for(i=0;i<elcount(PartNumber);i++)
+        {
+          PartNumber[i]=DiagGetRespPrimitiveByte(req,i+3);
+          if(PartNum_MFS[i]!=PartNumber[i])
+          {
+            GBF_ConvertASCIIArrTostr(PartNumber,out_array);
+            testStepFail(TEST_STEP, "MFS零部件号错误——测试失败:%s ≠ %s!!",PartNum_MFS,out_array);
+            break;
+          }
+
+        }
+
+        GBF_ConvertASCIIArrTostr(PartNumber,out_array);
+        //Write("out_array={%s,0x%X,0x%X,0x%X,0x%X,0x%X,0x%X,0x%X,0x%X}", out_array[0],out_array[1],out_array[2],out_array[3],out_array[4],out_array[5],out_array[6],out_array[7],out_array[8]);
+        Write("out_array=%s", out_array);
+        testStepPass(TEST_STEP, "测试结果——被测件零部件号: %s!!",out_array);
+      }
+      else 
+      {
+        Write("status:%d", status);
+        testStepFail(TEST_STEP, "无响应!! 测试失败!!");
+        //testStepFail(TEST_STEP, "Bootloader Software Version Number Read Falied!!");
+      }
+    }
+   }
+   else 
+   {
+     testStepFail(TEST_STEP, "超时!! 测试失败!!");
+   }
+}
+dword CRC32(byte pData[], long nLength,dword lastCRCvalue)
+{
+  byte i;
+  long j = 0;
+  dword crc=0xFFFFFFFF; //= lastCRCvalue;
+  //lastCRCvalue=0x11;
+  while (nLength != 0)
+  {
+    crc ^= pData[j];
+    for (i = 0; i < 8; i++)
+    {
+      if ((crc & 1)==1)
+      {
+        crc >>= 1;
+        crc ^= 0xEDB88320;
+      }
+      else
+      {
+        crc >>= 1;
+      }
+
+     }
+     j++;
+     nLength--;
+    }
+    //return (crc^ 0xffffffff);
+    return (crc);
+}
+dword CRC32_app(byte pData[], long nLength,dword lastCRCvalue)
+{
+  byte i;
+  long j = 0;
+  dword crc=0xFFFFFFFF; //= lastCRCvalue;
+  //lastCRCvalue=0x11;
+  while (nLength != 0)
+  {
+    crc ^= pData[j];
+    for (i = 0; i < 8; i++)
+    {
+      if ((crc & 1)==1)
+      {
+        crc >>= 1;
+        crc ^= 0xEDB88320;
+      }
+      else
+      {
+        crc >>= 1;
+      }
+
+     }
+     j++;
+     nLength--;
+    }
+    //return (crc^ 0xffffffff);
+    return (crc);
+}
+
+long TransmitFlashDriverData(byte Data_Tx[],byte BlockSequenceCounter,long DataTransmitNum)
+{
+  long status;
+  long retval=1;
+  diagRequest GW.Upload_Download_Transmit req;
+  //TestCaseTitle("UploadDownloadTransmit", "Upload Download Transmit");
+  //testCaseDescription("Step 02: UploadDownloadTransmit, Upload Download Transmit\n");
+  //TestCaseComment("数据传输");
+  TestCaseReportMeasuredValue("blockSequenceCounter",BlockSequenceCounter);
+  
+  Diag_IncrementTestStep();
+  diagSetParameter(req,"Block_Sequence_Counter",BlockSequenceCounter);
+    diagSetParameterRaw(req, "Transfer_Request_Parameter_Record", Data_Tx,DataTransmitNum );
+    diagSendRequest(req);
+    //Write("seedArray:%lX", data_len);
+    #if 1
+    if (TestWaitForDiagRequestSent(req, SENDING_TIMEOUT)== 1)
+    {
+      TestReportWriteDiagObject (req);
+      testStepPass(TEST_STEP, "数据传输发送成功!!");
+    }
+    else
+    {
+      testStepFail(TEST_STEP, "数据传输发送失败!!");
+    }
+    #endif
+    if(testWaitForDiagResponseStart(req, P2serverValue) == 1)
+    {
+      if(TestWaitForDiagResponse(req, RESPONSE_TIMEOUT) == 1)
+      {
+        status = DiagGetLastResponseCode(req);
+        if (status > 0)
+        {
+          //retval = status;
+          TestReportWriteDiagResponse (req);
+          testStepFail(TEST_STEP, "收到否定响应, NRC = 0x%.2x;测试失败！", status);
+          //testStepFail(TEST_STEP, "数据传输失败!!");
+        }
+        else if (-1 == status)
+        {
+          TestReportWriteDiagResponse (req);
+          testStepPass(TEST_STEP, "数据传输成功!!");
+          retval = 0; 
+        }
+        else 
+        {
+          testStepFail(TEST_STEP, "无响应!! 测试失败!!");
+        //testStepFail(TEST_STEP, "Bootloader Software Version Number Read Falied!!");
+        }
+      }
+    }
+    else
+    {
+      testStepFail(TEST_STEP, "超时!! 测试失败!!");
+    }
+    return retval;
+}
+void Diag_ResetTestStep()
+{
+  gTestStep = 0;
+}
+long Diag_SwitchToDefaultSession(byte SPRMIB)
+{
+  diagRequest GW.DefaultSession_Start req;
+  long status,SPRMIB_STATUS;
+  long retval;
+  retval = 1;
+  
+  if(SPRMIB)
+  {
+    diagSetSuppressResp (req,1);
+  }
+    
+  SPRMIB_STATUS=diagGetSuppressResp(req);
+  
+  diagSendRequest(req);
+  if (TestWaitForDiagRequestSent(req, SENDING_TIMEOUT)== 1)
+  {
+    TestReportWriteDiagObject (req);
+    testStepPass(TEST_STEP, "Request send Successfully!!");
+    
+  }
+  else
+    testStepFail(TEST_STEP, "Request send failed!!");
+  testStep(TEST_STEP, "Current P2 = %d", diagGetP2Extended (0));
+  if(SPRMIB_STATUS==0)
+  {
+    if(testWaitForDiagResponseStart(req, P2serverValue) == 1)
+    {
+      if(TestWaitForDiagResponse(req, RESPONSE_TIMEOUT) == 1)
+      {
+        status = DiagGetLastResponseCode(req);
+        if (-1 == status)
+        {
+          retval = 0; 
+          TestReportWriteDiagResponse (req);
+        }
+      }
+    }
+    else
+    {
+      testStepFail(TEST_STEP, "超时，测试失败!!");
+    }
+  }
+  else
+  {
+     retval=2; 
+  }  
+  //TestReportWriteDiagResponse (req);
+  return retval; 
+}
+long Diag_SwitchToExtendedSession(byte SPRMIB)
+{
+  diagRequest GW.ExtendedDiagnosticSession_Start req;
+  long status,SPRMIB_STATUS;
+  long retval; 
+  byte P2server[2];
+  byte P2serverEx[2];
+
+  retval = 1;
+  //diagGetSuppressResp(req);
+  if(SPRMIB)
+  {
+    diagSetSuppressResp (req,1);
+  }
+    
+  SPRMIB_STATUS=diagGetSuppressResp(req);
+
+  diagSendRequest(req);
+  if (TestWaitForDiagRequestSent(req, SENDING_TIMEOUT)== 1)
+  {
+    TestReportWriteDiagObject (req);
+    testStepPass(TEST_STEP, "Request send Successfully!!");
+    
+  }
+  else
+    testStepFail(TEST_STEP, "Request send failed!!");
+  if(SPRMIB_STATUS==0)
+  {
+    if(testWaitForDiagResponseStart(req, P2serverValue) == 1)
+    {
+      if(TestWaitForDiagResponse(req, RESPONSE_TIMEOUT) == 1)
+      {
+        status = DiagGetLastResponseCode(req);
+        if (status > 0)
+        {
+          retval = status;
+          TestReportWriteDiagResponse (req);
+          testStepFail(TEST_STEP, "Negative Response, NRC = 0x%.2x", status);
+          
+        }
+        else if (-1 == status)
+        {
+        //testCaseComment("Check P2 and P2Ex parameters%d");
+          testStep(TEST_STEP,"参考值：P2=%dms and P2Ex=%dms",P2serverValue,P2serverExValue*10);
+          retval = 0;
+          TestReportWriteDiagResponse (req);
+          P2server[0]=DiagGetRespPrimitiveByte(req,2);
+          P2server[1]=DiagGetRespPrimitiveByte(req,3);
+          P2serverEx[0]=DiagGetRespPrimitiveByte(req,4);
+          P2serverEx[1]=DiagGetRespPrimitiveByte(req,5);
+            
+          if(((byte)(P2serverValue>>8)!=P2server[0])||((byte)(P2serverValue)!=P2server[1])
+            ||((byte)(P2serverExValue>>8)!=P2serverEx[0])||((byte)(P2serverExValue)!=P2serverEx[1]))
+          {
+            testStepFail(TEST_STEP, "P2、P2Ex参数不正确!!");
+          }
+          
+        }
+      
+        else 
+          testStepFail(TEST_STEP, "No response!! Test failed!!");
+       }
+    }
+    else
+    {
+      testStepFail(TEST_STEP, "响应超时，测试失败!!");
+    }
+  }
+  else
+  {
+     retval=2; 
+  }
+  
+  return retval; 
+}
+/* ----------------------------------------------------------------------------
+ *  @Diag_SwitchToProgrammingSession
+ *
+ *  进入编程模式
+ *
+ *  Arguments: SPRMIB   =1使能肯定抑制位
+ *
+ *  The function returns: long
+ *
+ *  Warning: none
+ * ---------------------------------------------------------------------------*/
+long Diag_SwitchToProgrammingSession(byte SPRMIB)
+{
+  diagRequest GW.ProgrammingSession_Start req;
+  long status,SPRMIB_STATUS;
+  long retval; 
+  byte P2server[2];
+  byte P2serverEx[2];
+  retval = 1;
+  if(SPRMIB)
+  {
+    diagSetSuppressResp (req,1);
+  }
+    
+  SPRMIB_STATUS=diagGetSuppressResp(req);
+  diagSendRequest(req);
+  if (TestWaitForDiagRequestSent(req, SENDING_TIMEOUT)== 1)
+  {
+    testStepPass(TEST_STEP, "Request send Successfully!!");
+    TestReportWriteDiagObject (req);
+  }
+  else
+    testStepFail(TEST_STEP, "Request send failed!!");
+  if(testWaitForDiagResponseStart(req, P2serverValue) == 1)
+  {
+    if(TestWaitForDiagResponse(req, RESPONSE_TIMEOUT) == 1)
+    {
+      status = DiagGetLastResponseCode(req);
+      if (status > 0)
+      {
+        retval = status;
+        testStepFail(TEST_STEP, "Negative Response, NRC = 0x%.2x", status);
+        TestReportWriteDiagResponse (req);
+      }
+      else if (-1 == status)
+      {
+        retval = 0;
+        testStep(TEST_STEP,"参考值：P2=%dms and P2Ex=%dms",P2serverValue,P2serverExValue*10);
+        P2server[0]=DiagGetRespPrimitiveByte(req,2);
+        P2server[1]=DiagGetRespPrimitiveByte(req,3);
+        P2serverEx[0]=DiagGetRespPrimitiveByte(req,4);
+        P2serverEx[1]=DiagGetRespPrimitiveByte(req,5);
+
+        if(((byte)(P2serverValue>>8)!=P2server[0])||((byte)(P2serverValue)!=P2server[1])
+          ||((byte)(P2serverExValue>>8)!=P2serverEx[0])||((byte)(P2serverExValue)!=P2serverEx[1]))
+        {
+          testStepFail(TEST_STEP, "P2、P2Ex参数不正确!!");
+        }
+        
+        TestReportWriteDiagResponse (req);
+      }
+      
+      else 
+        testStepFail(TEST_STEP, "No response!! Test failed!!");
+    }
+  }
+    
+  else
+  {
+    testStepFail(TEST_STEP, "超时，测试失败!!");
+  }
+  
+  return retval;
+}
+
+long Diag_SecurityLevel_1_Unlock(byte SPRMIB) {
+    diagRequest GW.requestSeedLevel_3Flash_Request Seedreq;
+    diagRequest GW.SeedKeyLevel_3Flash_Send Keysend;
+    byte seedArray[4];
+    byte keyArray[4];
+    byte bConst[4];
+    byte Key1[4];
+    byte Key2[4];
+    byte Seed2[4];
+    dword actualLevel;
+    char variant[6];
+    char ipOption[2];
+    dword keyActualSize;
+    long status, SPRMIB_STATUS;
+    long retval;
+    long wConst = 0x5C37;
+    int i, j = 3;
+    diagSetTarget("GW");
+    retval = 1;
+    actualLevel = 0x3;
+    ipOption[0] = 'a';
+    ipOption[1] = 0;
+    keyActualSize = 0;
+    Diag_IncrementTestStep();
+    // get seed;
+    TestCaseComment("Step 7.1请求安全级别1的种子");
+    //  if(SPRMIB)
+    //  {
+    //    diagSetSuppressResp (Seedreq,1);
+    //  }
+    
+    SPRMIB_STATUS = diagGetSuppressResp(Seedreq);
+    
+    diagSendRequest(Seedreq);
+    if (TestWaitForDiagRequestSent(Seedreq, SENDING_TIMEOUT) == 1) {
+        TestReportWriteDiagObject(Seedreq);
+        testStepPass(TEST_STEP, "请求发送成功!!");
+        
+    } else {
+        testStepFail(TEST_STEP, "请求发送失败!!");
+    }
+    if (testWaitForDiagResponseStart(Seedreq, P2serverValue) == 1) {
+        if (TestWaitForDiagResponse(Seedreq, RESPONSE_TIMEOUT) == 1) {
+            status = diagGetLastResponseCode(Seedreq);
+            if (status != -1) {
+                testStepFail(TEST_STEP, "无响应，测试失败!!");
+            } else if (status == -1) {
+                TestReportWriteDiagResponse(Seedreq);
+                testStepPass(TEST_STEP, "成功收到肯定响应!!");
+                
+            }
+        }
+    } else {
+        testStepFail(TEST_STEP, "超时，测试失败!!");
+    }
+    for (i = 0; i < elcount(seedArray); i++) {
+        seedArray[i] = DiagGetRespPrimitiveByte(Seedreq, i + 2);
+        //The first 2bytes is SID + Type(0x67 01)
+    }
+    Write("seedArray:%lX,%lX,%lX,%lX", seedArray[0], seedArray[1], seedArray[2], seedArray[3]);
+    // calculate key by dll;
+    #if 0
+    bConst[3] = (byte)((wConst & 0xff000000) >> 24);
+    bConst[2] = (byte)((wConst & 0x00ff0000) >> 16);
+    bConst[1] = (byte)((wConst & 0x0000ff00) >> 8);
+    bConst[0] = (byte)(wConst & 0x000000ff);
+    for (i = 0; i < 4; i++) {
+        Key1[i] = (byte)(seedArray[i] ^ bConst[i]);
+        Seed2[i] = seedArray[j];
+        Key2[i] = (byte)(Seed2[i] ^ bConst[i]);
+        keyArray[i] = (byte)(Key1[i] + Key2[i] + 0x05);  //boot:0x05   UDS:0x2f
+        j--;
+    }
+    #endif
+    TestCaseComment("Step 7.2生成安全级别1密钥");
+    //Write("ipOption:%s", variant);
+    //Write("keyArray:%lX,%lX,%lX,%lX", keyArray[0],keyArray[1],keyArray[2],keyArray[3]);
+    //TestDiagGenerateKeyFromSeed
+    //DiagGenerateKeyFromSeed
+    #if 1
+    //status = DiagGenerateKeyFromSeed (seedArray, elcount(seedArray), actualLevel, variant, ipOption,
+    //keyArray, elcount(keyArray), keyActualSize);
+    
+    SeedKeyPROGSupplier(seedArray, keyArray);
+    status = 0;
+    if (status != 0) {
+        testStepFail(TEST_STEP, "DiagGenerateKeyFromSeed failed with error code %d", status);
+        return -1;
+    } else {
+        testStepPass(TEST_STEP, "Successfully returned from DiagGenerateKeyFromSeed. Actual size of key is %d.", keyActualSize);
+    }
+    #endif
+    // send key;
+    DiagSetParameterRaw(Keysend, "SecurityKey", keyArray, elCount(keyArray));
+    TestCaseComment("Step 7.3发送安全级别1密钥");
+    diagSendRequest(Keysend);
+    if (TestWaitForDiagRequestSent(Keysend, SENDING_TIMEOUT) == 1) {
+        TestReportWriteDiagObject(Keysend);
+        testStepPass(TEST_STEP, "请求发送成功!!");
+    } else {
+        testStepFail(TEST_STEP, "请求发送失败!!");
+    }
+    if (testWaitForDiagResponseStart(Keysend, P2serverValue) == 1) {
+        if (TestWaitForDiagResponse(Keysend, RESPONSE_TIMEOUT) == 1) {
+            status = DiagGetLastResponseCode(Keysend);
+            Write("status:%d", status);
+            if (-1 == status) {
+                retval = 0;
+                TestReportWriteDiagResponse(Keysend);
+            }
+        }
+    } else {
+        testStepFail(TEST_STEP, "超时，测试失败!!");
+    }
+    return retval;
+}
+
+void Diag_IncrementTestStep()
+{
+  if(gTestStep < 10)
+  {
+    snprintf(TEST_STEP,elCount(TEST_STEP),"00%d",gTestStep);
+  }
+  else if (gTestStep<99)
+  {
+    snprintf(TEST_STEP,elCount(TEST_STEP),"0%d",gTestStep);
+  }
+  else
+  {
+    snprintf(TEST_STEP,elCount(TEST_STEP),"%d",gTestStep);
+  }
+  gTestStep++;
+}
+
+
+
+//字符串转ASCII码
+byte GBF_ConvertstrToASCIIArr(char inStr[],int numChars,byte outArray[])
+{
+  int i;
+
+  byte retVal;
+  char tmpErrStr[256];
+  retVal=1;
+  if(elCount(outArray)<numChars)
+  {
+    retVal=0;
+    snprintf(tmpErrStr,elCount(tmpErrStr),"GBF_ConvertstrToASCIIArr:ERROR:Output Array not large enough for conversion!");
+    write(tmpErrStr);
+  }
+  else
+  {
+    for(i=0;i<numChars;i++)
+    {
+      outArray[i]=(byte) inStr[i];
+    }
+  }
+  return retVal;
+}
+
+//ASCII码转字符串
+byte GBF_ConvertASCIIArrTostr(byte rawData[],char outStr[])
+{
+  word i ,ByteIndex;
+  long tmpVal;
+  
+  byte retVal;
+  char tmpStr[10];
+  char tmpErrStr[200];
+  byte charsNeeded;
+  retVal=1;
+  
+  strncpy(outStr,"",elCount(outStr));
+  charsNeeded=elCount(rawData)+1;
+  if(elCount(outStr)<charsNeeded)
+  {
+    retVal=0;
+    snprintf(tmpErrStr,elCount(tmpErrStr),"GBF_ConvertstrToASCIIArr:ERROR:Input parameters do not match, rawData contains %d elements and outStr only %d,%d are needed !",elCount(rawData),elCount(outStr),charsNeeded);
+    write(tmpErrStr);
+  }
+  else
+  {
+    tmpStr[1]=0x00;
+    for(i=0;i<elCount(rawData);i++)
+    {
+      tmpStr[0]=rawData[i];
+      strncat(outStr,tmpStr,elCount(outStr));
+    }
+  }
+  return retVal;
+}
+
+dword SeedKeyPROGSupplier(byte raw_seed[], byte cook_key[]) {
+    dword rwa_key[4] = {0x4fe87269, 0x6bc361d8, 0x9b127d51, 0x5ba41903}; /*128bits*/
+    dword y;
+    dword z = 0, sum = 0;
+    byte n = 64; /*numberof iterations */
+    dword seed;
+    dword tmp_key;
+        seed = raw_seed[0];
+        seed <<= 8;
+        seed |= raw_seed[1];
+        seed <<= 8;
+        seed |= raw_seed[2];
+        seed <<= 8;
+        seed |= raw_seed[3];
+    y = ((seed << 24) & 0xff000000) + ((seed << 8) & 0xff0000) + ((seed >> 8) & 0xff00) + ((seed >> 24) & 0xff); /* swap byte order */
+    while (n > 0) { /*encrypt*/
+        y += (((z << 4) ^ (z >> 5)) + z) ^ (sum + rwa_key[sum & 3]);
+        sum += 0x8f750a1d;
+        z += (((y << 4) ^ (y >> 5)) + y) ^ (sum + rwa_key[(sum >> 11) & 3]);
+        n--;
+    }
+    tmp_key = ((z << 24) & 0xff000000) + ((z << 8) & 0xff0000) + ((z >> 8) & 0xff00) + ((z >> 24) & 0xff);
+    cook_key[0] = (byte)((tmp_key & 0xff000000) >> 24); //高字节
+    cook_key[1] = (byte)((tmp_key & 0x00ff0000) >> 16);
+    cook_key[2] = (byte)((tmp_key & 0x0000ff00) >> 8);
+    cook_key[3] = (byte)((tmp_key & 0x000000ff));       //低字节
+    return ((z << 24) & 0xff000000) + ((z << 8) & 0xff0000) + ((z >> 8) & 0xff00) + ((z >> 24) & 0xff);
+    /*swapbyteorder*/
+    //Eg:输入：0x12345678，输出：0x680F2EDE
+}
+
+

@@ -1,0 +1,241 @@
+VERSION ""
+
+
+NS_ : 
+	NS_DESC_
+	CM_
+	BA_DEF_
+	BA_
+	VAL_
+	CAT_DEF_
+	CAT_
+	FILTER
+	BA_DEF_DEF_
+	EV_DATA_
+	ENVVAR_DATA_
+	SGTYPE_
+	SGTYPE_VAL_
+	BA_DEF_SGTYPE_
+	BA_SGTYPE_
+	SIG_TYPE_REF_
+	VAL_TABLE_
+	SIG_GROUP_
+	SIG_VALTYPE_
+	SIGTYPE_VALTYPE_
+	BO_TX_BU_
+	BA_DEF_REL_
+	BA_REL_
+	BA_DEF_DEF_REL_
+	BU_SG_REL_
+	BU_EV_REL_
+	BU_BO_REL_
+	SG_MUL_VAL_
+
+BS_:
+
+BU_: HPCBCM HPCGW SWB CLOUD TCM PTG TMS CCM PTC ICU
+
+
+BO_ 544 HPCBCM_220: 8 HPCBCM
+ SG_ BCM_BackLightCtrl : 51|1@1+ (1,0) [0|1] "-"  CLOUD,SWB
+
+BO_ 954 HPCGW_3BA: 8 HPCGW
+ SG_ GW_CRC_3BA : 0|8@1+ (1,0) [0|255] "-"  TCM,SWB,PTG,TMS,CCM,PTC
+ SG_ GW_RollingCounter_3BA : 8|4@1+ (1,0) [0|15] "-"  TCM,SWB,PTG,TMS,CCM,PTC
+ SG_ GW_IBC_VehicleSpeed : 32|16@1+ (0.01,0) [0|450] "KPH"  TCM,SWB,PTG,TMS,CCM,PTC
+ SG_ GW_IBC_VehicleSpeedVD : 48|1@1+ (1,0) [0|1] "-"  TCM,SWB,PTG,TMS,CCM,PTC
+
+BO_ 773 SWB_305: 8 SWB
+ SG_ SWB_CRC_305 : 0|8@1+ (1,0) [0|255] "-"  HPCGW,HPCBCM,ICU
+ SG_ SWB_RollingCounter_305 : 8|4@1+ (1,0) [0|15] "-"  HPCGW,HPCBCM,ICU
+ SG_ SWB_LRollerLeftSts : 16|3@1+ (1,0) [0|7] "-"  CLOUD,HPCBCM,ICU
+ SG_ SWB_LRollerRightSts : 19|3@1+ (1,0) [0|7] "-"  CLOUD,HPCBCM,ICU
+ SG_ SWB_LRollerUpSts : 22|2@1+ (1,0) [0|3] "-"  CLOUD,HPCBCM,ICU
+ SG_ SWB_LRollerDownSts : 24|2@1+ (1,0) [0|3] "-"  CLOUD,HPCBCM,ICU
+ SG_ SWB_UnlockLockSts : 26|3@1+ (1,0) [0|7] "-"  CLOUD,HPCBCM,ICU
+ SG_ SWB_LCustomButtonSts : 29|3@1+ (1,0) [0|7] "-"  CLOUD,HPCBCM,ICU
+ SG_ SWB_RRollerUpSts : 32|2@1+ (1,0) [0|3] "-"  CLOUD,HPCBCM,ICU
+ SG_ SWB_RRollerLeftSts : 34|3@1+ (1,0) [0|7] "-"  CLOUD,HPCBCM,ICU
+ SG_ SWB_RRollerRightSts : 37|3@1+ (1,0) [0|7] "-"  CLOUD,HPCBCM,ICU
+ SG_ SWB_RRollerDownSts : 40|2@1+ (1,0) [0|3] "-"  CLOUD,HPCBCM,ICU
+ SG_ SWB_RCustomButtonSts : 42|3@1+ (1,0) [0|7] "-"  CLOUD,HPCBCM,ICU
+ SG_ SWB_VoiceButtonSts : 45|3@1+ (1,0) [0|7] "-"  CLOUD,HPCBCM,ICU
+ SG_ SWB_RRollerPressSts : 48|3@1+ (1,0) [0|7] "-"  CLOUD,HPCGW,HPCBCM,ICU
+ SG_ SWB_LRollerPressSts : 51|3@1+ (1,0) [0|7] "-"  CLOUD,HPCGW,HPCBCM,ICU
+ SG_ SWB_SelfCheckSt : 54|1@1+ (1,0) [0|1] "-"  CLOUD
+
+BO_ 1717 SWB_6B5: 8 SWB
+ SG_ SWB_HeadByte : 0|8@1+ (1,0) [0|255] "-" Vector__XXX
+ SG_ SWB_UDS_Data1 : 8|8@1+ (1,0) [0|255] "-" Vector__XXX
+ SG_ SWB_UDS_Data2 : 16|8@1+ (1,0) [0|255] "-" Vector__XXX
+ SG_ SWB_UDS_Data3 : 24|8@1+ (1,0) [0|255] "-" Vector__XXX
+ SG_ SWB_UDS_Data4 : 32|8@1+ (1,0) [0|255] "-" Vector__XXX
+ SG_ SWB_UDS_Data5 : 40|8@1+ (1,0) [0|255] "-" Vector__XXX
+ SG_ SWB_UDS_Data6 : 48|8@1+ (1,0) [0|255] "-" Vector__XXX
+ SG_ SWB_UDS_Data7 : 56|8@1+ (1,0) [0|255] "-" Vector__XXX
+
+BO_ 1684 SWB_694: 8 SWB
+ SG_ SWB_PowerUVFault : 0|1@1+ (1,0) [0|1] "-"  CLOUD
+ SG_ SWB_PowerOVFault : 1|1@1+ (1,0) [0|1] "-"  CLOUD
+ SG_ SWB_LRollerLeft_KeyStranded : 2|1@1+ (1,0) [0|1] "-"  CLOUD
+ SG_ SWB_LRollerRight_KeyStranded : 3|1@1+ (1,0) [0|1] "-"  CLOUD
+ SG_ SWB_LRollerPress_KeyStranded : 4|1@1+ (1,0) [0|1] "-"  CLOUD
+ SG_ SWB_RRollerLeft_KeyStranded : 5|1@1+ (1,0) [0|1] "-"  CLOUD
+ SG_ SWB_RRollerRight_KeyStranded : 6|1@1+ (1,0) [0|1] "-"  CLOUD
+ SG_ SWB_RRollerPress_KeyStranded : 7|1@1+ (1,0) [0|1] "-"  CLOUD
+ SG_ SWB_LCustomButton_KeyStranded : 8|1@1+ (1,0) [0|1] "-"  CLOUD
+ SG_ SWB_RCustomButton_KeyStranded : 9|1@1+ (1,0) [0|1] "-"  CLOUD
+ SG_ SWB_VoiceButton_KeyStranded : 10|1@1+ (1,0) [0|1] "-"  CLOUD
+ SG_ SWB_CAN_BusOff : 11|1@1+ (1,0) [0|1] "-"  CLOUD
+ SG_ SWB_CanCommHPC_MissMsg : 12|1@1+ (1,0) [0|1] "-"  CLOUD
+
+
+
+CM_ SG_ 544 BCM_BackLightCtrl "背景光灯控制";
+CM_ SG_ 954 GW_CRC_3BA "校验位";
+CM_ SG_ 954 GW_RollingCounter_3BA "生命信号";
+CM_ SG_ 954 GW_IBC_VehicleSpeed "IBC车速";
+CM_ SG_ 954 GW_IBC_VehicleSpeedVD "IBC车速信号有效性";
+CM_ SG_ 773 SWB_CRC_305 "校验位";
+CM_ SG_ 773 SWB_RollingCounter_305 "生命信号";
+CM_ SG_ 773 SWB_LRollerLeftSts "左滚轮左拨状态";
+CM_ SG_ 773 SWB_LRollerRightSts "左滚轮右拨状态";
+CM_ SG_ 773 SWB_LRollerUpSts "左滚轮上滚状态";
+CM_ SG_ 773 SWB_LRollerDownSts "左滚轮下滚状态";
+CM_ SG_ 773 SWB_UnlockLockSts "解闭锁按键状态";
+CM_ SG_ 773 SWB_LCustomButtonSts "左自定义按键状态";
+CM_ SG_ 773 SWB_RRollerUpSts "右滚轮上滚状态";
+CM_ SG_ 773 SWB_RRollerLeftSts "右滚轮左拨状态";
+CM_ SG_ 773 SWB_RRollerRightSts "右滚轮右拨状态";
+CM_ SG_ 773 SWB_RRollerDownSts "右滚轮下滚状态";
+CM_ SG_ 773 SWB_RCustomButtonSts "右自定义按键状态";
+CM_ SG_ 773 SWB_VoiceButtonSts "语音唤醒按键状态";
+CM_ SG_ 773 SWB_RRollerPressSts "右滚轮按下状态";
+CM_ SG_ 773 SWB_LRollerPressSts "左滚轮按下状态";
+CM_ SG_ 773 SWB_SelfCheckSt "SWB自检状态";
+CM_ SG_ 1717 SWB_HeadByte "SWB头字节";
+CM_ SG_ 1717 SWB_UDS_Data1 "SWB诊断数据1";
+CM_ SG_ 1717 SWB_UDS_Data2 "SWB诊断数据2";
+CM_ SG_ 1717 SWB_UDS_Data3 "SWB诊断数据3";
+CM_ SG_ 1717 SWB_UDS_Data4 "SWB诊断数据4";
+CM_ SG_ 1717 SWB_UDS_Data5 "SWB诊断数据5";
+CM_ SG_ 1717 SWB_UDS_Data6 "SWB诊断数据6";
+CM_ SG_ 1717 SWB_UDS_Data7 "SWB诊断数据7";
+CM_ SG_ 1684 SWB_PowerUVFault "电源电压欠压";
+CM_ SG_ 1684 SWB_PowerOVFault "电源电压过压";
+CM_ SG_ 1684 SWB_LRollerLeft_KeyStranded "左滚轮左拨按键卡滞";
+CM_ SG_ 1684 SWB_LRollerRight_KeyStranded "左滚轮右拨按键卡滞";
+CM_ SG_ 1684 SWB_LRollerPress_KeyStranded "左滚轮按下按键卡滞左自定义按键卡滞右滚轮按下按键卡滞右自定义按键卡滞";
+CM_ SG_ 1684 SWB_RRollerLeft_KeyStranded "右滚轮左拨按键卡滞";
+CM_ SG_ 1684 SWB_RRollerRight_KeyStranded "右滚轮右拨按键卡滞";
+CM_ SG_ 1684 SWB_VoiceButton_KeyStranded "语音唤醒按键卡滞";
+CM_ SG_ 1684 SWB_CAN_BusOff "CAN总线关闭";
+CM_ SG_ 1684 SWB_CanCommHPC_MissMsg "与HPC通信丢失";
+BA_DEF_ SG_  "GenSigInactiveValue" INT 0 0;
+BA_DEF_ SG_  "GenSigSendType" ENUM  "Cycle","OnChange","OnWrite";
+BA_DEF_ SG_  "GenSigStartValue" INT 0 0;
+BA_DEF_ SG_  "GenSigTimeoutValue" INT 0 1000000000;
+BA_DEF_ BO_  "GenMsgCycleTime" INT 0 0;
+BA_DEF_ BO_  "GenMsgCycleTimeActive" INT 0 0;
+BA_DEF_ BO_  "GenMsgCycleTimeFast" INT 0 0;
+BA_DEF_ BO_  "GenMsgDelayTime" INT 0 0;
+BA_DEF_ BO_  "GenMsgILSupport" ENUM  "No","Yes";
+BA_DEF_ BO_  "DiagRequest" ENUM  "No","Yes";
+BA_DEF_ BO_  "DiagResponse" ENUM  "No","Yes";
+BA_DEF_ BO_  "DiagState" ENUM  "No","Yes";
+BA_DEF_ BO_  "GenMsgNrOfRepetition" INT 0 0;
+BA_DEF_ BO_  "GenMsgSendType" ENUM  "Cycle","NoSendType","IfActive";
+BA_DEF_ BO_  "GenMsgStartDelayTime" INT 0 65535;
+BA_DEF_ BO_  "NmBaseAddress" INT 0 2047;
+BA_DEF_ BO_  "NmMessage" ENUM  "No","Yes";
+BA_DEF_ BU_  "CANoeStartDelay" INT 0 0;
+BA_DEF_ BU_  "CANoeDrift" INT 0 0;
+BA_DEF_ BU_  "CANoeJitterMin" INT 0 0;
+BA_DEF_ BU_  "CANoeJitterMax" INT 0 0;
+BA_DEF_ BU_  "ECU" STRING ;
+BA_DEF_ BU_  "NodeLayerModules" STRING ;
+BA_DEF_ BU_  "ILUsed" ENUM  "No","Yes";
+BA_DEF_ BU_  "NmCAN" INT 0 2;
+BA_DEF_ BU_  "NmNode" ENUM  "Not","Yes";
+BA_DEF_ BU_  "NmStationAddress" HEX 0 65535;
+BA_DEF_  "BusType" STRING ;
+BA_DEF_  "Manufacturer" STRING ;
+BA_DEF_  "NmMessageCount" INT 0 255;
+BA_DEF_  "NmType" STRING ;
+BA_DEF_  "Baudrate" INT 0 1000000;
+BA_DEF_  "DBName" STRING ;
+BA_DEF_DEF_  "GenSigInactiveValue" 0;
+BA_DEF_DEF_  "GenSigSendType" "Cycle";
+BA_DEF_DEF_  "GenSigStartValue" 0;
+BA_DEF_DEF_  "GenSigTimeoutValue" 0;
+BA_DEF_DEF_  "GenMsgCycleTime" 0;
+BA_DEF_DEF_  "GenMsgCycleTimeActive" 0;
+BA_DEF_DEF_  "GenMsgCycleTimeFast" 0;
+BA_DEF_DEF_  "GenMsgDelayTime" 0;
+BA_DEF_DEF_  "GenMsgILSupport" "No";
+BA_DEF_DEF_  "DiagRequest" "No";
+BA_DEF_DEF_  "DiagResponse" "No";
+BA_DEF_DEF_  "DiagState" "No";
+BA_DEF_DEF_  "GenMsgNrOfRepetition" 0;
+BA_DEF_DEF_  "GenMsgSendType" "Cycle";
+BA_DEF_DEF_  "GenMsgStartDelayTime" 0;
+BA_DEF_DEF_  "NmBaseAddress" 1024;
+BA_DEF_DEF_  "NmMessage" "No";
+BA_DEF_DEF_  "CANoeStartDelay" 0;
+BA_DEF_DEF_  "CANoeDrift" 0;
+BA_DEF_DEF_  "CANoeJitterMin" 0;
+BA_DEF_DEF_  "CANoeJitterMax" 0;
+BA_DEF_DEF_  "ECU" "";
+BA_DEF_DEF_  "NodeLayerModules" "";
+BA_DEF_DEF_  "ILUsed" "No";
+BA_DEF_DEF_  "NmCAN" 0;
+BA_DEF_DEF_  "NmNode" "Not";
+BA_DEF_DEF_  "NmStationAddress" 0;
+BA_DEF_DEF_  "BusType" "CAN";
+BA_DEF_DEF_  "Manufacturer" "";
+BA_DEF_DEF_  "NmMessageCount" 128;
+BA_DEF_DEF_  "NmType" "";
+BA_DEF_DEF_  "Baudrate" 500000;
+BA_DEF_DEF_  "DBName" "";
+BA_ "Baudrate" 500000;
+BA_ "DBName" "COM_CAN";
+BA_ "GenMsgSendType" BO_ 544 0;
+BA_ "GenMsgCycleTime" BO_ 544 20;
+BA_ "GenMsgSendType" BO_ 954 0;
+BA_ "GenMsgCycleTime" BO_ 954 20;
+BA_ "GenMsgSendType" BO_ 773 0;
+BA_ "GenMsgCycleTime" BO_ 773 20;
+BA_ "NmBaseAddress" BO_ 1717 1024;
+BA_ "GenMsgSendType" BO_ 1717 0;
+BA_ "GenMsgCycleTime" BO_ 1717 1000;
+BA_ "NmBaseAddress" BO_ 1684 1024;
+BA_ "GenMsgSendType" BO_ 1684 0;
+BA_ "GenMsgCycleTime" BO_ 1684 200;
+VAL_ 544 BCM_BackLightCtrl 1 "Active" 0 "No_active" ;
+VAL_ 954 GW_IBC_VehicleSpeedVD 1 "Invalid" 0 "Valid" ;
+VAL_ 773 SWB_LRollerLeftSts 4 "Error" 3 "Reserved" 2 "Reserved" 1 "Press" 0 "No_Action" ;
+VAL_ 773 SWB_LRollerRightSts 4 "Error" 3 "Reserved" 2 "Reserved" 1 "Press" 0 "No_Action" ;
+VAL_ 773 SWB_LRollerUpSts 3 "Error" 2 "Reserved" 1 "Up" 0 "No_Action" ;
+VAL_ 773 SWB_LRollerDownSts 3 "Error" 2 "Reserved" 1 "Down" 0 "No_Action" ;
+VAL_ 773 SWB_UnlockLockSts 4 "Error" 3 "Double_Press" 2 "Long_Press" 1 "short_Press" 0 "No_Action" ;
+VAL_ 773 SWB_LCustomButtonSts 4 "Error" 3 "Double_Press" 2 "Long_Press" 1 "short_Press" 0 "No_Action" ;
+VAL_ 773 SWB_RRollerUpSts 3 "Error" 2 "Reserved" 1 "Up" 0 "No_Action" ;
+VAL_ 773 SWB_RRollerLeftSts 4 "Error" 3 "Reserved" 2 "Reserved" 1 "Press" 0 "No_Action" ;
+VAL_ 773 SWB_RRollerRightSts 4 "Error" 3 "Reserved" 2 "Reserved" 1 "Press" 0 "No_Action" ;
+VAL_ 773 SWB_RRollerDownSts 3 "Error" 2 "Reserved" 1 "Down" 0 "No_Action" ;
+VAL_ 773 SWB_RCustomButtonSts 4 "Error" 3 "Double_Press" 2 "Long_Press" 1 "short_Press" 0 "No_Action" ;
+VAL_ 773 SWB_VoiceButtonSts 4 "Error" 3 "Double_Press" 2 "Long_Press" 1 "short_Press" 0 "No_Action" ;
+VAL_ 773 SWB_RRollerPressSts 4 "Error" 3 "Double_Press" 2 "Long_Press" 1 "short_Press" 0 "No_Action" ;
+VAL_ 773 SWB_LRollerPressSts 4 "Error" 3 "Double_Press" 2 "Long_Press" 1 "short_Press" 0 "No_Action" ;
+VAL_ 773 SWB_SelfCheckSt 1 "0x1_自检完成" 0 "自检未完成" ;
+VAL_ 1684 SWB_PowerUVFault 1 "fault" 0 "no_fault" ;
+VAL_ 1684 SWB_PowerOVFault 1 "fault" 0 "no_fault" ;
+VAL_ 1684 SWB_LRollerLeft_KeyStranded 1 "fault" 0 "no_fault" ;
+VAL_ 1684 SWB_LRollerRight_KeyStranded 1 "fault" 0 "no_fault" ;
+VAL_ 1684 SWB_LRollerPress_KeyStranded 1 "fault" 0 "no_fault" ;
+VAL_ 1684 SWB_RRollerLeft_KeyStranded 1 "fault" 0 "no_fault" ;
+VAL_ 1684 SWB_RRollerRight_KeyStranded 1 "fault" 0 "no_fault" ;
+VAL_ 1684 SWB_VoiceButton_KeyStranded 1 "fault" 0 "no_fault" ;
+VAL_ 1684 SWB_CAN_BusOff 1 "fault" 0 "no_fault" ;
+VAL_ 1684 SWB_CanCommHPC_MissMsg 1 "fault" 0 "no_fault" ;
+

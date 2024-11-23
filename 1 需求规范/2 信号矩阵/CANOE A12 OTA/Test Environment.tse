@@ -1,0 +1,491 @@
+;CANoe Version |4|12|2|58229 Test Environment 
+Version: 12.0.77 Build 77
+32 PRO
+10
+APPDIR Vector.CANalyzer.CAN.InteractiveGenerator.DLL
+Vector.CANalyzer.CAN.InteractiveGenerator, Version=12.0.77.0, Culture=neutral, PublicKeyToken=null
+Vector.CANalyzer.CAN.InteractiveGenerator.Controller.CANwinCommunicator
+1
+1.0.0
+APPDIR Vector.CANoe.SignalGenerators.DLL
+Vector.CANoe.SignalGenerators, Version=12.0.77.0, Culture=neutral, PublicKeyToken=null
+Vector.CANoe.SignalGenerators.ComponentWrapper
+2
+1.0.1
+VTSPersistentRoot 1 Begin_Of_Object
+1
+1
+TS_PERSISTENT_ROOT_ID_STRING_0x792341fe
+1
+2
+VTSProgrammedNode 2 Begin_Of_Object
+1
+VTSWrapper<class_VProgrammedNode> 3 Begin_Of_Object
+2
+VTSItem 4 Begin_Of_Object
+1
+3 1911130067 0
+1
+END_OF_ITEM_DATA
+End_Of_Object VTSItem 4
+2
+VCaplTestNode 4 Begin_Of_Object
+2
+VTestNode 5 Begin_Of_Object
+9
+VProgrammedNode 6 Begin_Of_Object
+7
+VConfigurationRoot 7 Begin_Of_Object
+1
+End_Of_Object VConfigurationRoot 7
+<VFileName V8 QL> 1 "222.can" 
+1
+E:\(0)Project\(6)Leap\4 »Ìº˛≤‚ ‘\CANOE A12 OTA\222.cbf
+
+
+5
+Test 4
+Test 4
+EOF_TITLE_INFO
+
+1
+1
+VConfigurationBox 7 Begin_Of_Object
+1
+VUniqueBox 8 Begin_Of_Object
+1
+VBoxRoot 9 Begin_Of_Object
+1
+3
+1 0 0 1 -1 -1 -1 -1 1169 453 1519 703
+
+1
+
+MDI_DOCK_INFO_END
+5
+1
+6
+0 1 -1 -1 -1 -1 1169 453 1519 703
+6 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -1 -1 32767 0 0 0 0 0 0 0 0 0 0 -1 -1 0 0 0 0 0 0 
+END_OF_DOCK_INFO
+1
+0
+1
+0 1 -1 -1 -1 -1 480 255 1440 765
+0
+1
+1014 667
+END_OF_DESKTOP_DATA
+END_OF_DESKTOP_DATA_COLLECTION
+0
+0 1
+1
+6
+0 1 0 0 -1 -1 240 280 590 530
+6 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -1 -1 32767 0 0 0 0 0 0 0 0 0 0 -1 -1 0 0 0 0 0 0 
+END_OF_DOCK_INFO
+0
+-1
+1
+0 1 -1 -1 -1 -1 480 255 1440 765
+0
+0
+0 0
+END_OF_DESKTOP_DATA
+END_OF_DESKTOP_DATA_COLLECTION
+0
+END_OF_DESKTOP_MEMBER
+{005C9FCD-A9A8-4FC0-A704-AA82E4A53699}
+0
+End_Of_Object VBoxRoot 9
+1 -1 0 0 0 0 0 0 0 0 0 0
+End_Of_Object VUniqueBox 8
+1
+End_Of_Object VConfigurationBox 7
+1
+1
+0
+1
+0
+
+EOF_MBSSDATA
+1
+0 1
+0
+EOF_NLDATA
+0
+EOF_ASSEMBLYDATA
+<VFileName V8 QL> 1 "222.cbf" 
+VIPBStackSetting 7 Begin_Of_Object
+6
+2
+0
+0
+1
+0
+1
+7
+0.0.0.0
+End_Of_Serialized_Data 7
+7
+::
+End_Of_Serialized_Data 7
+5
+End_Of_Object VIPBStackSetting 7
+6
+NDebugger::VDebuggerHost 7 Begin_Of_Object
+2
+0
+1
+NDebugger::VFile 8 Begin_Of_Object
+2
+<VFileName V8 QL> 1 "222.can" 
+0
+0
+End_Of_Object NDebugger::VFile 8
+VNETStandaloneComponent 8 Begin_Of_Object
+1
+VNETControlBox 9 Begin_Of_Object
+2
+VUniqueBox 10 Begin_Of_Object
+1
+VBoxRoot 11 Begin_Of_Object
+1
+3
+1 -1 0 1 -1 -1 -1 -1 379 175 1479 850
+Debugger - Test 4
+1
+
+MDI_DOCK_INFO_END
+5
+1
+6
+0 1 -1 -1 -1 -1 379 175 1479 850
+6 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -1 -1 32767 0 0 0 0 0 0 0 0 0 0 -1 -1 0 0 0 0 0 0 
+END_OF_DOCK_INFO
+0
+-1
+0
+0
+0
+1920 899
+END_OF_DESKTOP_DATA
+END_OF_DESKTOP_DATA_COLLECTION
+0
+0 1
+1
+6
+0 1 0 0 -1 -1 379 175 1520 703
+6 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -1 -1 32767 0 0 0 0 0 0 0 0 0 0 -1 -1 0 0 0 0 0 0 
+END_OF_DOCK_INFO
+0
+-1
+0
+0
+0
+0 0
+END_OF_DESKTOP_DATA
+END_OF_DESKTOP_DATA_COLLECTION
+0
+END_OF_DESKTOP_MEMBER
+{39359DEC-6E30-44CF-AC9A-586E9B4940CA}
+0
+End_Of_Object VBoxRoot 11
+1 -1 0 0 0 0 0 0 0 0 0 0
+End_Of_Object VUniqueBox 10
+1
+1 -1 0 0 0 0 0 0 0 0 0 0
+0
+End_Of_Object VNETControlBox 9
+129
+APPDIR Vector.CANoe.Debugger.DLL
+Vector.CANoe.Debugger, Version=12.0.77.0, Culture=neutral, PublicKeyToken=null
+Vector.CANoe.Debugger.DebuggerComponent
+1
+1
+APPDIR CANw_Net.DLL
+CANw_Net, Version=12.0.77.0, Culture=neutral, PublicKeyToken=null
+Vector.CANalyzer.ApplicationSerializer
+2
+mApplication
+2
+APPDIR Vector.CANoe.Debugger.DLL
+Vector.CANoe.Debugger, Version=12.0.77.0, Culture=neutral, PublicKeyToken=null
+Vector.CANoe.Debugger.DebuggerModel
+3
+mModel
+3
+APPDIR Components\Vector.CANalyzer.Serialization\1.5.0.0\Vector.CANalyzer.Serialization.dll
+Vector.CANalyzer.Serialization, Version=1.5.0.0, Culture=neutral, PublicKeyToken=b273882a063429a6
+Vector.CANalyzer.Serialization.SerializationVersion
+4
+SerializationVersion
+4
+UInt16
+mMajor
+1
+UInt16
+mMinor
+0
+UInt16
+mPatch
+0
+--TextFormatter: End of Object--
+--TextFormatter: End of Object--
+TypeRef:2
+2
+--TextFormatter: End of Object--
+TypeRef:3
+3
+Int32
+NrOfFiles
+1
+Int32
+FileID0
+0
+Int32
+CurrentLine0
+0
+Int32
+SelectedFileID
+0
+Int32
+NrOfWatchedVariables
+0
+String
+WindowLayout
+37
+<?xml version="1.0" encoding="utf-16"?>
+<!--
+
+  Actipro Docking/MDI for WinForms
+  Copyright (c) 2001-2014 Actipro Software LLC.  All rights reserved.
+  http://www.actiprosoftware.com
+
+-->
+<ToolWindowLayout Version="1.0">
+  <LayoutData>
+    <HostContainerControl />
+    <AutoHide Dock="Left" />
+    <AutoHide Dock="Right" />
+    <AutoHide Dock="Top" />
+    <AutoHide Dock="Bottom" />
+    <TabbedDocuments Orientation="Horizontal" />
+    <FloatingContainers />
+    <Hidden>
+      <ToolWindow Key="Variables" Guid="ba1789cd-34ba-44ec-8fbd-610ddd3bd733" State="DockableInsideHost" CanBecomeDocument="False" CanFloat="False" ImageIndex="-1" Text="Variables">
+        <AutoHideStateInfo RootDock="Left" />
+        <DockedInsideHostStateInfo RootDock="Left" IsAttached="False" />
+        <DockedOutsideHostStateInfo IsAttached="False" />
+      </ToolWindow>
+      <ToolWindow Key="Watch" Guid="3b66eb36-2081-45c7-a4b7-e07eaa80b752" State="DockableInsideHost" CanBecomeDocument="False" CanFloat="False" ImageIndex="-1" Text="Watch">
+        <AutoHideStateInfo RootDock="Left" />
+        <DockedInsideHostStateInfo RootDock="Left" IsAttached="False" />
+        <DockedOutsideHostStateInfo IsAttached="False" />
+      </ToolWindow>
+      <ToolWindow Key="Breakpoints" Guid="73525125-b5bb-4393-bb74-78fdb5c2275e" State="DockableInsideHost" CanBecomeDocument="False" CanFloat="False" ImageIndex="-1" Text="Breakpoints">
+        <AutoHideStateInfo RootDock="Left" />
+        <DockedInsideHostStateInfo RootDock="Left" IsAttached="False" />
+        <DockedOutsideHostStateInfo IsAttached="False" />
+      </ToolWindow>
+    </Hidden>
+  </LayoutData>
+  <CustomData />
+</ToolWindowLayout>
+Boolean
+ShowOnlyLocalsVar
+False
+Boolean
+ShowOnlyLocalsWatch
+False
+Int32
+FindWindowRectX
+-1
+Int32
+FindWindowRectY
+-1
+Int32
+FindWindowRectW
+-1
+Int32
+FindWindowRectH
+-1
+Int32
+FindWindowLookInType
+0
+TypeRef:4
+SerializationVersion
+5
+UInt16
+mMajor
+1
+UInt16
+mMinor
+0
+UInt16
+mPatch
+4
+--TextFormatter: End of Object--
+--TextFormatter: End of Object--
+End_Of_Object VNETStandaloneComponent 8
+0
+End_Of_Object NDebugger::VDebuggerHost 7
+
+End_Of_Serialized_Data 6
+0
+<VFileName V8 QL> 0 "" 
+0
+0
+End_Of_Object VProgrammedNode 6
+0
+2
+IDS_REPORTFILTER_ITEM_DESCRIPTION=1
+IDS_REPORTFILTER_ITEM_COMMENTS=1
+IDS_REPORTFILTER_ITEM_VARIABLE=1
+IDS_REPORTFILTER_ITEM_RESUME_SIMPLETIMEOUT=1
+IDS_REPORTFILTER_ITEM_RESUME=1
+IDS_REPORTFILTER_ITEM_FIRSTVIOLATION=1
+IDS_REPORTFILTER_ITEM_STATISTICS=1
+IDS_REPORTFILTER_ITEM_HARDWARE=1
+IDS_REPORTFILTER_ITEM_CHECKEVENTS=0
+IDS_REPORTFITLER_ITEM_GENINFO=1
+IDS_REPORTFITLER_ITEM_SUTINFO=1
+IDS_REPORTFITLER_ITEM_ENGINFO=1
+IDS_REPORTFITLER_ITEM_ELMINFO=1
+End_Of_ReportFilter_Items
+0 
+NULL
+NULL
+0
+<VFileName V8 QL> 1 "222_report.vtestreport" 
+1 0 1
+1
+<VFileName V8 BQL> 1 base=cfg "" 
+3
+VSimulinkModelViewerConfiguration 6 Begin_Of_Object
+2
+<VFileName V8 QL> 0 "C:\Users\linbo\AppData\Local\Temp" 
+<VFileName V8 QL> 0 "C:\Users\linbo\AppData\Local\Temp" 
+<VFileName V8 QL> 0 "C:\Users\linbo\AppData\Local\Temp" 
+150
+0
+End_Of_Object VSimulinkModelViewerConfiguration 6
+1
+0
+1
+1
+VConfigurationBox 6 Begin_Of_Object
+1
+VUniqueBox 7 Begin_Of_Object
+1
+VBoxRoot 8 Begin_Of_Object
+1
+3
+1 0 0 1 -1 -1 -1 -1 1169 453 1519 703
+
+1
+
+MDI_DOCK_INFO_END
+5
+1
+6
+0 1 -1 -1 -1 -1 1169 453 1519 703
+6 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -1 -1 32767 0 0 0 0 0 0 0 0 0 0 -1 -1 0 0 0 0 0 0 
+END_OF_DOCK_INFO
+1
+0
+1
+0 1 -1 -1 -1 -1 480 255 1440 765
+0
+1
+1014 667
+END_OF_DESKTOP_DATA
+END_OF_DESKTOP_DATA_COLLECTION
+0
+0 1
+1
+6
+0 1 0 0 -1 -1 240 280 590 530
+6 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -1 -1 32767 0 0 0 0 0 0 0 0 0 0 -1 -1 0 0 0 0 0 0 
+END_OF_DOCK_INFO
+0
+-1
+1
+0 1 -1 -1 -1 -1 480 255 1440 765
+0
+0
+0 0
+END_OF_DESKTOP_DATA
+END_OF_DESKTOP_DATA_COLLECTION
+0
+END_OF_DESKTOP_MEMBER
+{005C9FCD-A9A8-4FC0-A704-AA82E4A53699}
+0
+End_Of_Object VBoxRoot 8
+1 -1 0 0 0 0 0 0 0 0 0 0
+End_Of_Object VUniqueBox 7
+1
+End_Of_Object VConfigurationBox 6
+NULL
+0
+0
+<VFileName V8 QL> 1 "rpt194F.vtestreport" 
+End_Of_Object VTestNode 5
+VTestModuleControllerCapl 5 Begin_Of_Object
+1
+VTestModuleController 6 Begin_Of_Object
+3
+1
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+End_Of_Object VTestModuleController 6
+End_Of_Object VTestModuleControllerCapl 5
+End_Of_Object VCaplTestNode 4
+TS_WRP_DATA_END
+End_Of_Object VTSWrapper<class_VProgrammedNode> 3
+4
+0
+1
+TS_BUS_INFO_COLLECTION_END
+TS_CAPL_BLOCK_END
+End_Of_Object VTSProgrammedNode 2
+VTSFolder 2 Begin_Of_Object
+1
+VTSItem 3 Begin_Of_Object
+1
+3 1923831235 0
+1
+END_OF_ITEM_DATA
+End_Of_Object VTSItem 3
+4
+Test Environment
+1
+1911130067
+<VFileName V8 QL> 1 "report.xml" 
+END_OF_FILE_NAME
+<VFileName V8 QL> 1 "" 
+END_OF_FILE_NAME
+1
+1
+END_OF_FOLDER_DATA
+End_Of_Object VTSFolder 2
+1
+1923831235
+2
+1
+1911130067
+0
+1
+1923831235
+1
+1911130067
+End_Of_Object VTSPersistentRoot 1

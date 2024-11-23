@@ -1,0 +1,152 @@
+VERSION ""
+
+
+NS_ : 
+	NS_DESC_
+	CM_
+	BA_DEF_
+	BA_
+	VAL_
+	CAT_DEF_
+	CAT_
+	FILTER
+	BA_DEF_DEF_
+	EV_DATA_
+	ENVVAR_DATA_
+	SGTYPE_
+	SGTYPE_VAL_
+	BA_DEF_SGTYPE_
+	BA_SGTYPE_
+	SIG_TYPE_REF_
+	VAL_TABLE_
+	SIG_GROUP_
+	SIG_VALTYPE_
+	SIGTYPE_VALTYPE_
+	BO_TX_BU_
+	BA_DEF_REL_
+	BA_REL_
+	BA_DEF_DEF_REL_
+	BU_SG_REL_
+	BU_EV_REL_
+	BU_BO_REL_
+	SG_MUL_VAL_
+
+BS_:
+
+BU_: CLUSTER SWCS SWHT
+
+
+BO_ 951 CLUSTER_01: 8 CLUSTER
+ SG_ DayNightStatusForBacklights : 26|1@1+ (1,0) [0|1] "" Vector__XXX
+
+BO_ 1056 SWCS_01: 8 SWCS
+ SG_ SWCS_MMS_VOL_Increase : 7|2@0+ (1,0) [0|1] "" Vector__XXX
+ SG_ SWCS_MMS_VOL_Decrease : 5|2@0+ (1,0) [0|1] "" Vector__XXX
+ SG_ SWCS_MMS_Mute : 3|2@0+ (1,0) [0|1] "" Vector__XXX
+ SG_ SWCS_MMS_Next : 1|2@0+ (1,0) [0|1] "" Vector__XXX
+ SG_ SWCS_MMS_Previous : 15|2@0+ (1,0) [0|1] "" Vector__XXX
+ SG_ SWCS_MMS_SRC : 13|2@0+ (1,0) [0|1] "" Vector__XXX
+ SG_ SWCS_MMS_PPT : 11|2@0+ (1,0) [0|1] "" Vector__XXX
+ SG_ SWCS_Heating_Button : 8|2@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ SWCS_ADAC_Up : 23|2@0+ (1,0) [0|1] "" Vector__XXX
+ SG_ SWCS_ADAC_Down : 21|2@0+ (1,0) [0|1] "" Vector__XXX
+ SG_ SWCS_ADAC_Left : 19|2@0+ (1,0) [0|1] "" Vector__XXX
+ SG_ SWCS_ADAC_Right : 17|2@0+ (1,0) [0|1] "" Vector__XXX
+ SG_ SWCS_ADAC_Ok : 31|2@0+ (1,0) [0|1] "" Vector__XXX
+ SG_ SWCS_CC_Activation : 29|2@0+ (1,0) [0|1] "" Vector__XXX
+ SG_ SWCS_SL_Activation : 27|2@0+ (1,0) [0|1] "" Vector__XXX
+ SG_ SWCS_CCSL_SET : 25|2@0+ (1,0) [0|1] "" Vector__XXX
+ SG_ SWCS_CCSL_RES : 39|2@0+ (1,0) [0|1] "" Vector__XXX
+ SG_ SWCS_CCSL_Cancel : 37|2@0+ (1,0) [0|1] "" Vector__XXX
+ SG_ SWCS_ACC_Dist_Increase : 35|2@0+ (1,0) [0|1] "" Vector__XXX
+ SG_ SWCS_ACC_Dist_Decrease : 33|2@0+ (1,0) [0|1] "" Vector__XXX
+ SG_ Clock_SWCS_01 : 51|4@0+ (1,0) [0|16] "" Vector__XXX
+ SG_ CRC_SWCS_01 : 63|8@0+ (1,0) [0|255] "" Vector__XXX
+
+BO_ 1712 SW_HEAT_01: 1 SWHT
+ SG_ SW_Heating_activation : 6|2@1+ (1,0) [0|3] "" Vector__XXX
+
+
+
+CM_ "Author:Xiaoshuai ;
+";
+CM_ SG_ 951 DayNightStatusForBacklights "无";
+CM_ SG_ 1056 SWCS_MMS_VOL_Increase "无";
+CM_ SG_ 1056 SWCS_MMS_VOL_Decrease "无";
+CM_ SG_ 1056 SWCS_MMS_Mute "无";
+CM_ SG_ 1056 SWCS_MMS_Next "无";
+CM_ SG_ 1056 SWCS_MMS_Previous "无";
+CM_ SG_ 1056 SWCS_MMS_SRC "无";
+CM_ SG_ 1056 SWCS_MMS_PPT "无";
+CM_ SG_ 1056 SWCS_Heating_Button "无";
+CM_ SG_ 1056 SWCS_ADAC_Up "无";
+CM_ SG_ 1056 SWCS_ADAC_Down "无";
+CM_ SG_ 1056 SWCS_ADAC_Left "无";
+CM_ SG_ 1056 SWCS_ADAC_Right "无";
+CM_ SG_ 1056 SWCS_ADAC_Ok "无";
+CM_ SG_ 1056 SWCS_CC_Activation "无";
+CM_ SG_ 1056 SWCS_SL_Activation "无";
+CM_ SG_ 1056 SWCS_CCSL_SET "无";
+CM_ SG_ 1056 SWCS_CCSL_RES "无";
+CM_ SG_ 1056 SWCS_CCSL_Cancel "无";
+CM_ SG_ 1056 SWCS_ACC_Dist_Increase "无";
+CM_ SG_ 1056 SWCS_ACC_Dist_Decrease "无";
+CM_ SG_ 1056 Clock_SWCS_01 "无";
+CM_ SG_ 1056 CRC_SWCS_01 "无";
+CM_ SG_ 1712 SW_Heating_activation "无";
+BA_DEF_ BU_  "NodeLayerModules" STRING ;
+BA_DEF_ BO_  "GenMsgStartDelayTime" INT 0 65535;
+BA_DEF_ SG_  "NWM-WakeupAllowed" ENUM  "No","Yes";
+BA_DEF_ BO_  "NmMessage" ENUM  "no","yes";
+BA_DEF_ BO_  "GenMsgILSupport" ENUM  "No","Yes";
+BA_DEF_ BO_  "GenMsgCycleTimeFast" INT 0 50000;
+BA_DEF_  "BusType" STRING ;
+BA_DEF_ BO_  "GenMsgCycleTime" INT 0 50000;
+BA_DEF_ BO_  "GenMsgDelayTime" INT 0 1000;
+BA_DEF_ BO_  "GenMsgNrOfRepetition" INT 0 999999;
+BA_DEF_ BO_  "GenMsgSendType" ENUM  "Cyclic","NotUsed","NotUsed","NotUsed","NotUsed","NotUsed","NotUsed","IfActive","NoMsgSendType","NotUsed","vector_leerstring";
+BA_DEF_ SG_  "GenSigInactiveValue" INT 0 100000;
+BA_DEF_ SG_  "GenSigSendType" ENUM  "Cyclic","OnWrite","OnWriteWithRepetition","OnChange","OnChangeWithRepetition","IfActive","IfActiveWithRepetition","NoSigSendType","NotUsed","NotUsed","NotUsed","NotUsed","NotUsed";
+BA_DEF_ SG_  "GenSigStartValue" FLOAT 0 100000000000;
+BA_DEF_DEF_  "NodeLayerModules" "CANoeILNLVector.dll";
+BA_DEF_DEF_  "GenMsgStartDelayTime" 0;
+BA_DEF_DEF_  "NWM-WakeupAllowed" "";
+BA_DEF_DEF_  "NmMessage" "no";
+BA_DEF_DEF_  "GenMsgILSupport" "Yes";
+BA_DEF_DEF_  "GenMsgCycleTimeFast" 0;
+BA_DEF_DEF_  "BusType" "";
+BA_DEF_DEF_  "GenMsgCycleTime" 100;
+BA_DEF_DEF_  "GenMsgDelayTime" 0;
+BA_DEF_DEF_  "GenMsgNrOfRepetition" 0;
+BA_DEF_DEF_  "GenMsgSendType" "Cyclic";
+BA_DEF_DEF_  "GenSigInactiveValue" 0;
+BA_DEF_DEF_  "GenSigSendType" "Cyclic";
+BA_DEF_DEF_  "GenSigStartValue" 0;
+BA_ "GenMsgCycleTime" BO_ 951 100;
+BA_ "GenMsgCycleTime" BO_ 1056 100;
+BA_ "GenMsgCycleTime" BO_ 1712 100;
+BA_ "GenSigStartValue" SG_ 951 DayNightStatusForBacklights 0;
+BA_ "GenSigStartValue" SG_ 1056 SWCS_MMS_VOL_Increase 0;
+BA_ "GenSigStartValue" SG_ 1056 SWCS_MMS_VOL_Decrease 0;
+BA_ "GenSigStartValue" SG_ 1056 SWCS_MMS_Mute 0;
+BA_ "GenSigStartValue" SG_ 1056 SWCS_MMS_Next 0;
+BA_ "GenSigStartValue" SG_ 1056 SWCS_MMS_Previous 0;
+BA_ "GenSigStartValue" SG_ 1056 SWCS_MMS_SRC 0;
+BA_ "GenSigStartValue" SG_ 1056 SWCS_MMS_PPT 0;
+BA_ "GenSigStartValue" SG_ 1056 SWCS_Heating_Button 0;
+BA_ "GenSigStartValue" SG_ 1056 SWCS_ADAC_Up 0;
+BA_ "GenSigStartValue" SG_ 1056 SWCS_ADAC_Down 0;
+BA_ "GenSigStartValue" SG_ 1056 SWCS_ADAC_Left 0;
+BA_ "GenSigStartValue" SG_ 1056 SWCS_ADAC_Right 0;
+BA_ "GenSigStartValue" SG_ 1056 SWCS_ADAC_Ok 0;
+BA_ "GenSigStartValue" SG_ 1056 SWCS_CC_Activation 0;
+BA_ "GenSigStartValue" SG_ 1056 SWCS_SL_Activation 0;
+BA_ "GenSigStartValue" SG_ 1056 SWCS_CCSL_SET 0;
+BA_ "GenSigStartValue" SG_ 1056 SWCS_CCSL_RES 0;
+BA_ "GenSigStartValue" SG_ 1056 SWCS_CCSL_Cancel 0;
+BA_ "GenSigStartValue" SG_ 1056 SWCS_ACC_Dist_Increase 0;
+BA_ "GenSigStartValue" SG_ 1056 SWCS_ACC_Dist_Decrease 0;
+BA_ "GenSigStartValue" SG_ 1056 Clock_SWCS_01 0;
+BA_ "GenSigStartValue" SG_ 1056 CRC_SWCS_01 0;
+BA_ "GenSigStartValue" SG_ 1712 SW_Heating_activation 0;
+

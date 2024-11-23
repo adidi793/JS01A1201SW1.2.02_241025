@@ -1,0 +1,18 @@
+/*@!Encoding:936*/
+includes
+{
+  
+}
+
+variables
+{
+  message 0x782    Msg_Tx_Test_0x782;
+}
+
+on key 'a'
+{
+ Msg_Tx_Test_0x782.dlc=6;//定义报文长度，默认为0
+ Msg_Tx_Test_0x782.can=1;//定义报文发送在哪条can线上,默认为1
+ Msg_Tx_Test_0x782.byte(0)=0x05;//定义报文的第一个字节数据，默认为0
+ output(Msg_Tx_Test_0x782);//发送报文
+}
